@@ -1,2 +1,2 @@
-# Docs
+# Documentation
 Documentation files
