@@ -13,6 +13,7 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: 'example'
+      MYSQL_DATABASE: 'Orders'
+      MYSQL_ROOT_PASSWORD: '123456'
     ports:
       - '3306:3306'
