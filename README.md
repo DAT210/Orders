@@ -6,8 +6,12 @@ Orders - Group 6
 * In cmd/terminal: cd into repository location
 * Run: "docker-compose up --build"  
   
-The container should now be running at http://192.168.99.100:4000/  
+The container should now be running at http://192.168.99.100:4000/ 
+  
 mySQL port:3306  
+  
+Command to bash into the mysql server:
+docker exec -it mysql /bin/bash  
 
 ## Database backup and restoration commands:
  **Backup**  
