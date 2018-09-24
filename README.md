@@ -9,7 +9,7 @@ Orders - Group 6
 The container should now be running at http://192.168.99.100:4000/  
 mySQL port:3306  
 
-# Database backup and restoration commands:
+## Database backup and restoration commands:
  **Backup**  
 docker exec CONTAINER /usr/bin/mysqldump -u root --password=root DATABASE > backup.sql
 
