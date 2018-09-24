@@ -7,3 +7,4 @@ Orders - Group 6
 * Run: "docker-compose up --build"  
   
 The container should now be running at http://192.168.99.100:4000/
+mySQL port:3306
