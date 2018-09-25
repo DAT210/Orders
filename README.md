@@ -1,7 +1,7 @@
 Orders - Group 6
 =======
 
-##Getting Started:##
+## Getting Started:
 
 **Built with**  
 Python and mysql in docker  
