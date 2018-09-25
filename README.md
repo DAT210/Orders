@@ -13,8 +13,12 @@ https://www.docker.com/
 * In cmd/terminal: cd into repository location
 * Run: "docker-compose up --build"  
   
-The container should now be running at http://192.168.99.100:4000/ 
-  
+If you are using docker toolbox, the container should now be visible at  
+http://192.168.99.100:4000/  
+
+And if you are running "normal" docker, it should be visible at:  
+http://127.0.0.1:4000/
+
 mySQL port:3306  
   
 Command to bash into the mysql server:  
