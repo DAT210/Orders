@@ -1,8 +1,15 @@
 Orders - Group 6
 =======
 
-**Getting Started:**
-* Clone repository
+##Getting Started:##
+
+**Built with**  
+Python and mysql in docker  
+Only thing needed to download is docker:  
+https://www.docker.com/  
+
+**Setting up Dev**  
+* git clone https://github.com/DAT210/Orders.git
 * In cmd/terminal: cd into repository location
 * Run: "docker-compose up --build"  
   
