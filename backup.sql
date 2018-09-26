@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `Customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `Customer` (
-  `Customer_ID` int(11) NOT NULL,
+  `Customer_ID` int(11) NOT NULL AUTO_INCREMENT,
   `Firstname` varchar(32) DEFAULT NULL,
   `Lastname` varchar(32) DEFAULT NULL,
   `TLF` int(11) DEFAULT NULL,
@@ -49,13 +49,13 @@ DROP TABLE IF EXISTS `Orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `Orders` (
-  `Order_ID` int(11) NOT NULL,
-  `Product_ID` int(11) DEFAULT NULL,
-  `Order_Time` datetime DEFAULT NULL,
-  `Payment` varchar(12) DEFAULT NULL,
-  `Delivery` varchar(32) DEFAULT NULL,
+  `Order_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Product_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Order_Time` datetime DEFAULT NOW(),
+  `PaymentMethod` varchar(12) DEFAULT NULL,
+  `DeliveryMethod` varchar(32) DEFAULT NULL,
   `Price` int(11) DEFAULT NULL,
-  `Betalt` tinyint(1) DEFAULT NULL,
+  `Payed` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Order_ID`),
   CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `Product` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -78,8 +78,8 @@ DROP TABLE IF EXISTS `Orders_Cust`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `Orders_Cust` (
-  `Order_ID` int(11) DEFAULT NULL,
-  `Customer_ID` int(11) DEFAULT NULL,
+  `Order_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Customer_ID` int(11) NOT NULL AUTO_INCREMENT,
   KEY `Order_ID` (`Order_ID`),
   KEY `Customer_ID` (`Customer_ID`),
   CONSTRAINT `Orders_Cust_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `Orders` (`order_id`),
@@ -100,14 +100,14 @@ UNLOCK TABLES;
 -- Table structure for table `Product`
 --
 
-DROP TABLE IF EXISTS `Product`;
+DROP TABLE IF EXISTS `Products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `Product` (
-  `Product_ID` int(11) NOT NULL,
-  `sauce` int(11) DEFAULT NULL,
-  `cheese` int(11) DEFAULT NULL,
-  `pepperoni` int(11) DEFAULT NULL,
+  `Product_ID` int(11) AUTO_INCREMENT,
+  `Sauce` int(11) DEFAULT NULL,
+  `Cheese` int(11) DEFAULT NULL,
+  `Pepperoni` int(11) DEFAULT NULL,
   PRIMARY KEY (`Product_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
