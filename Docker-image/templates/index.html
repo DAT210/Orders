@@ -14,21 +14,25 @@
 <body>
 <h3>Test database connection</h3>
 <h2>Insert</h2>
-<div>
-    <label>ProductID:</label> <input type="text" id="ProductID"> <br>
-    <label>Order time:</label> <input type="text" id="order_time"> <br>
-    <label>Payment method:</label> <input type="text" id="mayment_method"> <br>
-    <label>Delivery method:</label> <input type="text" id="delivery_method"> <br>
-    <label>Price:</label> <input type="text" id="price"> <br>
-    <label>Betalt:</label> <input type="radio" value="true" id="betalt"> <br>
-    <input type="submit" id="insert">
-</div>
+<form action="{{ url_for("order") }}" method="POST">
+    <fieldset>
+        <div>
+            <label>ProductID:</label> <input type="text" name="ProductID" id="ProductID"> <br>
+            <label>Order time:</label> <input type="text" id="order_time"> <br>
+            <label>Payment method:</label> <input type="text" id="payment_method"> <br>
+            <label>Delivery method:</label> <input type="text" id="delivery_method"> <br>
+            <label>Price:</label> <input type="text" id="price"> <br>
+            <label>Betalt:</label> <input type="checkbox" value="true" id="betalt"> <br>
+            <input type="submit" id="insert">
+        </div>
+    </fieldset>
+</form>
 <h2>Get</h2>
 <div>
     <label>OrderID:</label> <input type="text" id="orderID"> <br>
     <label>ProductID:</label> <input type="text" id="g_ProductID" disabled> <br>
     <label>Order time:</label> <input type="text" id="g_order_time" disabled> <br>
-    <label>Payment method:</label> <input type="text" id="g_mayment_method" disabled> <br>
+    <label>Payment method:</label> <input type="text" id="g_payment_method" disabled> <br>
     <label>Delivery method:</label> <input type="text" id="g_delivery_method" disabled> <br>
     <label>Price:</label> <input type="text" id="g_price" disabled> <br>
     <label>Betalt:</label> <input type="text" id="g_betalt" disabled> <br>
