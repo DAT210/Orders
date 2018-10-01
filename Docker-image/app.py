@@ -19,38 +19,33 @@ except mysql.connector.Error as err:
         print(err)
 
 
+#sql = "select * from properties"
+#cur.execute(sql)
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
 
-
 @app.route("/order", methods=["POST"])
-def SetOrder():
+def order():
+    i = random.randint(1, 100000)
     productID = request.form.get("ProductID")
-    orderTime = request.form.get("OrderTime")
-    paymentMeth = request.form.get("PaymenthMethod")
-    deliveryMeth = request.form.get("DeliveryMethod")
-    price = request.form.get("Price")
-    checkIfPaid = request.form.get("Payed")
+    orderTime = request.form.get("order_time")
+    paymentMeth = request.form.get("payment_method")
+    deliveryMeth = request.form.get("delivery_method")
+    price = request.form.get("price")
+    checkIfPaid = request.form.get("betalt")
 
-    query = "INSERT INTO Product(ProductID) VALUES(%s);" % productID
+    query = "INSERT INTO Product(Product_ID) VALUES(%s);" % (
+    productID)
     global cur
     cur.execute(query)
-
     global conn
     conn.commit()
     return render_template("index.html")
 
-@app.route("/order/<int:OrderID>", methods=["GET"])
-def GetOrder(OrderID):
-    query = "Select * FROM Orders where OrderID = %s;" % OrderID
-    print(query)
-    cur.execute(query)
-    Order = cur.fetchall()
-    conn.commit()
-    print(Order[0])
-    return render_template("index.html")
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=80)
