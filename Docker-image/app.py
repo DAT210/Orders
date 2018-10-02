@@ -3,6 +3,7 @@ import mysql.connector
 import re
 import random
 from mysql.connector import errorcode
+import json
 
 
 # Connect to Redis
@@ -19,25 +20,22 @@ except mysql.connector.Error as err:
         print(err)
 
 
-#sql = "select * from properties"
-#cur.execute(sql)
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/order", methods=["POST"])
 def order():
     i = random.randint(1, 100000)
     productID = request.form.get("ProductID")
-    orderTime = request.form.get("order_time")
-    paymentMeth = request.form.get("payment_method")
-    deliveryMeth = request.form.get("delivery_method")
-    price = request.form.get("price")
-    checkIfPaid = request.form.get("betalt")
+    orderTime = request.form.get("OrderTime")
+    paymentMeth = request.form.get("PaymentMethod")
+    deliveryMeth = request.form.get("DeliveryMethod")
+    price = request.form.get("Price")
+    checkIfPaid = request.form.get("Payed")
 
-    query = "INSERT INTO Product(Product_ID) VALUES(%s);" % (
+    query = "INSERT INTO Product(ProductID) VALUES(%s);" % (
     productID)
     global cur
     cur.execute(query)
@@ -46,6 +44,25 @@ def order():
     return render_template("index.html")
 
 
+@app.route("/order/<int:OrderID>", methods=["GET"])
+def GetOrder(OrderID):
+    
+    query = "SELECT * FROM Orders WHERE OrderID = %s;" % OrderID
+    cur.execute(query)
+    Order = cur.fetchall()
+    conn.commit()
+    
+    OrderID = OrderID
+    ProductID = Order[0][1]
+    CustomerID = Order[0][2]
+    OrderTime = Order[0][3]
+    PaymentMethod = Order[0][4]
+    PaymentMethod = Order[0][5]
+    Price = Order[0][6]
+    Product = Order[0][7]
+    
+    return Order
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    app.run()
