@@ -30,28 +30,29 @@ def order():
     i = random.randint(1, 100000)
     productID = request.form.get("ProductID")
     orderTime = request.form.get("OrderTime")
-    paymentMeth = request.form.get("PaymentMethod")
-    deliveryMeth = request.form.get("DeliveryMethod")
+    paymentMethod = request.form.get("PaymentMethod")
+    CustomerID = request.form.get("CustomerID")
+    deliveryMethod = request.form.get("DeliveryMethod")
     price = request.form.get("Price")
     checkIfPaid = request.form.get("Payed")
 
-    query = "INSERT INTO Product(ProductID) VALUES(%s);" % (
-    productID)
-    global cur
-    cur.execute(query)
-    global conn
+    OrderInsert = "INSERT INTO Orders(ProductID, CustomerID, PaymentMethod, DeliveryMethod, Price, Payed)" \
+                  "VALUES(%s, %s ,'%s','%s' ,%s ,%s)" % (productID, CustomerID, paymentMethod, deliveryMethod, price, 1)
+    ProductInsert = "INSERT INTO Product(ProductID) VALUES(%s);" % productID
+
+    cur.execute(ProductInsert)
+    cur.execute(OrderInsert)
     conn.commit()
     return render_template("index.html")
 
 
 @app.route("/order/<int:OrderID>", methods=["GET"])
-def GetOrder(OrderID):
-    
+def getorder(OrderID):
     query = "SELECT * FROM Orders WHERE OrderID = %s;" % OrderID
     cur.execute(query)
     Order = cur.fetchall()
     conn.commit()
-    
+
     OrderID = OrderID
     ProductID = Order[0][1]
     CustomerID = Order[0][2]
@@ -60,8 +61,8 @@ def GetOrder(OrderID):
     PaymentMethod = Order[0][5]
     Price = Order[0][6]
     Product = Order[0][7]
-    
-    return Order
+
+    return json.dumps(str(Order[0]))
 
 
 if __name__ == "__main__":

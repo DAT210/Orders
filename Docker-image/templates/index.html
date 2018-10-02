@@ -14,14 +14,15 @@
 <body>
 <h3>Test database connection</h3>
 <h2>Insert</h2>
-<form action="{{ url_for("order") }}" method="POST">
+<form action="{{ url_for('order') }}" method="POST">
     <fieldset>
         <div>
             <label>ProductID:</label> <input type="text" name="ProductID" id="ProductID"> <br>
-            <label>Order time:</label> <input type="text" id="OrderTime"> <br>
-            <label>Payment method:</label> <input type="text" id="PaymentMethod"> <br>
-            <label>Delivery method:</label> <input type="text" id="DeliveryMethod"> <br>
-            <label>Price:</label> <input type="text" id="Price"> <br>
+            <label>CustomerID:</label> <input type="text" name="CustomerID" id="CustomerID"> <br>
+            <label>Order time:</label> <input type="text" name="OrderTime"> <br>
+            <label>Payment method:</label> <input type="text" name="PaymentMethod"> <br>
+            <label>Delivery method:</label> <input type="text" name="DeliveryMethod"> <br>
+            <label>Price:</label> <input type="text" name="Price"> <br>
             <label>Betalt:</label> <input type="checkbox" value="true" id="Payed"> <br>
             <input type="submit" id="insert">
         </div>
