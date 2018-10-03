@@ -9,14 +9,21 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.withdraw()
 
-    filename = tk.filedialog.askopenfilename() # open dummy.json
-    items = jp.json_to_dict(filename)
-       
-    for item in items:
-        print("I am the", item["Name"])
+    filename = tk.filedialog.askopenfilename() # open any json
+    items, _ = jp.json_to_dict(filename)
+    print(type(items))
+      
+    for item in items:        
         for value in item:
             print(value, " : " , item[value])
         print(" ")
 
+# dumps all the parsed info into testdump.json
+# every value with "password" key will be salted in the file
+# case-insensitive
+
+    testfile = "testdump.json"
+
+    jp.whatever_to_json(items, "Items", testfile)
 
     
