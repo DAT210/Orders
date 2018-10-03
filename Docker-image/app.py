@@ -37,8 +37,8 @@ def order():
     checkIfPaid = request.form.get("Payed")
 
     OrderInsert = "INSERT INTO Orders(ProductID, CustomerID, PaymentMethod, DeliveryMethod, Price, Payed)" \
-                  "VALUES(%s, %s ,'%s','%s' ,%s ,%s)" % (productID, CustomerID, paymentMethod, deliveryMethod, price, 1)
-    ProductInsert = "INSERT INTO Product(ProductID) VALUES(%s);" % productID
+                  "VALUES(%s, %s, '%s', '%s', %s, %s)" % (productID, CustomerID, paymentMethod, deliveryMethod, price, 1)
+    ProductInsert = "INSERT INTO Product(ProductID, Pepperoni, Cheese) VALUES(%s, '%s', '%s');" % (productID, 1, 1)
 
     cur.execute(ProductInsert)
     cur.execute(OrderInsert)
@@ -46,14 +46,14 @@ def order():
     return render_template("index.html")
 
 
-@app.route("/order/<int:OrderID>", methods=["GET"])
-def getorder(OrderID):
-    query = "SELECT * FROM Orders WHERE OrderID = %s;" % OrderID
-    cur.execute(query)
+@app.route("/order/<int:ID>", methods=["GET"])
+def getorder(ID):
+    OrderQuery = "SELECT * FROM Orders WHERE OrderID = %s;" % ID
+    cur.execute(OrderQuery)
     Order = cur.fetchall()
     conn.commit()
 
-    OrderID = OrderID
+    OrderID = ID
     ProductID = Order[0][1]
     CustomerID = Order[0][2]
     OrderTime = Order[0][3]

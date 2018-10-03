@@ -19,9 +19,25 @@
         <div>
             <label>ProductID:</label> <input type="text" name="ProductID" id="ProductID"> <br>
             <label>CustomerID:</label> <input type="text" name="CustomerID" id="CustomerID"> <br>
-            <label>Order time:</label> <input type="text" name="OrderTime"> <br>
-            <label>Payment method:</label> <input type="text" name="PaymentMethod"> <br>
-            <label>Delivery method:</label> <input type="text" name="DeliveryMethod"> <br>
+            <label>PaymentMethod:</label>
+            <form name="PaymentMethod">
+                <select name="Payment">
+                  <option value="Cash">Cash</option>
+                  <option value="Credit Card">Credit Card</option>
+                  <option value="Debit Card">Debit Card</option>
+                </select>
+                <br><br>
+              </form>
+              <label>DeliveryMethod:</label>
+              <form>
+                <select name="DeliveryMethod">
+                  <option value="Pickup">Pickup</option>
+                  <option value="Car">Car</option>
+                  <option value="Drone">Drone</option>
+                  <option value="Helicopter">Helicopter</option>
+                </select>
+                <br><br>
+              </form>
             <label>Price:</label> <input type="text" name="Price"> <br>
             <label>Betalt:</label> <input type="checkbox" value="true" id="Payed"> <br>
             <input type="submit" id="insert">
