@@ -6,10 +6,12 @@ from werkzeug.security import generate_password_hash
 def json_to_dict(filename):
     with open(filename) as dummy:
         data = json.loads(dummy.read())
-    
-    type_key = list(data.keys())[0]
-    return (data[type_key], type_key)
-
+    if len(data) == 1:
+        type_key = list(data.keys())[0]
+        return (data[type_key], type_key)
+    else:
+        return(data, "Probably menu...")
+        
 def salt_it(password):
     salty_password = generate_password_hash(password)
     return salty_password
