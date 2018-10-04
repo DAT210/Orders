@@ -9,8 +9,10 @@ Only thing needed to download is docker:
 https://www.docker.com/  
 
 **Setting up Dev**  
+
 * git clone https://github.com/DAT210/Orders.git
 * In cmd/terminal: cd into repository location
+* For a secure login: copy .env file from the Dropbox folder (can be marked as hidden by default) into the folder with docker-compose.yml
 * Run: "docker-compose up --build"  
   
 If you are using docker toolbox, the container should now be visible at  
