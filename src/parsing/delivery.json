@@ -1,0 +1,12 @@
+{ "Delivery": [
+    {
+        "customer_id": "",
+        "order_id": "",
+        "payment_method": "",
+        "delivery_method": "",
+        "est_delivery_time": "",
+        "delivery_address" : ""
+    }
+]
+
+}
