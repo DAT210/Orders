@@ -2,11 +2,14 @@
     {
         "customer_id": "",
         "order_id": "",
-        "payment_method": "",
+        "delivery_price":"",
         "delivery_method": "",
         "est_delivery_time": "",
-        "delivery_address" : ""
+        "delivery_address" : "",
+        "ordered": {
+            "item 1":"price 1",
+            "item 2":"price 2",
+            "item 3":"price 3"
+        }
     }
-]
-
-}
+]}
