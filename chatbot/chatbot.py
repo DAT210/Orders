@@ -1,6 +1,6 @@
 from textblob import TextBlob
 
-text = "What does the large pepperoni pizza cost?"
+text = "What does the large pepperoni pizza cost thursday?"
 blob = TextBlob(text)
 print(blob.tags)
 print(blob.noun_phrases)
