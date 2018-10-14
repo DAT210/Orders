@@ -30,21 +30,23 @@ def send_question():
 
 def respond(sentence):
     prep_sentence(sentence)
-    matches = get_match_id()
-    for match in matches:
-        sort(match)
-    send_response()
+    matches = get_matches()
+    if not matches:
+        print("no match")
+    else:
+        for match in matches:
+            sort(match)
+        send_response()
 
 
 def prep_sentence(sentence):
+    # save sentence in case it isn't handled
     global sent
     sent = sentence
     nlpsent = nlp(sent)
-    # lemma before saving as nlp_sent
+    # lemmatize to remove plurals
     global nlp_sent
     nlp_sent = lemmatize(nlpsent)
-    print(nlpsent)
-    print(nlp_sent)
 
 
 def lemmatize(nlpobj):
@@ -54,7 +56,7 @@ def lemmatize(nlpobj):
     return nlp(lemma)
 
 
-def get_match_id():
+def get_matches():
     matches = matcher(nlp_sent)
     allmatches = []
     for match_id, start, end in matches:
@@ -69,8 +71,15 @@ def get_match_id():
 
 def sort(match):
     print(match['id'])
-    if match['id'] == 1715934218517773148:
+    match_id = match['id']
+    if match_id == 1715934218517773148:
         opening_times()
+    else:
+        not_handled()
+
+
+def not_handled():
+    print("I can't answer that question, sorry. ")
 
 
 def opening_times():
@@ -79,12 +88,5 @@ def opening_times():
     response += "Your question about opening times cannot be answered yet."
 
 
-def testing():
-    tester = nlp(u"opening times Thursday")
-    for ent in tester.ents:
-        if ent.label_ == 'DATE':
-            print("dato")
-
-
 init()
-respond("opening, open opens times Times time apples apple")
+respond("times Times time apples Apples apple, open, opening Opens Price Prices Cost Costs")
