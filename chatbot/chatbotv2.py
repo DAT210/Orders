@@ -6,7 +6,7 @@ from spacy.matcher import PhraseMatcher
 nlp = spacy.load('en_core_web_sm')
 nlp_sent = ""
 sent = ""
-openingTimesList = ['opening', 'open']
+openingTimesList = ['open', 'opening']
 matcher = PhraseMatcher(nlp.vocab)
 
 response = ""
@@ -17,20 +17,41 @@ def init():
     matcher.add('openingTimes', None, *patterns)
 
 
+def send_response():
+    # send response to js(?)
+    pass
+
+
+def send_question():
+    # send question about whether their question was adequately answered??
+    # wait for answer??
+    pass
+
+
 def respond(sentence):
     prep_sentence(sentence)
     matches = get_match_id()
     for match in matches:
         sort(match)
+    send_response()
 
 
 def prep_sentence(sentence):
     global sent
     sent = sentence
     nlpsent = nlp(sent)
-    global nlp_sent
-    nlp_sent = nlpsent
     # lemma before saving as nlp_sent
+    global nlp_sent
+    nlp_sent = lemmatize(nlpsent)
+    print(nlpsent)
+    print(nlp_sent)
+
+
+def lemmatize(nlpobj):
+    lemma = ""
+    for token in nlpobj:
+        lemma += (token.lemma_ + " ")
+    return nlp(lemma)
 
 
 def get_match_id():
@@ -49,11 +70,13 @@ def get_match_id():
 def sort(match):
     print(match['id'])
     if match['id'] == 1715934218517773148:
-        print('openingTimes')
+        opening_times()
 
 
 def opening_times():
-    print("")
+    global response
+    print("Handle opening times")
+    response += "Your question about opening times cannot be answered yet."
 
 
 def testing():
@@ -64,4 +87,4 @@ def testing():
 
 
 init()
-respond("opening")
+respond("opening, open opens times Times time apples apple")
