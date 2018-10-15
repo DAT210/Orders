@@ -1,5 +1,6 @@
 import spacy
 import spacy.matcher
+from flask import Flask
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 
@@ -9,12 +10,17 @@ sent = ""
 openingTimesList = ['open', 'opening']
 matcher = PhraseMatcher(nlp.vocab)
 
+app = Flask(__name__)
+
 response = ""
 
 
+@app.route("/")
 def init():
     patterns = [nlp(text) for text in openingTimesList]
     matcher.add('openingTimes', None, *patterns)
+    print("init is running")
+    return app.send_static_file("chatbot.html")
 
 
 def send_response():
@@ -90,5 +96,5 @@ def opening_times():
     response += "Your question about opening times cannot be answered yet."
 
 
-init()
-respond("times Times time apples Apples apple, open, opening Opens Price Prices Cost Costs, monday mondays Monday Mondays COST")
+if __name__ == "__main__":
+    app.run()
