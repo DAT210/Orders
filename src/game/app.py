@@ -7,11 +7,11 @@ black = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
-ball = pygame.image.load("intro_ball.gif")
+ball = pygame.image.load("images/intro_ball.gif")
 ballrect = ball.get_rect()
-food = pygame.image.load("food.png")
+food = pygame.image.load("images/food.png")
 foodrect = food.get_rect()
-obstacle = pygame.image.load("big_obstacle.png")
+obstacle = pygame.image.load("images/big_obstacle.png")
 
 playerspeed = [0, 0]
 foodrect.topright = (width, 0)
