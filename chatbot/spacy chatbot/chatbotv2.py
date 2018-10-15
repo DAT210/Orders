@@ -44,9 +44,11 @@ def prep_sentence(sentence):
     global sent
     sent = sentence
     nlpsent = nlp(sent)
+    print(nlpsent)
     # lemmatize to remove plurals
     global nlp_sent
     nlp_sent = lemmatize(nlpsent)
+    print(nlp_sent)
 
 
 def lemmatize(nlpobj):
@@ -89,4 +91,4 @@ def opening_times():
 
 
 init()
-respond("times Times time apples Apples apple, open, opening Opens Price Prices Cost Costs")
+respond("times Times time apples Apples apple, open, opening Opens Price Prices Cost Costs, monday mondays Monday Mondays COST")
