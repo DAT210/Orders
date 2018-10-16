@@ -8,7 +8,7 @@ WORKDIR /app
 ADD . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --trusted-host pypi.python.org -r Docker-image/requirements.txt
+RUN pip install --trusted-host pypi.python.org -r src/requirements.txt
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
@@ -17,4 +17,4 @@ EXPOSE 80
 ENV NAME World
 
 # Run app.py when the container launches
-CMD ["python", "Docker-image/app.py"]
+CMD ["python", "src/app.py"]
