@@ -1,8 +1,12 @@
 import sys, pygame
 pygame.init()
 
+class Object:
+    def __init__(self, rect, speed):
+        self.rect = rect
+        self.speed = speed
+
 size = width, height = 1500, 1000
-speed = [0, 0]
 black = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
@@ -14,20 +18,24 @@ foodrect = food.get_rect()
 obstacle = pygame.image.load("images/big_obstacle.png")
 
 playerspeed = [0, 0]
+obstspeed = [1, 1]
 foodrect.topright = (width, 0)
 foodspeed = [-1, -1]
-obstacles = [
-    obstacle.get_rect(),
-    obstacle.get_rect(),
-    obstacle.get_rect(),
-    obstacle.get_rect(),
-    obstacle.get_rect()
-]
-obstacles[0].center = (width/2, height/2)
-obstacles[1].center = (width/4, height/4)
-obstacles[2].center = (3*width/4, 3*height/4)
-obstacles[3].center = (3*width/4, height/4)
-obstacles[4].center = (width/4, 3*height/4)
+
+obstacles = {
+    "center": Object(obstacle.get_rect(), [0, 0]),
+    "topleft": Object(obstacle.get_rect(), [0, -2]),
+    "bottomright": Object(obstacle.get_rect(), [0, 2]),
+    "topright": Object(obstacle.get_rect(), [2, 0]),
+    "bottomleft": Object(obstacle.get_rect(), [-2, 0])
+}
+
+obstacles["center"].rect.center = (width/2, height/2)
+obstacles["topleft"].rect.center = (width/4, height/4)
+obstacles["bottomright"].rect.center = (3*width/4, 3*height/4)
+obstacles["topright"].rect.center = (3*width/4, height/4)
+obstacles["bottomleft"].rect.center = (width/4, 3*height/4)
+
 score = 0
 
 print("Game started!")
@@ -61,10 +69,10 @@ def foodstart():
         ycoord = height-10
     return xcoord, ycoord
 
-# checkcollide checks if the player is colliding with an obstacle
-def checkcollide():
-    for obst in obstacles:
-        if ballrect.colliderect(obst):
+# iscollision checks if the player is colliding with an obstacle
+def iscollision():
+    for key in obstacles:
+        if ballrect.colliderect(obstacles[key].rect):
             return True
     return False
 
@@ -75,7 +83,8 @@ def increasespeed(speed):
         speed[0] += 1
     if speed[1] < 0:
         speed[1] -= 1
-    else: speed[1] += 1
+    else:
+        speed[1] += 1
 
 def quit():
     print("Game ended!")
@@ -97,15 +106,19 @@ while 1:
         foodrect.center = (xcoord, ycoord)
         increasespeed(foodspeed)
 
-    if checkcollide():
+    if iscollision():
         quit()
-        
+
     bounce(foodrect, foodspeed)
     foodrect = foodrect.move(foodspeed)
 
+
+
     screen.fill(black)
-    for obst in obstacles:
-        screen.blit(obstacle, obst)
+    for key in obstacles:
+        obstacles[key].rect = obstacles[key].rect.move(obstacles[key].speed)
+        bounce(obstacles[key].rect, obstacles[key].speed)
+        screen.blit(obstacle, obstacles[key].rect)
     screen.blit(food, foodrect)
     screen.blit(ball, ballrect)
     pygame.display.flip()
