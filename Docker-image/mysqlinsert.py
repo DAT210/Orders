@@ -35,12 +35,7 @@ if __name__ == "__main__":
                   "VALUES(%s, %s, %s, '%s', '%s', %s, %s)" % (i, i, j, paymentMethod, deliveryMethod, Price, 1)
             ProductInsert = "INSERT INTO Ingredients(IngredientsID, Pepperoni, Cheese) VALUES(%s, '%s', '%s');" % (i, random.randint(1, 4), random.randint(1, 4))
 
-
-
-
         cur.execute(ProductInsert)
         cur.execute(OrderInsert)
         conn.commit()
                 
-
-            
