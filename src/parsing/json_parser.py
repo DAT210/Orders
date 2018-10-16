@@ -10,7 +10,7 @@ def json_to_dict(filename):
         type_key = list(data.keys())[0]
         return (data[type_key], type_key)
     else:
-        return(data, "Probably menu...")
+        return(data, "unknown")
         
 def salt_it(password):
     salty_password = generate_password_hash(password)

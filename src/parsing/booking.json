@@ -1,25 +1,5 @@
 {
-    "Bookings": [
-        {
-            "boking_id":"",
-            "customer_id":"",
-            "time": ""
-        },
-        {
-            "boking_id":"",
-            "customer_id":"",
-            "time": ""
-        },
-        {
-            "boking_id":"",
-            "customer_id":"",
-            "time": ""
-        }
-
-
-
-
-
-
-    ]
+    "booking_id":"",
+    "customer_id":"",
+    "booking_time": ""
 }

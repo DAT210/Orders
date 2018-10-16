@@ -1,6 +1,5 @@
 
-{ "Menu" : 
-    [ {
+[ {
 
         "c_id":"1",
         "c_name":"course alpha",
@@ -26,7 +25,7 @@
     },
 
     {
-        "c_id":"1",
+        "c_id":"2",
         "c_name":"course alpha",
         "price":"5.20",
         "ingredients":[
@@ -64,4 +63,3 @@
     }
     
 ]
-}
