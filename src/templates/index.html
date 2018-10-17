@@ -14,25 +14,36 @@
 <body>
 <h3>Test database connection</h3>
 <h2>Insert</h2>
-<div>
-    <label>ProductID:</label> <input type="text" id="ProductID"> <br>
-    <label>Order time:</label> <input type="text" id="order_time"> <br>
-    <label>Payment method:</label> <input type="text" id="mayment_method"> <br>
-    <label>Delivery method:</label> <input type="text" id="delivery_method"> <br>
-    <label>Price:</label> <input type="text" id="price"> <br>
-    <label>Betalt:</label> <input type="radio" value="true" id="betalt"> <br>
-    <input type="submit" id="insert">
-</div>
-<h2>Get</h2>
-<div>
-    <label>OrderID:</label> <input type="text" id="orderID"> <br>
-    <label>ProductID:</label> <input type="text" id="g_ProductID" disabled> <br>
-    <label>Order time:</label> <input type="text" id="g_order_time" disabled> <br>
-    <label>Payment method:</label> <input type="text" id="g_mayment_method" disabled> <br>
-    <label>Delivery method:</label> <input type="text" id="g_delivery_method" disabled> <br>
-    <label>Price:</label> <input type="text" id="g_price" disabled> <br>
-    <label>Betalt:</label> <input type="text" id="g_betalt" disabled> <br>
-    <input type="submit" id="g_insert">
-</div>
+
+<form action="{{ url_for('order') }}" method="POST">
+    <fieldset>
+        <div>
+            <label>ProductID:</label> <input type="text" name="ProductID" id="ProductID"> <br>
+            <label>CustomerID:</label> <input type="text" name="CustomerID" id="CustomerID"> <br>
+            <label>PaymentMethod:</label>
+            <form name="PaymentMethod">
+                <select name="Payment">
+                  <option value="Cash">Cash</option>
+                  <option value="Credit Card">Credit Card</option>
+                  <option value="Debit Card">Debit Card</option>
+                </select>
+                <br><br>
+              </form>
+              <label>DeliveryMethod:</label>
+              <form>
+                <select name="DeliveryMethod">
+                  <option value="Pickup">Pickup</option>
+                  <option value="Car">Car</option>
+                  <option value="Drone">Drone</option>
+                  <option value="Helicopter">Helicopter</option>
+                </select>
+                <br><br>
+              </form>
+            <label>Price:</label> <input type="text" name="Price"> <br>
+            <label>Betalt:</label> <input type="checkbox" value="true" id="Payed"> <br>
+            <input type="submit" id="insert">
+        </div>
+    </fieldset>
+</form>
 </body>
 </html>
