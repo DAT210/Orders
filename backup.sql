@@ -16,30 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Ingredients`
---
-
-DROP TABLE IF EXISTS `Ingredients`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `Ingredients` (
-  `IngredientsID` int(11) NOT NULL,
-  `Pepperoni` int(11) DEFAULT NULL,
-  `Cheese` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IngredientsID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Ingredients`
---
-
-LOCK TABLES `Ingredients` WRITE;
-/*!40000 ALTER TABLE `Ingredients` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Ingredients` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Orders`
 --
 
@@ -48,16 +24,13 @@ DROP TABLE IF EXISTS `Orders`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `Orders` (
   `OrderID` int(11) NOT NULL AUTO_INCREMENT,
-  `IngredientsID` int(11) NOT NULL,
   `CustomerID` int(11) NOT NULL,
   `OrderTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `PaymentMethod` varchar(12) NOT NULL,
   `DeliveryMethod` varchar(12) NOT NULL,
   `Price` int(11) NOT NULL,
   `Payed` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`OrderID`),
-  KEY `IngredientsID` (`IngredientsID`),
-  CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`IngredientsID`) REFERENCES `Ingredients` (`ingredientsid`)
+  PRIMARY KEY (`OrderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -70,6 +43,34 @@ LOCK TABLES `Orders` WRITE;
 /*!40000 ALTER TABLE `Orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+--
+-- Table structure for table `Ingredients`
+--
+
+DROP TABLE IF EXISTS `Ingredients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `Ingredients` (
+  `OrderID` int(11) NOT NULL,
+  `IngredientsID` int(11) NOT NULL,
+  `Pepperoni` int(11) DEFAULT NULL,
+  `Cheese` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IngredientsID`, `OrderID`),
+  FOREIGN KEY(`OrderID`) REFERENCES `Orders`(`OrderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Ingredients`
+--
+
+LOCK TABLES `Ingredients` WRITE;
+/*!40000 ALTER TABLE `Ingredients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Ingredients` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
