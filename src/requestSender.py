@@ -5,4 +5,4 @@ import json
 
 dict = {'question':'what is the answer?'}
 jsond = json.dumps(dict)
-requests.post("http://localhost:80/", json=jsond)
+requests.post("http://localhost:5000/", json=jsond)

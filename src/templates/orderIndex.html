@@ -11,98 +11,106 @@
 
 </head>
 <body>
-<div class="container"></div>
 <div class="jumbotron bg-dark"></div>
-<form action="{{ url_for('confirm') }}" method="POST">
+<div class="container-fluid">
+
     <div class="row">
         <div class="col-sm-3"></div>
+        <div class="col-sm-4">
+
+            <form action="{{ url_for('confirm') }}" method="POST">
+                <div>
+                    <div>
+                        <h3>Delivery method</h3>
+                        <input type="radio" name="delMethod" value="DoorDelivery"><label>&NonBreakingSpace; Door delivery</label><br>
+                        <input type="radio" name="delMethod" value="Pickup"><label>&NonBreakingSpace; Pick up at restaurant</label>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+
+                <div class="row" id="deliveryInfo" style="display: none">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-8 border-bottom border-top border-left border-right">
+                        <strong style="font-size: 1.3em">Delivery information</strong>
+                        <br>
+                        <br>
+
+                        <!-- address-line1 input-->
+                        <div class="control-group">
+                            <label class="control-label">Address Line 1</label>
+                            <div class="controls">
+                                <input id="address" name="address" type="text" placeholder="address"
+                                class="input-xlarge">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+
+                        <!-- city input-->
+                        <div class="control-group">
+                            <label class="control-label">City / Town</label>
+                            <div class="controls">
+                                <input id="city" name="city" type="text" placeholder="city" class="input-xlarge">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+
+                        <!-- postal-code input-->
+                        <div class="control-group">
+                            <label class="control-label">Zip / Postal Code</label>
+                            <div class="controls">
+                                <input id="zipcode" name="zipcode" type="text" placeholder="zip or postal code"
+                                class="input-xlarge">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Phone number</label>
+                            <div class="controls">
+                                <input id="phone" name="phone" type="text" placeholder="phone number"
+                                class="input-xlarge">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="control-group">
+                            <label class="control-label"><strong>Estimated delivery cost:</strong></label>
+                            <br>
+                            <label id="deliveryPrice"></label>
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <div>
+                        <h3>Payment method</h3>
+                        <input type="radio" name="payMethod" value="payOnDel"><label>&NonBreakingSpace; Pay on delivery</label><br>
+                        <input type="radio" name="payMethod" value="payNow"><label>&NonBreakingSpace; Pay now</label>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <div>
+                    <div>
+                        <input type="submit" value="Confirm">
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+            </form>
+        </div>
         <div class="col-sm-4">
             <h2>Order details</h2>
         </div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-4">
-            <h3>Delivery method</h3>
-            <input type="radio" name="delMethod" value="DoorDelivery"><label>&NonBreakingSpace; Door delivery</label><br>
-            <input type="radio" name="delMethod" value="Pickup"><label>&NonBreakingSpace; Pick up at restaurant</label>
-            <p class="help-block"></p>
-        </div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
 
-    <div class="row" id="deliveryInfo" style="display: none">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 border-bottom border-top">
-             <strong style="font-size: 1.3em">Delivery information</strong>
-
-            <!-- address-line1 input-->
-            <div class="control-group">
-                <label class="control-label">Address Line 1</label>
-                <div class="controls">
-                    <input id="address-line1" name="address-line1" type="text" placeholder="address line 1"
-                    class="input-xlarge">
-                    <p class="help-block"></p>
-                </div>
-            </div>
-
-            <!-- city input-->
-            <div class="control-group">
-                <label class="control-label">City / Town</label>
-                <div class="controls">
-                    <input id="city" name="city" type="text" placeholder="city" class="input-xlarge">
-                    <p class="help-block"></p>
-                </div>
-            </div>
-
-            <!-- postal-code input-->
-            <div class="control-group">
-                <label class="control-label">Zip / Postal Code</label>
-                <div class="controls">
-                    <input id="postal-code" name="postal-code" type="text" placeholder="zip or postal code"
-                    class="input-xlarge">
-                    <p class="help-block"></p>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Phone number</label>
-                <div class="controls">
-                    <input id="phone" name="phone" type="text" placeholder="phone number"
-                    class="input-xlarge">
-                    <p class="help-block"></p>
-                </div>
-            </div>
-        </div>
-        <div class="col"></div>
-        <div class="col"></div>
     </div>
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-4">
-            <h3>Payment method</h3>
-            <input type="radio" name="payMethod" value="payOnDel"><label>&NonBreakingSpace; Pay on delivery</label><br>
-            <input type="radio" name="payMethod" value="payNow"><label>&NonBreakingSpace; Pay now</label>
-            <p class="help-block"></p>
-        </div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-4">
-            <input type="submit" value="Confirm">
-        </div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-</form>
+</div>
 
 </body>
 </html>
