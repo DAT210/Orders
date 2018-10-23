@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="/../static/script.js"></script>
+</head>
+<body onload="init()">
+    <header>{% block header %}{% endblock %}</header>
+    <main>
+        {% block content %}{% endblock %}
+        <div id="bot">
+            What can I help you with?
+            <form>
+                <input name="question" type="text">
+                <button type='button'>Submit</button>
+            </form>
+        </div>
+    </main>
+    <footer>{% block footer %}{% endblock %}</footer>
+</body>
+</html>

@@ -1,3 +1,3 @@
-$(document).ready(function()[
-
-]);
+function init(){
+    alert("init template works");
+}

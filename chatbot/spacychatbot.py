@@ -1,6 +1,7 @@
+import mysql.connector
 import spacy
 import spacy.matcher
-from flask import Flask
+from flask import Flask, render_template
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 
@@ -16,11 +17,14 @@ response = ""
 
 
 @app.route("/")
+def html():
+    return render_template("tester.html")
+
+
 def init():
     patterns = [nlp(text) for text in openingTimesList]
     matcher.add('openingTimes', None, *patterns)
     print("init is running")
-    return app.send_static_file("chatbot.html")
 
 
 def send_response():
