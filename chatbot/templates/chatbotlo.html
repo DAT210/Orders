@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <script src="/../static/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body onload="init()">
     <header>{% block header %}{% endblock %}</header>
@@ -11,9 +12,10 @@
         {% block content %}{% endblock %}
         <div id="bot">
             What can I help you with?
-            <form>
+            <form action="" onsubmit ="return ask()" name="input">
                 <input name="question" type="text">
-                <button type='button'>Submit</button>
+                <!-- or does the button need to be a button type, and I have to remove manually in js?-->
+                <button type='submit'>Submit</button>
             </form>
         </div>
     </main>
