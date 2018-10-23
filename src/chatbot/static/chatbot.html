@@ -7,14 +7,14 @@
     <script src="script.js"></script>
 </head>
 <body onload="init()">
-<div>
+<div id="bot">
     Hello, what can I help you with?
 </div>
 <div>
     <br>
-    <form>
+    <form action="" onsubmit ="return ask()" name="input">
         <input name="question" type="text">
-        <button type='button'>Submit</button>
+        <button type='submit'>Submit</button>
     </form>
 </div>
 </body>
