@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05e3d899-567b-4bfb-97e4-a65e3a27c37e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" afterPath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" afterPath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
-      <change beforePath="$PROJECT_DIR$/src/chatbot/static/script.js" afterPath="$PROJECT_DIR$/src/chatbot/static/script.js" />
-      <change beforePath="$PROJECT_DIR$/src/chatbot/templates/chatbotlo.html" afterPath="$PROJECT_DIR$/src/chatbot/templates/chatbotlo.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,6 +60,7 @@
         <option value="$PROJECT_DIR$/chatbot/templates/chatbotlo.html" />
         <option value="$PROJECT_DIR$/chatbot/static/script.js" />
         <option value="$PROJECT_DIR$/src/chatbot/static/script.js" />
+        <option value="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
       </list>
     </option>
   </component>

@@ -93,6 +93,10 @@ def not_handled():
 
 
 def opening_times():
+    for entity in nlp_sent.ents:
+        if entity.label_ == 'DATE':
+            # check the database
+            print(entity)
     global response
     print("Handle opening times")
     response += "Your question about opening times cannot be answered yet. "
