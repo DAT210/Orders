@@ -9,9 +9,11 @@
 <body onload="init()">
     <header>{% block header %}{% endblock %}</header>
     <main>
-        {% block content %}{% endblock %}
-        <div id="bot">
-            What can I help you with?
+        <div>
+            {% block content %}{% endblock %}
+            <div id="bot">
+                What can I help you with?
+            </div>
             <form action="" onsubmit ="return ask()" name="input">
                 <input name="question" type="text">
                 <!-- or does the button need to be a submit type, and I have to remove manually in js?-->

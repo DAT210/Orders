@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05e3d899-567b-4bfb-97e4-a65e3a27c37e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" afterPath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/chatbot/static/chatbot.html" afterPath="$PROJECT_DIR$/src/chatbot/static/chatbot.html" />
+      <change beforePath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" afterPath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/static/script.js" afterPath="$PROJECT_DIR$/src/chatbot/static/script.js" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/templates/chatbotlo.html" afterPath="$PROJECT_DIR$/src/chatbot/templates/chatbotlo.html" />
     </list>
@@ -17,10 +16,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="spacychatbot.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
+            <state relative-caret-position="-1247">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chatbot/static/script.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -49,6 +60,7 @@
         <option value="$PROJECT_DIR$/chatbot/chatbotv2.py" />
         <option value="$PROJECT_DIR$/chatbot/templates/chatbotlo.html" />
         <option value="$PROJECT_DIR$/chatbot/static/script.js" />
+        <option value="$PROJECT_DIR$/src/chatbot/static/script.js" />
       </list>
     </option>
   </component>
@@ -84,6 +96,31 @@
               <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
               <item name="Orders" type="462c0819:PsiDirectoryNode" />
               <item name="Docker-image" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Orders" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Orders" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Orders" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Orders" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
@@ -439,9 +476,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/templates/chatbotlo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/static/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1247">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
