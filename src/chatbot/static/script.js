@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-    alert("works");
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status== 200){
@@ -17,11 +16,10 @@ function ask(){
         if(xhr.readyState == 4 && xhr.status== 200){
             var result = xhr.responseText;
             var obj = JSON.parse(result);
-            alert(obj);
+            $( "#bot" ).html( "<div>" + obj + "</div>" );
         }
     };
     xhr.open("GET", url, true);
     xhr.send(null);
-    $( "#bot" ).html( "<div>doth thou worketh?<br> this isn't working is it?</div>" );
     return false;
 }
