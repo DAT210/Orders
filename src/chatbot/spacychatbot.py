@@ -10,6 +10,7 @@ nlp = spacy.load('en_core_web_sm')
 nlp_sent = ""
 sent = ""
 openingTimesList = ['open', 'opening']
+weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 matcher = PhraseMatcher(nlp.vocab)
 
 app = Flask(__name__)
@@ -99,8 +100,8 @@ def opening_times():
     for entity in nlp_sent.ents:
         if entity.label_ == 'DATE':
             date = True
-            # check the database
-
+            if entity.text in weekdays:
+                response = sql.openingDay(entity.text)
             print(entity)
     if not date:
         response = sql.allOpening()

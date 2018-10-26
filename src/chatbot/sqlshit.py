@@ -15,7 +15,14 @@ cur = conn.cursor()
 def allOpening():
     sql = "SELECT * from openingTimes"
     cur.execute(sql)
-    response = "Standard opening times:<br/>"
+    response = "We're usually open during these hours:<br/>"
     for row in cur:
         response += row[0] + ": " + row[1] + "-" + row[2] + "<br/>"
+    return response
+
+
+def openingDay(day):
+    cur.execute("SELECT * from openingTimes WHERE weekday = '%s'" % day)
+    for row in cur:
+        response = "On " + row[0] + "s we're open from " + row[1] + " until " + row[2]
     return response
