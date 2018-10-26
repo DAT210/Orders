@@ -4,6 +4,7 @@ import spacy.matcher
 from flask import Flask, render_template, json, request
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
+import sqlshit as sql
 
 nlp = spacy.load('en_core_web_sm')
 nlp_sent = ""
@@ -93,13 +94,17 @@ def not_handled():
 
 
 def opening_times():
+    date = False
+    global response
     for entity in nlp_sent.ents:
         if entity.label_ == 'DATE':
+            date = True
             # check the database
+
             print(entity)
-    global response
+    if not date:
+        response = sql.allOpening()
     print("Handle opening times")
-    response += "Your question about opening times cannot be answered yet. "
 
 
 def test(sentence):
