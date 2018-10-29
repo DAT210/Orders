@@ -24,5 +24,9 @@ def allOpening():
 def openingDay(day):
     cur.execute("SELECT * from openingTimes WHERE weekday = '%s'" % day)
     for row in cur:
-        response = "On " + row[0] + "s we're open from " + row[1] + " until " + row[2]
+        response = "On " + row[0] + "s we're open from " + row[1] + " until " + row[2] + "<br/>"
     return response
+
+
+def notHandled(sentence):
+    cur.execute("INSERT INTO unimplemented(sentence) VALUES (%s)", sentence)

@@ -1,4 +1,3 @@
-import mysql.connector
 import spacy
 import spacy.matcher
 from flask import Flask, render_template, json, request
@@ -10,6 +9,7 @@ nlp = spacy.load('en_core_web_sm')
 nlp_sent = ""
 sent = ""
 openingTimesList = ['open', 'opening']
+priceList = ['price', 'cost', 'how much']
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 matcher = PhraseMatcher(nlp.vocab)
 
@@ -90,8 +90,8 @@ def sort(match):
 
 def not_handled():
     global response
-    print("I can't answer that question, sorry. ")
-    response += "I can't answer that question, sorry. "
+    sql.notHandled(sent)
+    response += "I can't answer that question, sorry. <br/>"
 
 
 def opening_times():
@@ -102,10 +102,8 @@ def opening_times():
             date = True
             if entity.text in weekdays:
                 response = sql.openingDay(entity.text)
-            print(entity)
     if not date:
         response = sql.allOpening()
-    print("Handle opening times")
 
 
 def test(sentence):
