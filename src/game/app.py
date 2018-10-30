@@ -16,6 +16,7 @@ screen = pygame.display.set_mode(size)
 
 scoreboard = pygame.Surface((width, scoreboard_height))
 scoreboard.fill([100, 100, 100])
+textfont = pygame.font.SysFont("monospace", 50)
 
 ball = pygame.image.load("images/intro_ball.gif")
 foodimage = pygame.image.load("images/food.png")
@@ -118,8 +119,10 @@ while 1:
     food.rect = food.rect.move(food.speed)
 
     screen.fill(black)
-
     screen.blit(scoreboard, [0, height])
+
+    score_text = textfont.render("Score: " + str(score), 1, (255,255,255))
+    screen.blit(score_text, (0, height))
 
     for key in obstacles:
         obstacles[key].rect = obstacles[key].rect.move(obstacles[key].speed)
