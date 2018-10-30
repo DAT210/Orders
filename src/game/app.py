@@ -6,10 +6,16 @@ class Object:
         self.rect = rect
         self.speed = speed
 
-size = width, height = 1500, 1000
-black = 0, 0, 0
+screen_width, screen_height = 1500, 1000
 
+scoreboard_height = 50
+width, height = screen_width, screen_height-scoreboard_height
+size = screen_width, screen_height
+black = 0, 0, 0
 screen = pygame.display.set_mode(size)
+
+scoreboard = pygame.Surface((width, scoreboard_height))
+scoreboard.fill([100, 100, 100])
 
 ball = pygame.image.load("images/intro_ball.gif")
 foodimage = pygame.image.load("images/food.png")
@@ -37,8 +43,8 @@ score = 0
 
 print("Game started!")
 
-# setspeed sets speed based on arrow keys pressed
-def setplayerspeed():
+# set_player_speed sets speed based on arrow keys pressed
+def set_player_speed():
     if pygame.key.get_pressed()[pygame.K_UP] and player.rect.top > 0:
         player.speed[1] = -2
     if pygame.key.get_pressed()[pygame.K_DOWN] and player.rect.bottom < height:
@@ -49,7 +55,7 @@ def setplayerspeed():
         player.speed[0] = 2
     return
 
-# boundce reverses the speed of a rect if it touches the borders
+# bounce reverses the speed of a rect if it touches the borders
 def bounce(rect, speed):
     if rect.left < 0 or rect.right > width:
         speed[0] = -speed[0]
@@ -67,13 +73,13 @@ def foodstart():
     return xcoord, ycoord
 
 # iscollision checks if the player is colliding with an obstacle
-def iscollision():
+def is_collision():
     for key in obstacles:
         if player.rect.colliderect(obstacles[key].rect):
             return True
     return False
 
-def increasespeed(speed):
+def increase_speed(speed):
     if speed[0] < 0:
         speed[0] -= 1
     else:
@@ -83,7 +89,7 @@ def increasespeed(speed):
     else:
         speed[1] += 1
 
-def quit():
+def quit_game():
     print("Game ended!")
     print("Final score:", score, "points!")
     sys.exit()
@@ -91,10 +97,10 @@ def quit():
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            quit()
+            quit_game()
 
     player.speed = [0, 0]
-    setplayerspeed()
+    set_player_speed()
 
     player.rect = player.rect.move(player.speed)
 
@@ -102,15 +108,19 @@ while 1:
         score += 100
         xcoord, ycoord = foodstart()
         food.rect.center = (xcoord, ycoord)
-        increasespeed(food.speed)
+        if (food.speed[0]**(2.0)+food.speed[1]**(2.0))**(0.5) < 5.0:
+            increase_speed(food.speed)
 
-    if iscollision():
-        quit()
+    if is_collision():
+        quit_game()
 
     bounce(food.rect, food.speed)
     food.rect = food.rect.move(food.speed)
 
-    screen.fill(black)    
+    screen.fill(black)
+
+    screen.blit(scoreboard, [0, height])
+
     for key in obstacles:
         obstacles[key].rect = obstacles[key].rect.move(obstacles[key].speed)
         bounce(obstacles[key].rect, obstacles[key].speed)
