@@ -23,7 +23,8 @@ function checkDeliveryPrice() {
     var address = document.getElementById("address").value;
     var city = document.getElementById("city").value;
     var zipcode = document.getElementById("zipcode").value;
-    var jsonThing = {"address": address, "zipcode": zipcode, "city": city};
+    var method = document.getElementById("transMethod").value;
+    var jsonThing = {"address": address, "zipcode": zipcode, "city": city, "method": method};
 
     console.log(zipcode);
     xhr.open("POST", "/checkDeliveryPrice", true);
@@ -59,6 +60,7 @@ function init() {
     document.getElementById("address").onblur = checkDeliveryPrice;
     document.getElementById("city").onblur = checkDeliveryPrice;
     document.getElementById("zipcode").onblur = checkDeliveryPrice;
+    document.getElementById("transMethod").onblur = checkDeliveryPrice;
 
 }
 

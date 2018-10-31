@@ -65,11 +65,25 @@
                                 <p class="help-block"></p>
                             </div>
                         </div>
+                        <!-- Phone number input-->
                         <div class="control-group">
                             <label class="control-label">Phone number</label>
                             <div class="controls">
                                 <input id="phone" name="phone" type="text" placeholder="phone number"
                                 class="input-xlarge">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="control-group">
+                            <label class="control-label">Transportation method</label>
+                            <div class="controls">
+                                <select id="transMethod" name="transMethod" class="input-xlarge">
+                                    <option value="1">By foot</option>
+                                    <option value="2" selected>By car</option>
+                                    <option value="3">By transit</option>
+                                    <option value="4">By drone</option>
+                                </select>
                                 <p class="help-block"></p>
                             </div>
                         </div>
@@ -96,6 +110,11 @@
                     <div class="col"></div>
                     <div class="col"></div>
                 </div>
+                <br>
+                <br>
+                Total price to pay: <label id="total" name="total"></label>
+                <br>
+                <br>
                 <div>
                     <div>
                         <input type="submit" value="Confirm">
@@ -105,8 +124,35 @@
                 </div>
             </form>
         </div>
+
         <div class="col-sm-4">
-            <h2>Order details</h2>
+            <h2>Shopping cart</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Course nr.</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for course in order %}
+                    <tr>
+                        <td>{{ course.c_id }}</td>
+                        <td>{{ course.c_name }}</td>
+                        <td>{{ course.price }}</td>
+                        <td>{{ course.amount }}</td>
+                        <td>{{ course.price|float * course.amount|float }}</td>
+                    </tr>
+                {% endfor %}
+                <tr class="border-top border-bottom border-dark">
+                    <td colspan="4"></td>
+                    <td>{{ total }},-</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
