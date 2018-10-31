@@ -22,7 +22,7 @@ def start():
     return render_template("orderIndex.html", order=order, total=totalPrice)
 
 @app.route("/sendPrice/oid", methods=["POST"])
-def getSHIT():
+def getPriceOid():
     global totalPrice
     global orderID
     inputJSON = request.get_json(force=True)
