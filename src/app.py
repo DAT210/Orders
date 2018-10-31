@@ -20,33 +20,55 @@ except mysql.connector.Error as err:
         print(err)
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+# Accepts the json format from menu
+@app.route("/api/order/new")
+def from_menu():
+    order = json.load(request.get_json(force=True))
+    # TODO: add new OrderID for this value
+    for item in order:
+        customerID = item["c_id"]
+        courceName = item["c_name"]
+        price = item["price"]
+        amount = item["amount"]
+        for ingredient in order["ingredients"]:
+            # TODO: maybe do something since it's a list?
+            print("stuff")
+
+# create json that the delivery people want assumes for now that we send inn all info form orderID
+# and some extra that we get from thomas/customer
+@app.route("/api/order/delivery", methods=["GET"])
+def to_delivery():
+    order = json.loads(request.get_json(force=True))
+    orderID = order["OrderID"]
+    customerID = order["CustomerID"]
+    delivery = order["delivery"]
+    deliveryPrice = delivery["price"]
+    deliveryMethod = delivery["method"]
+    EstTime = delivery["est_time"]
+    address = delivery["address"]
+    ordered = order['ordered']  # Ordered may or may not be a list of items that is ordered
+
+    # TODO: create the json and send to delivery url
+    # whatDeliveryWants = json.dumps()
+    # request.post("deliveryURL", whatDeliveryWants)
+
+
+@app.route("/api/order/delivery", methods=["POST"])
+def from_delivery():
+    print("stuff")
+    # TODO: handle the json that comes from delivery, delivery price and estimated time of arrival for example
 
 
 @app.route("/order", methods=["POST"])
-def order():
-    i = random.randint(1, 100000)
-    productID = request.form.get("ProductID")
-    orderTime = request.form.get("OrderTime")
-    paymentMethod = request.form.get("PaymentMethod")
-    CustomerID = request.form.get("CustomerID")
-    deliveryMethod = request.form.get("DeliveryMethod")
-    price = request.form.get("Price")
-    checkIfPaid = request.form.get("Payed")
-
-    OrderInsert = "INSERT INTO Orders(ProductID, CustomerID, PaymentMethod, DeliveryMethod, Price, Payed)" \
-                  "VALUES(%s, %s, '%s', '%s', %s, %s)" % (productID, CustomerID, paymentMethod, deliveryMethod, price, 1)
-    ProductInsert = "INSERT INTO Product(ProductID, Pepperoni, Cheese) VALUES(%s, '%s', '%s');" % (productID, 1, 1)
-
-    cur.execute(ProductInsert)
-    cur.execute(OrderInsert)
-    conn.commit()
-    return render_template("index.html")
+def jsontest():
+    contentjson = request.get_json(force=True)
+    content = json.loads(contentjson)
+    print(content["key"])
+    return json.dumps(content)
 
 
-@app.route("/order/<int:ID>", methods=["GET"])
+# When requested for this spesific url, you get all info about the order with given ID
+@app.route("/api/orderID/<int:ID>", methods=["GET"])
 def getorder(ID):
     OrderQuery = "SELECT * FROM Orders WHERE OrderID = %s;" % ID
     cur.execute(OrderQuery)
@@ -67,3 +89,4 @@ def getorder(ID):
 
 if __name__ == "__main__":
     app.run()
+

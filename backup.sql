@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS `Orders`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `Orders` (
   `OrderID` int(11) NOT NULL AUTO_INCREMENT,
-  `CustomerID` int(11) NOT NULL,
-  `OrderTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `PaymentMethod` varchar(12) NOT NULL,
-  `DeliveryMethod` varchar(12) NOT NULL,
-  `Price` int(11) NOT NULL,
-  `Payed` tinyint(4) DEFAULT NULL,
+  `CustomerID` int(11) Default NULL,
+  `OrderTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `PaymentMethod` varchar(12) Default NULL,
+  `DeliveryMethod` varchar(12) Default NULL,
+  `Price` float(11) NOT NULL,
+  `Paid` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`OrderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -49,15 +49,15 @@ UNLOCK TABLES;
 -- Table structure for table `Ingredients`
 --
 
-DROP TABLE IF EXISTS `Ingredients`;
+DROP TABLE IF EXISTS `Courses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `Ingredients` (
+CREATE TABLE `Courses` (
   `OrderID` int(11) NOT NULL,
-  `IngredientsID` int(11) NOT NULL,
-  `Pepperoni` int(11) DEFAULT NULL,
-  `Cheese` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IngredientsID`, `OrderID`),
+  `CourseID` int(11) NOT NULL,
+  `CourseName` int(11) NOT NULL,
+  `Quantity` int(11) DEFAULT 0,
+  PRIMARY KEY (`OrderID`),
   FOREIGN KEY(`OrderID`) REFERENCES `Orders`(`OrderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -66,11 +66,11 @@ CREATE TABLE `Ingredients` (
 -- Dumping data for table `Ingredients`
 --
 
-LOCK TABLES `Ingredients` WRITE;
+LOCK TABLES `Courses` WRITE;
 /*!40000 ALTER TABLE `Ingredients` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
-
+ 	
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
