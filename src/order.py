@@ -12,6 +12,8 @@ global order
 order = {}
 global totalPrice
 totalPrice = 0
+global orderID
+orderID = 0
 
 @app.route("/orderIndex", methods=["GET"])
 def start():
@@ -19,20 +21,28 @@ def start():
     global totalPrice
     return render_template("orderIndex.html", order=order, total=totalPrice)
 
+@app.route("/sendPrice/oid", methods=["POST"])
+def getSHIT():
+    global totalPrice
+    global orderID
+    inputJSON = request.get_json(force=True)
+    loaded = json.loads(inputJSON)
+    totalPrice = loaded[1]["TotalPrice"]
+    orderID = loaded[0]["OrderID"]
+    return Response(status=200)
+
 @app.route("/sendCart", methods=["POST"])
 def index():
     global order
-    global totalPrice
     inputJSON = request.get_json(force=True)
     order = json.loads(inputJSON)
-    totalPrice = calculateTotalPrice()
     return Response(status=200)
 
 @app.route("/confirm", methods=["POST"])
 #TODO
 def confirm():
-    temp = request.form.get("delMethod")
-    print(temp)
+    deliveryMethod = request.form.get("delMethod")
+    paymentMethod = request.form.get("payMethod")
     return render_template("orderIndex.html")
 
 @app.route("/checkDeliveryPrice", methods=["POST"])
@@ -43,13 +53,14 @@ def checkDeliveryPrice():
     address = jsonData["address"]
     city = jsonData["city"]
     zipcode = jsonData["zipcode"]
+    method = jsonData["method"]
 
     if address == "" or city == "" or zipcode == "":
         return ""
 
     #TODO
     #SEND REQUEST TO DELIVERY TO GET DELIVERY PRICE AND RETURN IT WITH TRAILING ",-"
-
+    #Pricing = request.get("http://<IP>:port/delivery/methods/eta?address="+address+"+"+zipcode+"+"+city+"&oid=<Order_ID>")
     #RETURNING DUMMY VALUE
     return str(random.randint(100, 1000))+",-"
 
