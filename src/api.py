@@ -43,12 +43,12 @@ def ReceiveInfoFromMenu():
     OrderID = cur.fetchall()
     ID = re.sub("\D", "", str(OrderID[0]))
 
-    to_thomas = []
-    to_thomas.append({"OrderID": int(ID)})
-    to_thomas.append({"TotalPrice": str(totalPrice)})
-    OrderIDAndTotalPriceToThomas = json.dumps(to_thomas)
+    OrderIDandTotalPrice = []
+    OrderIDandTotalPrice.append({"OrderID": int(ID)})
+    OrderIDandTotalPrice.append({"TotalPrice": str(totalPrice)})
+    OrderIDAndTotalPriceToFrontEnd = json.dumps(OrderIDandTotalPrice)
 
-    status = requests.post("http://localhost:5000/sendPrice/oid", json=OrderIDAndTotalPriceToThomas)
+    status = requests.post("http://localhost:5000/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
 
     if status.status_code != 200:
         return render_template("not200error.html")
