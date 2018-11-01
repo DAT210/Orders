@@ -29,4 +29,13 @@ def openingDay(day):
 
 
 def notHandled(sentence):
-    cur.execute("INSERT INTO unimplemented(sentence) VALUES (%s)", sentence)
+    sql = "INSERT INTO unimplemented(sentence) VALUES('try it')"
+    # get this to work!!!
+
+
+def getNotHandled():
+    cur.execute("SELECT * from unimplemented")
+    notHandled = []
+    for row in cur:
+        notHandled.append(row)
+    return notHandled

@@ -5,7 +5,7 @@ from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 import sqlshit as sql
 
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_lg')
 nlp_sent = ""
 sent = ""
 openingTimesList = ['open', 'opening']
@@ -91,6 +91,10 @@ def sort(match):
 def not_handled():
     global response
     sql.notHandled(sent)
+    matchingSentence = nlp("What are the opening times")
+    print(nlp_sent.similarity(matchingSentence))
+    pricesent = nlp("What is the price")
+    print(nlp_sent.similarity(pricesent))
     response += "I can't answer that question, sorry. <br/>"
 
 
