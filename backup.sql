@@ -55,9 +55,10 @@ DROP TABLE IF EXISTS `Courses`;
 CREATE TABLE `Courses` (
   `OrderID` int(11) NOT NULL,
   `CourseID` int(11) NOT NULL,
-  `CourseName` int(11) NOT NULL,
+  `CourseName` varchar(32) NOT NULL,
   `Quantity` int(11) DEFAULT 0,
-  PRIMARY KEY (`OrderID`),
+  `Price` float(11) DEFAULT 0,
+  PRIMARY KEY (`CourseID`, `OrderID`),
   FOREIGN KEY(`OrderID`) REFERENCES `Orders`(`OrderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
