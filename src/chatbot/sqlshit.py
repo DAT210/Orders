@@ -28,8 +28,10 @@ def openingDay(day):
     return response
 
 
-def notHandled(sentence):
-    sql = "INSERT INTO unimplemented(sentence) VALUES('try it')"
+def notHandled(sentence, guess):
+    sql = "INSERT INTO unimplemented(sentence, guess) VALUES(%s, %s)"
+    cur.execute(sql, (sentence, guess))
+    conn.commit()
     # get this to work!!!
 
 

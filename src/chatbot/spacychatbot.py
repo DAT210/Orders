@@ -90,11 +90,17 @@ def sort(match):
 
 def not_handled():
     global response
-    sql.notHandled(sent)
-    matchingSentence = nlp("What are the opening times")
-    print(nlp_sent.similarity(matchingSentence))
-    pricesent = nlp("What is the price")
-    print(nlp_sent.similarity(pricesent))
+    price_comp = nlp("What is the price")
+    availability_comp = nlp("Is a table available")
+    book_comp = nlp("I want to book a table")
+    similarity = {
+        'price': nlp_sent.similarity(price_comp),
+        'availability': nlp_sent.similarity(availability_comp),
+        'book': nlp_sent.similarity(book_comp)
+    }
+    mostLikely = max(similarity, key=similarity.get)
+    print(mostLikely)
+    sql.notHandled(sent, mostLikely)
     response += "I can't answer that question, sorry. <br/>"
 
 
