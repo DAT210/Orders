@@ -9,7 +9,8 @@ import datetime
 # Connect to database
 app = Flask(__name__)
 try:
-    conn = mysql.connector.connect(user='root', password='Orders01', host="192.168.99.100", database='Orders')
+    conn = mysql.connector.connect(
+        user='root', password='Orders01', host="192.168.99.100", database='Orders')
     cur = conn.cursor()
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -18,8 +19,6 @@ except mysql.connector.Error as err:
         print('Database does not exist')
     else:
         print(err)
-
-# The api's should follow a user story, not sure how it will pan out
 
 
 # Receives information from menu, inserts it into database, and sends to our frontend.
@@ -32,7 +31,8 @@ def ReceiveInfoFromMenu():
     for item in contentjson:
         totalPrice += float(item["price"]) * float(item["amount"])
 
-    insertIntoOrder = "INSERT INTO Orders(CustomerID, Price) VALUES(%s, %s)" % (8, totalPrice)
+    insertIntoOrder = "INSERT INTO Orders(CustomerID, Price) VALUES(%s, %s)" % (
+        8, totalPrice)
     cur.execute(insertIntoOrder)
     conn.commit()
     getLatestOrderID = "SELECT MAX(OrderID) from Orders"
@@ -43,27 +43,29 @@ def ReceiveInfoFromMenu():
     ID = re.sub("\D", "", str(OrderID[0]))
 
     insertIntoCourses = "INSERT INTO Courses(OrderID, CourseID, CourseName, Quantity, Price) VALUES(%s, %s, '%s', %s, %s);"
-
     alreadyInserted = []
     for item in contentjson:
         if item["c_id"] in alreadyInserted:
             IncrementCourseAmount(item["c_id"], ID)
             continue
         alreadyInserted.append(item["c_id"])
-        insert = insertIntoCourses % (ID, item["c_id"], item["c_name"], item["amount"], item["price"])
+        insert = insertIntoCourses % (
+            ID, item["c_id"], item["c_name"], item["amount"], item["price"])
         cur.execute(insert)
     conn.commit()
 
-    OrderIDandTotalPrice = [{"OrderID": int(ID), "TotalPrice": str(totalPrice)}]
+    OrderIDandTotalPrice = [
+        {"OrderID": int(ID), "TotalPrice": str(totalPrice)}]
     OrderIDAndTotalPriceToFrontEnd = json.dumps(OrderIDandTotalPrice)
-
-    ReturnStatus = requests.post("http://localhost:26500/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
+    ReturnStatus = requests.post(
+        "http://localhost:26500/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
 
     if ReturnStatus.status_code != 200:
         return render_template("not200error.html")
 
     CoursesToThomas = json.dumps(contentjson)
-    ReturnStatus = requests.post("http://localhost:26500/sendCart", json=CoursesToThomas)
+    ReturnStatus = requests.post(
+        "http://localhost:26500/sendCart", json=CoursesToThomas)
 
     if ReturnStatus.status_code == 200:
         return redirect("http://localhost:26500/orderIndex")
@@ -73,11 +75,13 @@ def ReceiveInfoFromMenu():
 
 # Used if there are two courses from menu named that same, but have some tiny differences.
 def IncrementCourseAmount(CourseID, OrderID):
-    CourseIDQuery = "SELECT quantity FROM Courses WHERE CourseID = %s AND OrderID = %s;" % (CourseID, OrderID)
+    CourseIDQuery = "SELECT quantity FROM Courses WHERE CourseID = %s AND OrderID = %s;" % (
+        CourseID, OrderID)
     cur.execute(CourseIDQuery)
     UnFilteredQuantity = cur.fetchall()
     Quantity = re.sub("\D", "", str(UnFilteredQuantity[0]))
-    UpdateQuantity = "UPDATE Courses SET quantity = %s WHERE CourseID = %s AND OrderID = %s;" % (int(Quantity)+1, CourseID, OrderID)
+    UpdateQuantity = "UPDATE Courses SET quantity = %s WHERE CourseID = %s AND OrderID = %s;" % (
+        int(Quantity)+1, CourseID, OrderID)
     cur.execute(UpdateQuantity)
     conn.commit()
 
@@ -87,10 +91,12 @@ def IncrementCourseAmount(CourseID, OrderID):
 def InsertDeliveryMethod():
     info = request.get_json(force=True)
     if info["CustomerID"] != "":
-        UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
+        UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
+            info["CustomerID"], info["OrderID"])
         cur.execute(UpdateCustomerQuery)
         conn.commit()
-    UpdateDeliveryMethodQuery = "UPDATE Orders SET DeliveryMethod = '%s' WHERE OrderID = %s;" % (info["DeliveryMethod"], info["OrderID"])
+    UpdateDeliveryMethodQuery = "UPDATE Orders SET DeliveryMethod = '%s' WHERE OrderID = %s;" % (
+        info["DeliveryMethod"], info["OrderID"])
     cur.execute(UpdateDeliveryMethodQuery)
     conn.commit()
 
@@ -152,4 +158,3 @@ def GetCoursesFromOrderID(OrderID):
 
 if __name__ == "__main__":
     app.run(port="26400")
-
