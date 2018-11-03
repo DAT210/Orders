@@ -1,8 +1,7 @@
 from flask import Flask, request, render_template, redirect, Response
-import mysql.connector
-import re
 import json
 import random
+import requests
 
 
 # Connect to Redis
@@ -27,8 +26,8 @@ def getPriceOid():
     global orderID
     inputJSON = request.get_json(force=True)
     loaded = json.loads(inputJSON)
-    totalPrice = loaded[1]["TotalPrice"]
-    orderID = loaded[0]["OrderID"]
+    totalPrice = loaded["TotalPrice"]
+    orderID = loaded["OrderID"]
     return Response(status=200)
 
 @app.route("/sendCart", methods=["POST"])
@@ -55,14 +54,32 @@ def checkDeliveryPrice():
     zipcode = jsonData["zipcode"]
     method = jsonData["method"]
 
+
     if address == "" or city == "" or zipcode == "":
         return ""
 
     #TODO
     #SEND REQUEST TO DELIVERY TO GET DELIVERY PRICE AND RETURN IT WITH TRAILING ",-"
-    #Pricing = request.get("http://<IP>:port/delivery/methods/eta?address="+address+"+"+zipcode+"+"+city+"&oid=<Order_ID>")
-    #RETURNING DUMMY VALUE
-    return str(random.randint(100, 1000))+",-"
+    address.replace(" ", "+")
+    Pricing = requests.get("http://localhost:4000/delivery/methods/eta?address="+address+"+"+zipcode+"+"+city+"&oid=<Order_ID>")
+    print(Pricing.content)
+    inputJSON = json.loads(Pricing.content)
+
+    price = 0
+    eta = 0
+    if method == "1":
+        price = inputJSON['walking']['price']
+        eta = inputJSON['walking']['eta']
+    elif method == "2":
+        price = inputJSON['driving']['price']
+        eta = inputJSON['driving']['eta']
+    elif method == "3":
+        price = inputJSON['transit']['price']
+        eta = inputJSON['transit']['eta']
+
+    print(inputJSON)
+    response = {"price": str(price)+",-", "eta": str(int(eta))+" minutes", "priceFloat": price}
+    return json.dumps(response)
 
 
 def calculateTotalPrice():

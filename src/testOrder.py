@@ -1,7 +1,7 @@
 
 import requests
 import json
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, make_response, Response
 
 
 
@@ -75,11 +75,38 @@ jsondict = [{
     }
 ]
 
+total = {"OrderID": 2, "TotalPrice": 269}
+
+deliveryPrice = {
+    "driving": {
+        "eta": 15.45,
+        "distance": 14.317,
+        "price": 132.3305
+    },
+    "walking": {
+        "eta": 164.25,
+        "distance": 12.785,
+        "price": 937.025
+    },
+    "transit": {
+        "eta": 26.766666666666666,
+        "distance": 11.813,
+        "price": 205.04666666666668
+    }
+}
+
 @app.route("/")
 def index():
     jsond = json.dumps(jsondict)
+    jsondd = json.dumps(total)
     requests.post("http://localhost:5000/sendCart", json=jsond)
+    requests.post("http://localhost:5000/sendPrice/oid", json=jsondd)
     return redirect("http://localhost:5000/orderIndex")
+
+@app.route("/delivery/methods/eta", methods=["GET"])
+def eta():
+    resp = Response(response=json.dumps(deliveryPrice), status=200, content_type=json)
+    return resp
 
 
 

@@ -7,10 +7,14 @@ function checkDeliveryPrice() {
         /* readyState = 4 means that the response has been completed
          * status = 200 indicates that the request was successfully completed */
         if (xhr.readyState == 4 && xhr.status == 200) {
-            // TODO complete
+
             var result = xhr.responseText;
             if (result != 0){
-                document.getElementById("deliveryPrice").innerHTML = result;
+                result = JSON.parse(result);
+                document.getElementById("deliveryPrice").innerHTML = result.price;
+                document.getElementById("ETA").innerHTML = result.eta;
+                var total = parseFloat(document.getElementById("totalPrice").innerHTML);
+                document.getElementById("total").innerHTML = total+result.priceFloat
             }
             else{
                 document.getElementById("deliveryPrice").innerHTML = "Error getting delivery price";
@@ -60,7 +64,7 @@ function init() {
     document.getElementById("address").onblur = checkDeliveryPrice;
     document.getElementById("city").onblur = checkDeliveryPrice;
     document.getElementById("zipcode").onblur = checkDeliveryPrice;
-    document.getElementById("transMethod").onblur = checkDeliveryPrice;
+    document.getElementById("transMethod").onchange = checkDeliveryPrice;
 
 }
 
