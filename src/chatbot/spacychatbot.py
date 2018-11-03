@@ -4,12 +4,15 @@ from flask import Flask, render_template, json, request
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 import sqlshit as sql
+import fakereturn as fr
 
 nlp = spacy.load('en_core_web_lg')
 nlp_sent = ""
 sent = ""
 openingTimesList = ['open', 'opening']
 priceList = ['price', 'cost', 'how much']
+availabilityList = ['available']
+complaintsList = ['bad', 'horrible', 'terrible', 'dirty', 'slow']
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 matcher = PhraseMatcher(nlp.vocab)
 
@@ -27,8 +30,12 @@ def html():
 def init():
     opening_pattern = [nlp(text) for text in openingTimesList]
     price_pattern = [nlp(text) for text in priceList]
+    available_pattern = [nlp(text) for text in availabilityList]
+    complaints_pattern = [nlp(text) for text in complaintsList]
     matcher.add('openingTimes', None, *opening_pattern)
     matcher.add('prices', None, *price_pattern)
+    matcher.add('availability', None, *available_pattern)
+    matcher.add('complaints', None, *complaints_pattern)
     return json.dumps("Hello")
 
 
@@ -88,6 +95,10 @@ def sort(match):
         opening_times()
     elif rule_id == "prices":
         prices()
+    elif rule_id == 'availability':
+        available()
+    elif rule_id == 'complaints':
+        complaint()
     else:
         not_handled()
 
@@ -124,9 +135,23 @@ def opening_times():
 
 def prices():
     global response
-    for token in nlp_sent:
-        if token.tag_ == "NN":
-            print("NN")
+    response += "I don't know the prices of specific dishes yet, " \
+                "but you could visit THE MENU and see for yourself </br>"
+    myjson = fr.price('pepperoni pizza')
+    info = json.loads(myjson)
+    print(info['Price'])
+
+
+def available():
+    global response
+    response += "I can't answer questions about table availability yet, " \
+                "but you are welcome to check it out for yourself. </br>"
+
+
+def complaint():
+    global response
+    response = "Your complaint has been saved, and will be reviewed whenever we feel like it (most likely never). " \
+               "Thank you for not having anything else to do. </br>"
 
 
 if __name__ == "__main__":

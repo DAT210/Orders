@@ -41,3 +41,11 @@ def getNotHandled():
     for row in cur:
         notHandled.append(row)
     return notHandled
+
+
+def getComplaints():
+    cur.execute("SELECT * from complaints")
+    complaints = []
+    for row in cur:
+        complaints.append(row)
+    return complaints

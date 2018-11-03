@@ -9,3 +9,4 @@ INSERT INTO openingTimes(weekday, openingTime, closingTime) VALUES ('thursday', 
 INSERT INTO openingTimes(weekday, openingTime, closingTime) VALUES ('friday', '12:00', '20:00');
 INSERT INTO openingTimes(weekday, openingTime, closingTime) VALUES ('saturday', '12:00', '20:00');
 INSERT INTO openingTimes(weekday, openingTime, closingTime) VALUES ('sunday', '12:00', '20:00');
+CREATE TABLE complaints(complaint text, customerID INT, id smallint unsigned not null auto_increment, constraint pk_example primary key (id));
