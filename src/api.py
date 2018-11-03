@@ -1,10 +1,11 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, Response
 import mysql.connector
 from mysql.connector import errorcode
 import json
 import requests
 import re
 import datetime
+
 # Connect to database
 app = Flask(__name__)
 try:
@@ -57,16 +58,16 @@ def ReceiveInfoFromMenu():
     OrderIDandTotalPrice = [{"OrderID": int(ID), "TotalPrice": str(totalPrice)}]
     OrderIDAndTotalPriceToFrontEnd = json.dumps(OrderIDandTotalPrice)
 
-    status = requests.post("http://localhost:5000/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
+    ReturnStatus = requests.post("http://localhost:26500/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
 
-    if status.status_code != 200:
+    if ReturnStatus.status_code != 200:
         return render_template("not200error.html")
 
     CoursesToThomas = json.dumps(contentjson)
-    status = requests.post("http://localhost:5000/sendCart", json=CoursesToThomas)
+    ReturnStatus = requests.post("http://localhost:26500/sendCart", json=CoursesToThomas)
 
-    if status.status_code == 200:
-        return redirect("http://localhost:5000/orderIndex")
+    if ReturnStatus.status_code == 200:
+        return redirect("http://localhost:26500/orderIndex")
     else:
         return render_template("not200error.html")
 
@@ -79,6 +80,22 @@ def IncrementCourseAmount(CourseID, OrderID):
     UpdateQuantity = "UPDATE Courses SET quantity = %s WHERE CourseID = %s AND OrderID = %s;" % (int(Quantity)+1, CourseID, OrderID)
     cur.execute(UpdateQuantity)
     conn.commit()
+
+
+# Takes a json to update database with DeliveryMethod, and maybe CustomerID, depending on where
+@app.route("/orders/api/DeliveryMethod", methods=["POST"])
+def InsertDeliveryMethod():
+    contentjson = request.get_json(force=True)
+    info = json.loads(contentjson)
+    if info["CustomerID"] != "":
+        InsertCustomerQuery = "INSERT INTO Orders(Customer) VALUES(%s) WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
+        cur.execute(InsertCustomerQuery)
+        conn.commit()
+    InsertDeliveryMethodQuery = "INSERT INTO Orders(DeliveryMethod) Values(%s) WHERE OrderID = %s;" % (info["DeliveryMethod"], info["OrderID"])
+    cur.execute(InsertDeliveryMethodQuery)
+    conn.commit()
+
+    return Response(status=200)
 
 
 # When requested for this spesific url, you get all info about the order with given ID
@@ -135,5 +152,5 @@ def GetCoursesFromOrderID(OrderID):
 
 
 if __name__ == "__main__":
-    app.run(port="4000")
+    app.run(port="26400")
 
