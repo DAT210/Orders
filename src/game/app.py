@@ -58,11 +58,18 @@ game_over_rect.center = (width/2, height/5)
 play_again_rect.center = play_again_selected_rect.center = (width/2, 3*height/5)
 exit_game_rect.center = exit_game_selected_rect.center = (width/2, 4*height/5)
 
-ball = pygame.image.load("images/intro_ball.gif")
+ball_right = pygame.image.load("images/player_right.gif")
+ball_left = pygame.image.load("images/player_left.gif")
+ball_up = pygame.image.load("images/player_up.gif")
+ball_down = pygame.image.load("images/player_down.gif")
+ball_upright = pygame.image.load("images/player_upright.gif")
+ball_upleft = pygame.image.load("images/player_upleft.gif")
+ball_downright = pygame.image.load("images/player_downright.gif")
+ball_downleft = pygame.image.load("images/player_downleft.gif")
 foodimage = pygame.image.load("images/food.png")
 obstacle = pygame.image.load("images/big_obstacle.png")
 
-player = Object(ball.get_rect(), [0, 0])
+player = Object(ball_downright.get_rect(), [0, 0])
 food = Object(foodimage.get_rect(), [-1, -1])
 food.rect.topright = (width, 0)
 
@@ -80,6 +87,8 @@ obstacles["bottomright"].rect.center = (3*width/4, 3*height/4)
 obstacles["topright"].rect.center = (3*width/4, height/4)
 obstacles["bottomleft"].rect.center = (width/4, 3*height/4)
 
+player_image = ball_downright
+
 score = 0
 
 print("Game started!")
@@ -88,7 +97,7 @@ print("Game started!")
 def set_player_speed():
     if pygame.key.get_pressed()[pygame.K_UP] and player.rect.top > 0:
         player.speed[1] = -3
-    if pygame.key.get_pressed()[pygame.K_DOWN] and player.rect.bottom < height:
+    if pygame.key.get_pressed()[pygame.K_DOWN] and player.rect.bottom < height-1:
         player.speed[1] = 3
     if pygame.key.get_pressed()[pygame.K_LEFT] and player.rect.left > 0:
         player.speed[0] = -3
@@ -150,6 +159,25 @@ def restart_game():
     obstacles["topright"].speed = [2, 0]
     obstacles["bottomleft"].speed = [-2, 0]
 
+def choose_player(speed):
+    if speed[0] > 0 and speed[1] == 0:
+        return ball_right
+    if speed[0] < 0 and speed[1] == 0:
+        return ball_left
+    if speed[0] == 0 and speed[1] > 0:
+        return ball_down
+    if speed[0] == 0 and speed[1] < 0:
+        return ball_up
+    if speed[0] > 0 and speed[1] > 0:
+        return ball_downright
+    if speed[0] < 0 and speed[1] < 0:
+        return ball_upleft
+    if speed[0] > 0 and speed[1] < 0:
+        return ball_upright
+    if speed[0] < 0 and speed[1] > 0:
+        return ball_downleft
+    else:
+        return ball_downright
 
 def quit_game():
     final_score_text = menu_font.render("Final score: " + str(score), 1, (255, 255, 255))
@@ -247,6 +275,11 @@ while 1:
     screen.fill(black)
     screen.blit(scoreboard, [0, height])
 
+    if player.speed != [0, 0]:
+        player_image = choose_player(player.speed)
+
+    screen.blit(player_image, player.rect)
+
     score_text = score_font.render("Score: " + str(score), 1, (255,255,255))
     score_rect = score_text.get_rect()
     score_rect.bottomleft = (0, screen_height)
@@ -258,7 +291,6 @@ while 1:
         screen.blit(obstacle, obstacles[key].rect)
     
     screen.blit(foodimage, food.rect)
-    screen.blit(ball, player.rect)
 
     pygame.display.flip()
 
