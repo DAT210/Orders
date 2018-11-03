@@ -99,9 +99,9 @@ deliveryPrice = {
 def index():
     jsond = json.dumps(jsondict)
     jsondd = json.dumps(total)
-    requests.post("http://localhost:5000/sendCart", json=jsond)
-    requests.post("http://localhost:5000/sendPrice/oid", json=jsondd)
-    return redirect("http://localhost:5000/orderIndex")
+    requests.post("http://192.168.99.100:26500/sendCart", json=jsond)
+    requests.post("http://192.168.99.100:26500/sendPrice/oid", json=jsondd)
+    return redirect("http://192.168.99.100:26500/orderIndex")
 
 @app.route("/delivery/methods/eta", methods=["GET"])
 def eta():
@@ -118,4 +118,4 @@ def method():
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=4000)
+    app.run(host='0.0.0.0', port=80)

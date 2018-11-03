@@ -29,3 +29,13 @@ services:
       - '26500:80'
     links:
       - api
+  testorder:
+    container_name: testorder
+    restart: always
+    build:
+      context: ./
+      dockerfile: testOrder.docker
+    ports:
+    - '26300:80'
+    links:
+    - order

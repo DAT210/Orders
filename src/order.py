@@ -66,8 +66,8 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post("http://localhost:4000/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
-        respDelivery = requests.post("http://localhost:4000/delivery/neworder", json=dumpDelivery)  ##send to delivery
+        respSelf = requests.post("http://192.168.99.100:26300/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
+        respDelivery = requests.post("http://192.168.99.100:26300/delivery/neworder", json=dumpDelivery)  ##send to delivery
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
@@ -84,8 +84,8 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post("http://localhost:4000/orders/api/DeliveryMethod", json=dumpSelf)
-        respDelivery = requests.post("http://localhost:4000/delivery/neworder", json=dumpDelivery)
+        respSelf = requests.post("http://192.168.99.100:26300/orders/api/DeliveryMethod", json=dumpSelf)
+        respDelivery = requests.post("http://192.168.99.100:26300/delivery/neworder", json=dumpDelivery)
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
@@ -113,7 +113,7 @@ def checkDeliveryPrice():
     #TODO
     #SEND REQUEST TO DELIVERY TO GET DELIVERY PRICE AND RETURN IT WITH TRAILING ",-"
     address.replace(" ", "+")
-    Pricing = requests.get("http://localhost:4000/delivery/methods/eta?address="+address+"+"+zipcode+"+"+city+"&oid=<Order_ID>")
+    Pricing = requests.get("http://192.168.99.100:26300/delivery/methods/eta?address="+address+"+"+zipcode+"+"+city+"&oid=<Order_ID>")
     inputJSON = json.loads(Pricing.content)
 
     price = 0
