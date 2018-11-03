@@ -13,6 +13,7 @@ Orders - Group 6
 
 ### Prerequisites
  * [Docker](https://www.docker.com/)
+ * [GIT](https://git-scm.com/downloads)
 
 ## Getting Started:
 
