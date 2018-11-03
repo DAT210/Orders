@@ -14,6 +14,10 @@ totalPrice = 0
 global orderID
 orderID = 0
 
+@app.route("/")
+def start():
+    return "hello world"
+
 @app.route("/orderIndex", methods=["GET"])
 def index():
     global order
@@ -137,4 +141,4 @@ def calculateTotalPrice():
     return total
 
 if __name__ == "__main__":
-    app.run(port=26500)
+    app.run(host="0.0.0.0", port=80)
