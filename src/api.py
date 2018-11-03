@@ -35,7 +35,6 @@ def ReceiveInfoFromMenu():
     insertIntoOrder = "INSERT INTO Orders(CustomerID, Price) VALUES(%s, %s)" % (8, totalPrice)
     cur.execute(insertIntoOrder)
     conn.commit()
-
     getLatestOrderID = "SELECT MAX(OrderID) from Orders"
     cur.execute(getLatestOrderID)
 
@@ -72,6 +71,7 @@ def ReceiveInfoFromMenu():
         return render_template("not200error.html")
 
 
+# Used if there are two courses from menu named that same, but have some tiny differences.
 def IncrementCourseAmount(CourseID, OrderID):
     CourseIDQuery = "SELECT quantity FROM Courses WHERE CourseID = %s AND OrderID = %s;" % (CourseID, OrderID)
     cur.execute(CourseIDQuery)
@@ -88,10 +88,10 @@ def InsertDeliveryMethod():
     contentjson = request.get_json(force=True)
     info = json.loads(contentjson)
     if info["CustomerID"] != "":
-        InsertCustomerQuery = "INSERT INTO Orders(Customer) VALUES(%s) WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
+        InsertCustomerQuery = "INSERT INTO Orders(Customer) VALUES(%s,%s) WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
         cur.execute(InsertCustomerQuery)
         conn.commit()
-    InsertDeliveryMethodQuery = "INSERT INTO Orders(DeliveryMethod) Values(%s) WHERE OrderID = %s;" % (info["DeliveryMethod"], info["OrderID"])
+    InsertDeliveryMethodQuery = "INSERT INTO Orders(DeliveryMethod) Values(%s, %s) WHERE OrderID = %s;" % (info["DeliveryMethod"], info["OrderID"])
     cur.execute(InsertDeliveryMethodQuery)
     conn.commit()
 
