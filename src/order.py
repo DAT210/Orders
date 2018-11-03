@@ -54,28 +54,38 @@ def confirm():
     ##get cid from customer
     ##and make login
     cid = ""
+
     if deliveryMethod == "Pickup" and paymentMethod == "payOnDel":
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
         toDelivery = {"order_id": orderID, "delivery_method": "Pickup", "address": "", "aborted": False}
+
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
+
         respSelf = requests.post("http://localhost:4000/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
         respDelivery = requests.post("http://localhost:4000/delivery/neworder", json=dumpDelivery)  ##send to delivery
+
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
+
     elif deliveryMethod == "Pickup" and paymentMethod == "payNow":
         # TODO
         # redirect to payment
         None
+
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payOnDel":
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
         toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
+
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
+
         respSelf = requests.post("http://localhost:4000/orders/api/DeliveryMethod", json=dumpSelf)
         respDelivery = requests.post("http://localhost:4000/delivery/neworder", json=dumpDelivery)
+
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
+
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payNow":
         #TODO
         #redirect to payment
@@ -86,7 +96,6 @@ def confirm():
 @app.route("/checkDeliveryPrice", methods=["POST"])
 def checkDeliveryPrice():
     ajaxData = request.form.get("data")
-    print(ajaxData)
     jsonData = json.loads(ajaxData)
     address = jsonData["address"]
     city = jsonData["city"]
@@ -101,7 +110,6 @@ def checkDeliveryPrice():
     #SEND REQUEST TO DELIVERY TO GET DELIVERY PRICE AND RETURN IT WITH TRAILING ",-"
     address.replace(" ", "+")
     Pricing = requests.get("http://localhost:4000/delivery/methods/eta?address="+address+"+"+zipcode+"+"+city+"&oid=<Order_ID>")
-    print(Pricing.content)
     inputJSON = json.loads(Pricing.content)
 
     price = 0
@@ -116,7 +124,6 @@ def checkDeliveryPrice():
         price = inputJSON['transit']['price']
         eta = inputJSON['transit']['eta']
 
-    print(inputJSON)
     response = {"price": str(price)+",-", "eta": str(int(eta))+" minutes", "priceFloat": price}
     return json.dumps(response)
 
