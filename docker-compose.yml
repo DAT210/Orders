@@ -10,13 +10,10 @@ services:
       - mysql
   mysql:
     container_name: mysql
-    image: mysql
-    volumes:
-      - ./:/etc/mysql/backup
     command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_DATABASE: 'Orders'
-      MYSQL_ROOT_PASSWORD: 'Orders01'
+    build:
+      context: ./
+      dockerfile: mysql.docker
     ports:
       - '26306:3306'
   order:
@@ -29,6 +26,7 @@ services:
       - '26500:80'
     links:
       - api
+
   testorder:
     container_name: testorder
     restart: always

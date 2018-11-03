@@ -1,0 +1,10 @@
+FROM mysql
+
+
+ENV MYSQL_DATABASE="Orders"
+ENV MYSQL_ROOT_PASSWORD="Orders01"
+
+COPY ./backup.sql /docker-entrypoint-initdb.d/
+
+
+
