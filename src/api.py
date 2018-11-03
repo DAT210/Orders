@@ -86,14 +86,11 @@ def IncrementCourseAmount(CourseID, OrderID):
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
     info = request.get_json(force=True)
-    print(info)
     if info["CustomerID"] != "":
         UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
-        print(UpdateCustomerQuery)
         cur.execute(UpdateCustomerQuery)
         conn.commit()
     UpdateDeliveryMethodQuery = "UPDATE Orders SET DeliveryMethod = '%s' WHERE OrderID = %s;" % (info["DeliveryMethod"], info["OrderID"])
-    print(UpdateDeliveryMethodQuery)
     cur.execute(UpdateDeliveryMethodQuery)
     conn.commit()
 
