@@ -40,11 +40,53 @@ def index():
 @app.route("/confirm", methods=["POST"])
 #TODO
 def confirm():
+    global orderID
     deliveryMethod = request.form.get("delMethod")
+    deliverType = request.form.get("transMethod")
     paymentMethod = request.form.get("payMethod")
-    print(deliveryMethod)
-    print(paymentMethod)
-    return render_template("orderIndex.html")
+    street = request.form.get("address")
+    city = request.form.get("city")
+    zipcode = request.form.get("zipcode")
+    address = street+"|"+zipcode+"|"+city
+
+    #TODO
+    ##get cid from customer
+    ##and make login
+    cid = ""
+    if deliveryMethod == "Pickup" and paymentMethod == "payOnDel":
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
+        toDelivery = {"order_id": orderID, "delivery_method": "Pickup", "address": "", "aborted": False}
+        dumpSelf = json.dumps(result)
+        dumpDelivery = json.dumps(toDelivery)
+        respSelf = requests.post("http://localhost:4000/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
+        respDelivery = requests.post("http://localhost:4000/delivery/neworder", json=dumpDelivery)  ##send to delivery
+        if respSelf.status_code == 200 and respDelivery.status_code == 200:
+            return render_template("confirm.html")
+    elif deliveryMethod == "Pickup" and paymentMethod == "payNow":
+        #TODO
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
+        dumpSelf = json.dumps(result)
+        requests.post("localhost:26400", json=dumpSelf)
+        #TODO
+        ##return redirect to payment
+    elif deliveryMethod == "DoorDelivery" and paymentMethod == "payOnDel":
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
+        toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
+        dumpSelf = json.dumps(result)
+        dumpDelivery = json.dumps(toDelivery)
+        respSelf = requests.post("http://localhost:4000/orders/api/DeliveryMethod", json=dumpSelf)
+        respDelivery = requests.post("http://localhost:4000/delivery/neworder", json=dumpDelivery)
+        if respSelf.status_code == 200 and respDelivery.status_code == 200:
+            return render_template("confirm.html")
+    elif deliveryMethod == "DoorDelivery" and paymentMethod == "payNow":
+        #TODO
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
+        dumpSelf = json.dumps(result)
+        requests.post("localhost:26400", json=dumpSelf)
+        # TODO
+        ##return redirect to payment
+
+    return render_template("not200error.html")
 
 @app.route("/checkDeliveryPrice", methods=["POST"])
 def checkDeliveryPrice():
