@@ -113,7 +113,7 @@ def GetOrderByID(ID):
 
 
 # Get orders done by customer
-@app.route("/orders/api/customerorders/<CustomerID>", methods=["GET"])
+@app.route("/orders/api/customerorders/<int:CustomerID>", methods=["GET"])
 def GetOrdersByCustomerID(CustomerID):
     with open("parsing/Order.json", "r") as f:
         orderDict = json.load(f)
