@@ -42,6 +42,8 @@ def index():
 def confirm():
     deliveryMethod = request.form.get("delMethod")
     paymentMethod = request.form.get("payMethod")
+    print(deliveryMethod)
+    print(paymentMethod)
     return render_template("orderIndex.html")
 
 @app.route("/checkDeliveryPrice", methods=["POST"])
