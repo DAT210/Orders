@@ -53,7 +53,8 @@ def ReceiveInfoFromMenu():
         cur.execute(insert)
     conn.commit()
 
-    OrderIDandTotalPrice = {"OrderID": int(ID), "TotalPrice": str(totalPrice)}
+    OrderIDandTotalPrice = [
+        {"OrderID": int(ID), "TotalPrice": str(totalPrice)}]
     OrderIDAndTotalPriceToFrontEnd = json.dumps(OrderIDandTotalPrice)
     ReturnStatus = requests.post(
         "http://localhost:26500/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
