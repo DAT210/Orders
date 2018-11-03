@@ -28,4 +28,4 @@ services:
     ports:
       - '26500:80'
     links:
-      - python-api
+      - api
