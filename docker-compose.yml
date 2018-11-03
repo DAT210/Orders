@@ -5,7 +5,7 @@ services:
     restart: always
     build: .
     ports:
-      - '4000:80'
+      - '26400:80'
     links:
       - mysql
   mysql:
@@ -18,4 +18,4 @@ services:
       MYSQL_DATABASE: 'Orders'
       MYSQL_ROOT_PASSWORD: 'Orders01'
     ports:
-      - '3306:3306'
+      - '26306:26306'
