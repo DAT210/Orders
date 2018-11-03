@@ -25,8 +25,10 @@ def html():
 
 @app.route("/init")
 def init():
-    patterns = [nlp(text) for text in openingTimesList]
-    matcher.add('openingTimes', None, *patterns)
+    opening_pattern = [nlp(text) for text in openingTimesList]
+    price_pattern = [nlp(text) for text in priceList]
+    matcher.add('openingTimes', None, *opening_pattern)
+    matcher.add('prices', None, *price_pattern)
     return json.dumps("Hello")
 
 
@@ -84,6 +86,8 @@ def sort(match):
     print(rule_id)
     if rule_id == "openingTimes":
         opening_times()
+    elif rule_id == "prices":
+        prices()
     else:
         not_handled()
 
@@ -99,7 +103,6 @@ def not_handled():
         'book': nlp_sent.similarity(book_comp)
     }
     mostLikely = max(similarity, key=similarity.get)
-    print(mostLikely)
     sql.notHandled(sent, mostLikely)
     response += "I can't answer that question, sorry. <br/>"
 
@@ -109,21 +112,21 @@ def opening_times():
     global response
     for entity in nlp_sent.ents:
         if entity.label_ == 'DATE':
+            print(entity.text)
             date = True
             if entity.text in weekdays:
-                response = sql.openingDay(entity.text)
+                response += sql.openingDay(entity.text)
+            else:
+                response += "I don't know the opening times on specific dates, sorry. </br>"
     if not date:
         response = sql.allOpening()
 
 
-def test(sentence):
-    prep_sentence(sentence)
-    matches = get_matches()
-    if not matches:
-        print("no match")
-    else:
-        for match in matches:
-            sort(match)
+def prices():
+    global response
+    for token in nlp_sent:
+        if token.tag_ == "NN":
+            print("NN")
 
 
 if __name__ == "__main__":
