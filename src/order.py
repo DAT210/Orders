@@ -15,7 +15,7 @@ global orderID
 orderID = 0
 
 @app.route("/orderIndex", methods=["GET"])
-def start():
+def index():
     global order
     global totalPrice
     return render_template("orderIndex.html", order=order, total=totalPrice)
@@ -31,7 +31,7 @@ def getPriceOid():
     return Response(status=200)
 
 @app.route("/sendCart", methods=["POST"])
-def index():
+def sendCart():
     global order
     inputJSON = request.get_json(force=True)
     order = json.loads(inputJSON)
@@ -47,6 +47,7 @@ def confirm():
     street = request.form.get("address")
     city = request.form.get("city")
     zipcode = request.form.get("zipcode")
+
     address = street+"|"+zipcode+"|"+city
 
     #TODO
@@ -63,12 +64,9 @@ def confirm():
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
     elif deliveryMethod == "Pickup" and paymentMethod == "payNow":
-        #TODO
-        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
-        dumpSelf = json.dumps(result)
-        requests.post("localhost:26400", json=dumpSelf)
-        #TODO
-        ##return redirect to payment
+        # TODO
+        # redirect to payment
+        None
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payOnDel":
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
         toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
@@ -80,11 +78,8 @@ def confirm():
             return render_template("confirm.html")
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payNow":
         #TODO
-        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
-        dumpSelf = json.dumps(result)
-        requests.post("localhost:26400", json=dumpSelf)
-        # TODO
-        ##return redirect to payment
+        #redirect to payment
+        None
 
     return render_template("not200error.html")
 
