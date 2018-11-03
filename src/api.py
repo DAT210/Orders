@@ -85,14 +85,16 @@ def IncrementCourseAmount(CourseID, OrderID):
 # Takes a json to update database with DeliveryMethod, and maybe CustomerID, depending on where
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
-    contentjson = request.get_json(force=True)
-    info = json.loads(contentjson)
+    info = request.get_json(force=True)
+    print(info)
     if info["CustomerID"] != "":
-        InsertCustomerQuery = "INSERT INTO Orders(Customer) VALUES(%s,%s) WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
-        cur.execute(InsertCustomerQuery)
+        UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
+        print(UpdateCustomerQuery)
+        cur.execute(UpdateCustomerQuery)
         conn.commit()
-    InsertDeliveryMethodQuery = "INSERT INTO Orders(DeliveryMethod) Values(%s, %s) WHERE OrderID = %s;" % (info["DeliveryMethod"], info["OrderID"])
-    cur.execute(InsertDeliveryMethodQuery)
+    UpdateDeliveryMethodQuery = "UPDATE Orders SET DeliveryMethod = '%s' WHERE OrderID = %s;" % (info["DeliveryMethod"], info["OrderID"])
+    print(UpdateDeliveryMethodQuery)
+    cur.execute(UpdateDeliveryMethodQuery)
     conn.commit()
 
     return Response(status=200)
