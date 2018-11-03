@@ -13,7 +13,7 @@ width, height = screen_width, screen_height-scoreboard_height
 size = screen_width, screen_height
 black = 0, 0, 0
 screen = pygame.display.set_mode(size)
-#pygame.display.toggle_fullscreen()
+pygame.display.toggle_fullscreen()
 pygame.mouse.set_visible(False)
 
 scoreboard = pygame.Surface((width, scoreboard_height))
@@ -120,6 +120,7 @@ def is_collision():
             return True
     return False
 
+# increase_speed increases speed input by 1 in x and y direction
 def increase_speed(speed):
     if speed[0] < 0:
         speed[0] -= 1
@@ -129,6 +130,26 @@ def increase_speed(speed):
         speed[1] -= 1
     else:
         speed[1] += 1
+
+def restart_game():
+    global score
+    score = 0
+
+    player.rect.topleft = [0, 0]
+
+    food.rect.topright = [width, 0]
+    food.speed = [-1, -1]
+
+    obstacles["topleft"].rect.center = (width/4, height/4)
+    obstacles["bottomright"].rect.center = (3*width/4, 3*height/4)
+    obstacles["topright"].rect.center = (3*width/4, height/4)
+    obstacles["bottomleft"].rect.center = (width/4, 3*height/4)
+
+    obstacles["topleft"].speed = [0, -2]
+    obstacles["bottomright"].speed = [0, 2]
+    obstacles["topright"].speed = [2, 0]
+    obstacles["bottomleft"].speed = [-2, 0]
+
 
 def quit_game():
     final_score_text = menu_font.render("Final score: " + str(score), 1, (255, 255, 255))
@@ -162,16 +183,13 @@ def quit_game():
             pygame.display.flip()
 
         if selected is 0 and pygame.key.get_pressed()[pygame.K_RETURN]:
-            print("\"Play again\" not implemented, sorry!")
-            sys.exit()
+            restart_game()
+            break
             
         if selected is 1 and pygame.key.get_pressed()[pygame.K_RETURN]:
             print("Exiting game")
+            print("Final score: " + str(score))
             sys.exit()
-
-    print("Game ended!")
-    print("Final score:", score, "points!")
-    sys.exit()
 
 while 1:
     for event in pygame.event.get():
@@ -220,6 +238,8 @@ while 1:
         food.rect.center = (xcoord, ycoord)
         if (food.speed[0]**(2.0)+food.speed[1]**(2.0))**(0.5) < 5.0:
             increase_speed(food.speed)
+        for key in obstacles:
+            obstacles[key].speed = [obstacles[key].speed[1], obstacles[key].speed[0]]
 
     bounce(food.rect, food.speed)
     food.rect = food.rect.move(food.speed)
@@ -240,7 +260,7 @@ while 1:
     screen.blit(foodimage, food.rect)
     screen.blit(ball, player.rect)
 
+    pygame.display.flip()
+
     if is_collision():
         quit_game()
-
-    pygame.display.flip()
