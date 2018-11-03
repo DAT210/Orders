@@ -115,7 +115,9 @@ def not_handled():
     }
     mostLikely = max(similarity, key=similarity.get)
     sql.notHandled(sent, mostLikely)
-    response += "I can't answer that question, sorry. <br/>"
+    response += "You asked a question I couldn't even sort out. " \
+                "I have been programmed to sort out any inteligent question a customer might have. " \
+                "This means that your question is stupid, you're stupid, and your mom is stupid. <br/>"
 
 
 def opening_times():
@@ -128,15 +130,16 @@ def opening_times():
             if entity.text in weekdays:
                 response += sql.openingDay(entity.text)
             else:
-                response += "I don't know the opening times on specific dates, sorry. </br>"
+                response += "I don't know the opening times on specific dates, as my Glorious Leader" \
+                            " couldn't be bothered to figure out how to do that. </br>"
     if not date:
         response = sql.allOpening()
 
 
 def prices():
     global response
-    response += "I don't know the prices of specific dishes yet, " \
-                "but you could visit THE MENU and see for yourself </br>"
+    response += "I can't answer questions about prices," \
+                " as anyone with half a brain could check it out for themselves IN THE MENU </br>"
     myjson = fr.price('pepperoni pizza')
     info = json.loads(myjson)
     print(info['Price'])
@@ -144,14 +147,14 @@ def prices():
 
 def available():
     global response
-    response += "I can't answer questions about table availability yet, " \
-                "but you are welcome to check it out for yourself. </br>"
+    response += "I can't answer questions about table availability," \
+                " as anyone with half a brain could check it out for themselves if they just followed THIS link </br>"
 
 
 def complaint():
     global response
     response = "Your complaint has been saved, and will be reviewed whenever we feel like it (most likely never). " \
-               "Thank you for not having anything else to do. </br>"
+               "Thank you for not having a life (punk ass bitch). </br>"
 
 
 if __name__ == "__main__":

@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05e3d899-567b-4bfb-97e4-a65e3a27c37e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" afterPath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/chatbot/spacy.sql" afterPath="$PROJECT_DIR$/src/chatbot/spacy.sql" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" afterPath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
-      <change beforePath="$PROJECT_DIR$/src/chatbot/sqlshit.py" afterPath="$PROJECT_DIR$/src/chatbot/sqlshit.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,17 +18,16 @@
       <file leaf-file-name="spacychatbot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="-7">
+              <caret line="102" column="18" lean-forward="true" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
-                <marker date="1541276178000" expanded="true" signature="3846:3866" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fakereturn.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fakereturn.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chatbot/fakereturn.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
@@ -39,11 +37,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="notHandled.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chatbot/notHandled.py">
+      <file leaf-file-name="complaintHandler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chatbot/complaintHandler.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notHandled.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chatbot/notHandled.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="33" lean-forward="true" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -59,10 +67,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sqlshit.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="sqlshit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chatbot/sqlshit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-182">
+            <state relative-caret-position="-301">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -102,9 +110,9 @@
         <option value="$PROJECT_DIR$/chatbot/templates/chatbotlo.html" />
         <option value="$PROJECT_DIR$/chatbot/static/script.js" />
         <option value="$PROJECT_DIR$/src/chatbot/static/script.js" />
-        <option value="$PROJECT_DIR$/src/chatbot/sqlshit.py" />
-        <option value="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
         <option value="$PROJECT_DIR$/src/chatbot/fakereturn.py" />
+        <option value="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
+        <option value="$PROJECT_DIR$/src/chatbot/sqlshit.py" />
       </list>
     </option>
   </component>
@@ -534,7 +542,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/static/script.js">
+    <entry file="file://$PROJECT_DIR$/src/chatbot/spacy.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="102" column="18" lean-forward="true" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/fakereturn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/complaintHandler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -544,13 +578,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chatbot/notHandled.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="4" column="33" lean-forward="true" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/spacy.sql">
+    <entry file="file://$PROJECT_DIR$/src/chatbot/static/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -560,27 +594,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chatbot/sqlshit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-182">
+        <state relative-caret-position="-301">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-            <marker date="1541276178000" expanded="true" signature="3846:3866" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/fakereturn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
