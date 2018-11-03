@@ -10,7 +10,7 @@ import datetime
 app = Flask(__name__)
 try:
     conn = mysql.connector.connect(
-        user='root', password='Orders01', host="192.168.99.100", database='Orders')
+        user='root', password='Orders01', host="192.168.99.100", database='Orders', port=26306)
     cur = conn.cursor()
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
