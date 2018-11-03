@@ -8,7 +8,6 @@ services:
       - '26400:80'
     links:
       - mysql
-      - order
   mysql:
     container_name: mysql
     image: mysql
@@ -28,3 +27,5 @@ services:
       dockerfile: order.docker
     ports:
       - '26500:80'
+    links:
+      - python-api
