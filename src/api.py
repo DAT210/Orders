@@ -4,7 +4,7 @@ from mysql.connector import errorcode
 import json
 import requests
 import re
-
+import datetime
 # Connect to database
 app = Flask(__name__)
 try:
@@ -31,7 +31,7 @@ def ReceiveInfoFromMenu():
     for item in contentjson:
         totalPrice += float(item["price"]) * float(item["amount"])
 
-    insertIntoOrder = "INSERT INTO Orders(Price) VALUES(%s)" % totalPrice
+    insertIntoOrder = "INSERT INTO Orders(CustomerID, Price) VALUES(%s, %s)" % (8, totalPrice)
     cur.execute(insertIntoOrder)
     conn.commit()
 
@@ -52,12 +52,9 @@ def ReceiveInfoFromMenu():
         alreadyInserted.append(item["c_id"])
         insert = insertIntoCourses % (ID, item["c_id"], item["c_name"], item["amount"], item["price"])
         cur.execute(insert)
-        print(insert)
     conn.commit()
 
-    OrderIDandTotalPrice = []
-    OrderIDandTotalPrice.append({"OrderID": int(ID)})
-    OrderIDandTotalPrice.append({"TotalPrice": str(totalPrice)})
+    OrderIDandTotalPrice = [{"OrderID": int(ID), "TotalPrice": str(totalPrice)}]
     OrderIDAndTotalPriceToFrontEnd = json.dumps(OrderIDandTotalPrice)
 
     status = requests.post("http://localhost:5000/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
@@ -91,8 +88,50 @@ def GetOrderByID(ID):
     cur.execute(OrderQuery)
     Order = cur.fetchall()
     conn.commit()
-
     return json.dumps(str(Order[0]))
+
+
+# Get orders done by customer
+@app.route("/orders/api/customerorders/<CustomerID>", methods=["GET"])
+def GetOrdersByCustomerID(CustomerID):
+    with open("parsing/Order.json", "r") as f:
+        orderDict = json.load(f)
+
+    OrderQuery = "SELECT * FROM Orders WHERE CustomerID = %s" % CustomerID
+    cur.execute(OrderQuery)
+    conn.commit()
+    Orders = cur.fetchall()
+
+    ListOfOrders = []
+    for Order in Orders:
+        for item in Order:
+            key = list(orderDict.keys())[Order.index(item)]
+            if isinstance(item, datetime.datetime):
+                orderDict[key] = str(item)
+            else:
+                orderDict[key] = item
+        ListOfOrders.append(orderDict)
+    return json.dumps(ListOfOrders)
+
+
+# Returns all courses in given OrderID
+@app.route("/orders/api/courses/<int:OrderID>", methods=["GET"])
+def GetCoursesFromOrderID(OrderID):
+    with open("parsing/Course.json", "r") as f:
+        CourseDict = json.load(f)
+
+    CoursesQuery = "SELECT * FROM Courses WHERE OrderID = %s;" % OrderID
+    cur.execute(CoursesQuery)
+    Courses = cur.fetchall()
+    conn.commit()
+
+    ListOfCourses = []
+    for Course in Courses:
+        for item in Course:
+            key = list(CourseDict.keys())[Course.index(item)]
+            CourseDict[key] = item
+        ListOfCourses.append(CourseDict)
+    return json.dumps(ListOfCourses)
 
 
 if __name__ == "__main__":
