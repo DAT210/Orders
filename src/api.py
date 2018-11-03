@@ -31,7 +31,7 @@ def ReceiveInfoFromMenu():
     for item in contentjson:
         totalPrice += float(item["price"]) * float(item["amount"])
 
-    insertIntoOrder = "INSERT INTO Orders(CustomerID, Price) VALUES(%s)" % (totalPrice)
+    insertIntoOrder = "INSERT INTO Orders(Price) VALUES(%s)" % (totalPrice)
     cur.execute(insertIntoOrder)
     conn.commit()
     getLatestOrderID = "SELECT MAX(OrderID) from Orders"
