@@ -19,7 +19,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'Orders01'
     ports:
       - '26306:26306'
-  Order:
+  order:
     container_name: order
     restart: always
     build:
