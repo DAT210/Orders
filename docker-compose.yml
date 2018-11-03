@@ -8,6 +8,7 @@ services:
       - '26400:80'
     links:
       - mysql
+      - order
   mysql:
     container_name: mysql
     image: mysql
@@ -19,3 +20,11 @@ services:
       MYSQL_ROOT_PASSWORD: 'Orders01'
     ports:
       - '26306:26306'
+  Order:
+    container_name: order
+    restart: always
+    build:
+      context: ./
+      dockerfile: order.docker
+    ports:
+      - '26500:80'
