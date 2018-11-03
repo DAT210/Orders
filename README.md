@@ -40,6 +40,11 @@ cat backup.sql | docker exec -i CONTAINER /usr/bin/mysql -u root --password=root
 
 
 ## API
+**IMPORTANT:** This is subject to change
 
+* To get all courses in a given OrderID:
+  * /orders/api/courses/"OrderID"
+* To get all orders a customer have:
+  * /orders/api/customerorders/"CustomerID"
 <!-- mysql -u <user> -p<password> <dbname> < file.sql -->
 <!-- THIS MAY HAVE WORKED -->
