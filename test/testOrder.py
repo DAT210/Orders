@@ -7,7 +7,7 @@ import os
 
 # Connect to Redis
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.urandom(20000)
 
 docker = "http://192.168.99.100:26500"
 local = "http://localhost:5000"
