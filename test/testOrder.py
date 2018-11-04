@@ -9,71 +9,8 @@ from flask import Flask, request, render_template, redirect, make_response, Resp
 app = Flask(__name__)
 
 
-
-jsondict = [{
-
-        "c_id": "1",
-        "c_name": "course alpha",
-        "price": "5.20",
-        "ingredients": [
-            {
-                "i_id": "1",
-                "i_name": "ingredient alpha"
-            },
-
-            {
-                "i_id": "3",
-                "i_name": "ingredient charlie"
-            },
-
-            {
-                "i_id": "4",
-                "i_name": "ingredient delta"
-            }
-
-        ],
-        "amount": "1"
-    },
-
-    {
-        "c_id": "2",
-        "c_name": "course alpha",
-        "price": "5.20",
-        "ingredients": [
-
-            {
-                "i_id": "1",
-                "i_name": "ingredient alpha"
-            },
-
-            {
-                "i_id": "3",
-                "i_name": "ingredient charlie"
-            }
-
-        ],
-        "amount": "3"
-    },
-
-    {
-        "c_id": "3",
-        "c_name": "course charlie",
-        "price": "6.75",
-        "ingredients": [
-
-            {
-                "i_id": "1",
-                "i_name": "ingredient alpha"
-            },
-
-            {
-                "i_id": "2",
-                "i_name": "ingredient"
-            }
-        ],
-        "amount": "2"
-    }
-]
+with open("../src/parsing/OrderFromMenu.json", "r") as f:
+    jsondict = json.load(f)
 
 total = {"OrderID": 2, "TotalPrice": 269}
 
@@ -95,6 +32,7 @@ deliveryPrice = {
     }
 }
 
+
 @app.route("/")
 def index():
     jsond = json.dumps(jsondict)
@@ -103,14 +41,17 @@ def index():
     requests.post("http://192.168.99.100:26500/sendPrice/oid", json=jsondd)
     return redirect("http://192.168.99.100:26500/orderIndex")
 
+
 @app.route("/delivery/methods/eta", methods=["GET"])
 def eta():
     resp = Response(response=json.dumps(deliveryPrice), status=200, content_type=json)
     return resp
 
+
 @app.route("/delivery/neworder", methods=["POST"])
 def neworder():
     return make_response(Response(status=200))
+
 
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def method():

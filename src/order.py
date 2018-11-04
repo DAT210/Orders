@@ -14,15 +14,18 @@ totalPrice = 0
 global orderID
 orderID = 0
 
+
 @app.route("/")
 def start():
     return "hello world"
+
 
 @app.route("/orderIndex", methods=["GET"])
 def index():
     global order
     global totalPrice
     return render_template("orderIndex.html", order=order, total=totalPrice)
+
 
 @app.route("/sendPrice/oid", methods=["POST"])
 def getPriceOid():
@@ -34,12 +37,14 @@ def getPriceOid():
     orderID = loaded["OrderID"]
     return Response(status=200)
 
+
 @app.route("/sendCart", methods=["POST"])
 def sendCart():
     global order
     inputJSON = request.get_json(force=True)
     order = json.loads(inputJSON)
     return Response(status=200)
+
 
 @app.route("/confirm", methods=["POST"])
 #TODO
@@ -97,6 +102,7 @@ def confirm():
 
     return render_template("not200error.html")
 
+
 @app.route("/checkDeliveryPrice", methods=["POST"])
 def checkDeliveryPrice():
     ajaxData = request.form.get("data")
@@ -105,7 +111,6 @@ def checkDeliveryPrice():
     city = jsonData["city"]
     zipcode = jsonData["zipcode"]
     method = jsonData["method"]
-
 
     if address == "" or city == "" or zipcode == "":
         return ""
