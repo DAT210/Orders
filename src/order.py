@@ -1,50 +1,60 @@
-from flask import Flask, request, render_template, redirect, Response
+from flask import Flask, request, render_template, redirect, Response, session, url_for
 import json
 import random
 import requests
-
+import os
 
 # Connect to Redis
 app = Flask(__name__)
+app.secret_key = os.urandom(20000)
 
-global order
-order = {}
-global totalPrice
-totalPrice = 0
-global orderID
-orderID = 0
+
+docker = "http://192.168.99.100:26300"
+local = "http://localhost:3000"
+
+global test_url
+test_url = docker
 
 @app.route("/")
 def start():
     return "hello world"
 
+
+@app.route("/sendCart", methods=["GET"])
+def sendCart():
+    cart = request.args["cart"]
+    orderIDtotal = request.args["orderIDtotal"]
+    orderIDtotal = json.loads(orderIDtotal)
+    if orderIDtotal:
+        session["cart"] = cart
+    else:
+        render_template("not200error.html")
+
+    if orderIDtotal:
+        session["orderID"] = orderIDtotal["OrderID"]
+        session["TotalPrice"] = orderIDtotal["TotalPrice"]
+    else:
+        render_template("not200error.html")
+
+    return redirect(url_for(".index"))
+
+
 @app.route("/orderIndex", methods=["GET"])
 def index():
-    global order
-    global totalPrice
-    return render_template("orderIndex.html", order=order, total=totalPrice)
+    if "cart" in session and "TotalPrice" in session:
+        message1 = session["cart"]
+        order = json.loads(message1)
+        totalPrice = session["TotalPrice"]
+        return render_template("orderIndex.html", order=order, total=totalPrice)
 
-@app.route("/sendPrice/oid", methods=["POST"])
-def getPriceOid():
-    global totalPrice
-    global orderID
-    inputJSON = request.get_json(force=True)
-    loaded = json.loads(inputJSON)
-    totalPrice = loaded["TotalPrice"]
-    orderID = loaded["OrderID"]
-    return Response(status=200)
+    return render_template("woopsError.html")
 
-@app.route("/sendCart", methods=["POST"])
-def sendCart():
-    global order
-    inputJSON = request.get_json(force=True)
-    order = json.loads(inputJSON)
-    return Response(status=200)
 
 @app.route("/confirm", methods=["POST"])
 #TODO
 def confirm():
-    global orderID
+    global test_url
+    orderID = session["orderID"]
     deliveryMethod = request.form.get("delMethod")
     deliverType = request.form.get("transMethod")
     paymentMethod = request.form.get("payMethod")
@@ -66,8 +76,8 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post("http://192.168.99.100:26300/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
-        respDelivery = requests.post("http://192.168.99.100:26300/delivery/neworder", json=dumpDelivery)  ##send to delivery
+        respSelf = requests.post(test_url + "/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
+        respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)  ##send to delivery
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
@@ -84,8 +94,8 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post("http://192.168.99.100:26300/orders/api/DeliveryMethod", json=dumpSelf)
-        respDelivery = requests.post("http://192.168.99.100:26300/delivery/neworder", json=dumpDelivery)
+        respSelf = requests.post(test_url + "/orders/api/DeliveryMethod", json=dumpSelf)
+        respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
@@ -96,6 +106,7 @@ def confirm():
         None
 
     return render_template("not200error.html")
+
 
 @app.route("/checkDeliveryPrice", methods=["POST"])
 def checkDeliveryPrice():
@@ -113,7 +124,7 @@ def checkDeliveryPrice():
     #TODO
     #SEND REQUEST TO DELIVERY TO GET DELIVERY PRICE AND RETURN IT WITH TRAILING ",-"
     address.replace(" ", "+")
-    Pricing = requests.get("http://192.168.99.100:26300/delivery/methods/eta?address="+address+"+"+zipcode+"+"+city+"&oid=<Order_ID>")
+    Pricing = requests.get(test_url + "/delivery/methods/eta?address=" + address + "+" + zipcode + "+" + city + "&oid=<Order_ID>")
     inputJSON = json.loads(Pricing.content)
 
     price = 0
@@ -132,13 +143,5 @@ def checkDeliveryPrice():
     return json.dumps(response)
 
 
-def calculateTotalPrice():
-    total = 0
-    for course in order:
-        price = course["price"]
-        amount = course["amount"]
-        total += float(price)*float(amount)
-    return total
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=26500)

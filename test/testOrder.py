@@ -1,14 +1,19 @@
 
 import requests
 import json
-from flask import Flask, request, render_template, redirect, make_response, Response
-
+from flask import Flask, request, render_template, redirect, make_response, Response, url_for, session
+import os
 
 
 # Connect to Redis
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
+docker = "http://192.168.99.100:26500"
+local = "http://localhost:5000"
 
+global test_url
+test_url = docker
 
 jsondict = [{
 
@@ -71,7 +76,7 @@ jsondict = [{
                 "i_name": "ingredient"
             }
         ],
-        "amount": "2"
+        "amount": "4"
     }
 ]
 
@@ -99,9 +104,9 @@ deliveryPrice = {
 def index():
     jsond = json.dumps(jsondict)
     jsondd = json.dumps(total)
-    requests.post("http://192.168.99.100:26500/sendCart", json=jsond)
-    requests.post("http://192.168.99.100:26500/sendPrice/oid", json=jsondd)
-    return redirect("http://192.168.99.100:26500/orderIndex")
+    requests.post(test_url + "/sendCart", json=jsond)
+    requests.post(test_url + "/sendPrice/oid", json=jsondd)
+    return redirect(test_url + "/orderIndex")
 
 @app.route("/delivery/methods/eta", methods=["GET"])
 def eta():
@@ -116,6 +121,12 @@ def neworder():
 def method():
     return make_response(Response(status=200))
 
+@app.route("/testSession")
+def testSession():
+    cart = json.dumps(jsondict)
+    orderIDtotal = json.dumps(total)
+    return redirect(test_url + "/sendCart?cart=" + cart + "&orderIDtotal=" + orderIDtotal)
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=26300)
