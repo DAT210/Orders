@@ -1,21 +1,39 @@
 version: '3'
 services:
-  app:
+  api:
     container_name: python-api
     restart: always
     build: .
     ports:
-      - '4000:80'
+      - '26400:80'
     links:
       - mysql
   mysql:
     container_name: mysql
-    image: mysql
-    volumes:
-      - ./:/etc/mysql/backup
     command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_DATABASE: 'Orders'
-      MYSQL_ROOT_PASSWORD: 'Orders01'
+    build:
+      context: ./
+      dockerfile: mysql.docker
     ports:
-      - '3306:3306'
+      - '26306:3306'
+  order:
+    container_name: order
+    restart: always
+    build:
+      context: ./
+      dockerfile: order.docker
+    ports:
+      - '26500:80'
+    links:
+      - api
+
+  testorder:
+    container_name: testorder
+    restart: always
+    build:
+      context: ./
+      dockerfile: testOrder.docker
+    ports:
+    - '26300:80'
+    links:
+    - order

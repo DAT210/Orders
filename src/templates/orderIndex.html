@@ -82,16 +82,18 @@
                                     <option value="1">By foot</option>
                                     <option value="2" selected>By car</option>
                                     <option value="3">By transit</option>
-                                    <option value="4">By drone</option>
                                 </select>
                                 <p class="help-block"></p>
                             </div>
                         </div>
                         <br>
                         <div class="control-group">
-                            <label class="control-label"><strong>Estimated delivery cost:</strong></label>
+                            <label class="control-label"><strong>Estimated delivery cost/time:</strong></label>
                             <br>
                             <label id="deliveryPrice"></label>
+                            &nbsp;
+                            &nbsp;
+                            <label id="ETA"></label>
                             <p class="help-block"></p>
                         </div>
                     </div>
@@ -112,7 +114,7 @@
                 </div>
                 <br>
                 <br>
-                Total price to pay: <label id="total" name="total"></label>
+                Total price to pay: <label id="total" name="total">{{ total }},-</label>
                 <br>
                 <br>
                 <div>
@@ -148,8 +150,10 @@
                     </tr>
                 {% endfor %}
                 <tr class="border-top border-bottom border-dark">
-                    <td colspan="4"></td>
-                    <td>{{ total }},-</td>
+                    <td></td>
+                    <td>Total</td>
+                    <td colspan="2"></td>
+                    <td id="totalPrice">{{ total }},-</td>
                 </tr>
                 </tbody>
             </table>
