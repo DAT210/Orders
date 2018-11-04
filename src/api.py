@@ -54,7 +54,7 @@ def ReceiveInfoFromMenu():
     OrderIDandTotalPrice = {"OrderID": int(ID), "TotalPrice": str(totalPrice)}
     OrderIDTotalToFrontEnd = json.dumps(OrderIDandTotalPrice)
     CoursesToFrontend = json.dumps(contentjson)
-    respons = redirect("http://localhost:80/sendCard?cart=" + CoursesToFrontend + "&orderIDtotal=" + OrderIDTotalToFrontEnd)
+    respons = redirect("http://192.168.99.100:26500/sendCard?cart=" + CoursesToFrontend + "&orderIDtotal=" + OrderIDTotalToFrontEnd)
 
     if respons.status_code != 302:
         return render_template("not302.html")
@@ -156,4 +156,4 @@ def GetCoursesFromOrderID(OrderID):
 
 
 if __name__ == "__main__":
-    app.run(port="26400")
+    app.run(port="80")
