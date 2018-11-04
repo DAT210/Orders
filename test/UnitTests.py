@@ -29,13 +29,13 @@ except mysql.connector.Error as err:
 class MyTest(unittest.TestCase):
     # Tests if sending a json to this url updates the Customer info in the db at the correct OrderID
     def testUpdateCustomer(self):
-        requests.post("http://127.0.0.1:80/orders/api/Customer", json={"CustomerID": 1, "OrderID": 1})
+        requests.post("http://127.0.0.1:80/orders/api/Customer", json={"OrderID": 1, "CustomerID": 1})
         result = CheckCustomerDatabase(1, 1)
         self.assertEqual(result, 1)
 
     # Tests if inserting the json updated the database at the right OrderID
     def testUpdateDeliveryMethod(self):
-        requests.post("http://127.0.0.1:80/orders/api/Customer", json={"OrderID": 1, "DeliveryMethod": "Car"})
+        requests.post("http://127.0.0.1:80/orders/api/DeliveryMethod", json={"OrderID": 1, "DeliveryMethod": "Car"})
         result = CheckDeliveryDatabase(1, "Car")
         self.assertEqual(result, "Car")
 
@@ -48,8 +48,6 @@ class MyTest(unittest.TestCase):
     def testOrdersDoneByCustomer(self):
         result = requests.get("http://127.0.0.1:80/orders/api/customerorders/1")
         wanted = CheckOrdersDoneByCustomer(1)
-        print(result.text)
-        print(wanted)
         self.assertEqual(result.text, wanted)
 
 

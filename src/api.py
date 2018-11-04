@@ -90,11 +90,12 @@ def InsertCustomer():
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
     info = request.get_json(force=True)
-    if info["CustomerID"] != "":
-        UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
-            info["CustomerID"], info["OrderID"])
-        cur.execute(UpdateCustomerQuery)
-        conn.commit()
+    if "CustomerID" in info:
+        if info["CustomerID"] != "":
+            UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
+                info["CustomerID"], info["OrderID"])
+            cur.execute(UpdateCustomerQuery)
+            conn.commit()
     UpdateDeliveryMethodQuery = "UPDATE Orders SET DeliveryMethod = '%s' WHERE OrderID = %s;" % (
         info["DeliveryMethod"], info["OrderID"])
     cur.execute(UpdateDeliveryMethodQuery)
