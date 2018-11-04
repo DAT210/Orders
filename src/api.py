@@ -62,9 +62,9 @@ def ReceiveInfoFromMenu():
     if ReturnStatus.status_code != 200:
         return render_template("not200error.html")
 
-    CoursesToThomas = json.dumps(contentjson)
+    CoursesToFrontend = json.dumps(contentjson)
     ReturnStatus = requests.post(
-        "http://localhost:26500/sendCart", json=CoursesToThomas)
+        "http://localhost:26500/sendCart", json=CoursesToFrontend)
 
     if ReturnStatus.status_code == 200:
         return redirect("http://localhost:26500/orderIndex")
