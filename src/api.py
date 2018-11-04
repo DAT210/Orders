@@ -58,6 +58,7 @@ def ReceiveInfoFromMenu():
 
     if respons.status_code != 302:
         return render_template("not302.html")
+    return respons
 
 
 # Used if there are two courses from menu named that same, but have some tiny differences.
