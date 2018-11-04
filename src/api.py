@@ -53,21 +53,20 @@ def ReceiveInfoFromMenu():
         cur.execute(insert)
     conn.commit()
 
-    OrderIDandTotalPrice = [
-        {"OrderID": int(ID), "TotalPrice": str(totalPrice)}]
+    OrderIDandTotalPrice = {"OrderID": int(ID), "TotalPrice": str(totalPrice)}
     OrderIDAndTotalPriceToFrontEnd = json.dumps(OrderIDandTotalPrice)
     ReturnStatus = requests.post(
-        "http://localhost:26500/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
+        "http://localhost:80/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
 
     if ReturnStatus.status_code != 200:
         return render_template("not200error.html")
 
     CoursesToFrontend = json.dumps(contentjson)
     ReturnStatus = requests.post(
-        "http://localhost:26500/sendCart", json=CoursesToFrontend)
+        "http://localhost:80/sendCart", json=CoursesToFrontend)
 
     if ReturnStatus.status_code == 200:
-        return redirect("http://localhost:26500/orderIndex")
+        return redirect("http://localhost:80/orderIndex")
     else:
         return render_template("not200error.html")
 
