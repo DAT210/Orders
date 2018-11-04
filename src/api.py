@@ -2,7 +2,6 @@ from flask import Flask, request, render_template, redirect, Response, url_for
 import mysql.connector
 from mysql.connector import errorcode
 import json
-import requests
 import re
 import datetime
 
@@ -55,7 +54,6 @@ def ReceiveInfoFromMenu():
     OrderIDandTotalPrice = {"OrderID": int(ID), "TotalPrice": str(totalPrice)}
     OrderIDTotalToFrontEnd = json.dumps(OrderIDandTotalPrice)
     CoursesToFrontend = json.dumps(contentjson)
-
     respons = redirect("http://localhost:80/sendCard?cart=" + CoursesToFrontend + "&orderIDtotal=" + OrderIDTotalToFrontEnd)
 
     if respons.status_code != 302:
@@ -122,8 +120,8 @@ def GetOrdersByCustomerID(CustomerID):
 
     OrderQuery = "SELECT * FROM Orders WHERE CustomerID = %s" % CustomerID
     cur.execute(OrderQuery)
-    conn.commit()
     Orders = cur.fetchall()
+    conn.commit()
 
     ListOfOrders = []
     for Order in Orders:
