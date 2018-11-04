@@ -108,18 +108,22 @@ def index():
     requests.post(test_url + "/sendPrice/oid", json=jsondd)
     return redirect(test_url + "/orderIndex")
 
+
 @app.route("/delivery/methods/eta", methods=["GET"])
 def eta():
     resp = Response(response=json.dumps(deliveryPrice), status=200, content_type=json)
     return resp
 
+
 @app.route("/delivery/neworder", methods=["POST"])
 def neworder():
     return make_response(Response(status=200))
 
+
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def method():
     return make_response(Response(status=200))
+
 
 @app.route("/testSession")
 def testSession():
