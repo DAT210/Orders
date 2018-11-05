@@ -1,8 +1,7 @@
-from flask import Flask, request, render_template, redirect, Response
+from flask import Flask, request, render_template, redirect, Response, url_for
 import mysql.connector
 from mysql.connector import errorcode
 import json
-import requests
 import re
 import datetime
 
@@ -22,16 +21,16 @@ except mysql.connector.Error as err:
 
 
 # Receives information from menu, inserts it into database, and sends to our frontend.
-# TODO: Split into multiple methods for simplicity
-@app.route("/orders/api/order/neworder", methods=["POST"])
+@app.route("/orders/api/neworder", methods=["GET"])
 def ReceiveInfoFromMenu():
-    contentjson = request.get_json(force=True)
+    cart = request.args["cart"]
+    contentjson = json.loads(cart)
 
     totalPrice = 0
     for item in contentjson:
         totalPrice += float(item["price"]) * float(item["amount"])
 
-    insertIntoOrder = "INSERT INTO Orders(Price) VALUES(%s)" % (totalPrice)
+    insertIntoOrder = "INSERT INTO Orders(Price) VALUES(%s)" % totalPrice
     cur.execute(insertIntoOrder)
     conn.commit()
     getLatestOrderID = "SELECT MAX(OrderID) from Orders"
@@ -53,23 +52,14 @@ def ReceiveInfoFromMenu():
         cur.execute(insert)
     conn.commit()
 
-    OrderIDandTotalPrice = [
-        {"OrderID": int(ID), "TotalPrice": str(totalPrice)}]
-    OrderIDAndTotalPriceToFrontEnd = json.dumps(OrderIDandTotalPrice)
-    ReturnStatus = requests.post(
-        "http://localhost:26500/sendPrice/oid", json=OrderIDAndTotalPriceToFrontEnd)
-
-    if ReturnStatus.status_code != 200:
-        return render_template("not200error.html")
-
+    OrderIDandTotalPrice = {"OrderID": int(ID), "TotalPrice": str(totalPrice)}
+    OrderIDTotalToFrontEnd = json.dumps(OrderIDandTotalPrice)
     CoursesToFrontend = json.dumps(contentjson)
-    ReturnStatus = requests.post(
-        "http://localhost:26500/sendCart", json=CoursesToFrontend)
+    respons = redirect("http://192.168.99.100:26500/sendCart?cart=" + CoursesToFrontend + "&orderIDtotal=" + OrderIDTotalToFrontEnd)
 
-    if ReturnStatus.status_code == 200:
-        return redirect("http://localhost:26500/orderIndex")
-    else:
-        return render_template("not200error.html")
+    if respons.status_code != 302:
+        return render_template("not302.html")
+    return respons
 
 
 # Used if there are two courses from menu named that same, but have some tiny differences.
@@ -85,15 +75,28 @@ def IncrementCourseAmount(CourseID, OrderID):
     conn.commit()
 
 
+# Takes a json with OrderID and CustomerID to insert into DB
+# Json should look like this: {"OrderID": <id>, "CustomerID":<id>
+@app.route("/orders/api/Customer", methods=["POST"])
+def InsertCustomer():
+    info = request.get_json(force=True)
+    InsertCustomerQuery = "UPDATE Orders Set CustomerID = %s, Paid = 1 WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
+    cur.execute(InsertCustomerQuery)
+    conn.commit()
+    return Response(status=200)
+
+
 # Takes a json to update database with DeliveryMethod, and maybe CustomerID, depending on where
+# Json should look like this: {"CustomerID": <id>, "OrderID": <id>, "DeliveryMethod": <"method">}
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
     info = request.get_json(force=True)
-    if info["CustomerID"] != "":
-        UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
-            info["CustomerID"], info["OrderID"])
-        cur.execute(UpdateCustomerQuery)
-        conn.commit()
+    if "CustomerID" in info:
+        if info["CustomerID"] != "":
+            UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
+                info["CustomerID"], info["OrderID"])
+            cur.execute(UpdateCustomerQuery)
+            conn.commit()
     UpdateDeliveryMethodQuery = "UPDATE Orders SET DeliveryMethod = '%s' WHERE OrderID = %s;" % (
         info["DeliveryMethod"], info["OrderID"])
     cur.execute(UpdateDeliveryMethodQuery)
@@ -120,8 +123,8 @@ def GetOrdersByCustomerID(CustomerID):
 
     OrderQuery = "SELECT * FROM Orders WHERE CustomerID = %s" % CustomerID
     cur.execute(OrderQuery)
-    conn.commit()
     Orders = cur.fetchall()
+    conn.commit()
 
     ListOfOrders = []
     for Order in Orders:
@@ -156,4 +159,4 @@ def GetCoursesFromOrderID(OrderID):
 
 
 if __name__ == "__main__":
-    app.run(port="26400")
+    app.run(host="0.0.0.0", port=80)
