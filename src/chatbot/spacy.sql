@@ -1,6 +1,6 @@
 CREATE DATABASE spacy;
 USE spacy;
-CREATE TABLE unimplemented(sentence varchar(250), guess varchar(250), id smallint unsigned not null auto_increment, constraint pk_example primary key (id));
+CREATE TABLE unimplemented(sentence varchar(250), guess varchar(250), sort smallint, id smallint unsigned not null auto_increment, constraint pk_example primary key (id));
 CREATE TABLE openingTimes(weekday varchar(10), openingTime varchar(10), closingTime varchar(10));
 INSERT INTO openingTimes(weekday, openingTime, closingTime) VALUES ('monday', '12:00', '20:00');
 INSERT INTO openingTimes(weekday, openingTime, closingTime) VALUES ('tuesday', '12:00', '20:00');

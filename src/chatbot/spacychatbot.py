@@ -110,7 +110,7 @@ def not_handled():
         'book': nlp_sent.similarity(book_comp)
     }
     mostLikely = max(similarity, key=similarity.get)
-    sql.notHandled(sent, mostLikely)
+    sql.notHandled(sent, mostLikely, 0)
     response += "You asked a question I couldn't even sort out. " \
                 "I have been programmed to sort out any intelligent question a customer might have. " \
                 "This means that your question is stupid, you're stupid, and your mom is stupid. <br/>"
@@ -125,13 +125,16 @@ def opening_times():
             if entity.text in weekdays:
                 response += sql.openingDay(entity.text)
             else:
-                response += "I don't know the opening times on specific dates, as my Glorious Leader" \
-                            " couldn't be bothered to figure out how to do that. </br>"
+                sql.notHandled(sent, "opening", 1)
+                print(entity.text)
+                response += "I don't know the opening times on specific dates, too bad. </br>"
     if not date:
         response = sql.allOpening()
 
 
 def prices():
+    # TODO find a way to sort out dish names
+    sql.notHandled(sent, "price", 2)
     global response
     response += "I can't answer questions about prices," \
                 " as anyone with half a brain could check it out for themselves IN THE MENU </br>"
@@ -140,6 +143,7 @@ def prices():
 
 
 def available():
+    sql.notHandled(sent, "available", 3)
     global response
     response += "I can't answer questions about table availability," \
                 " as anyone with half a brain could check it out for themselves if they just followed THIS link </br>"
