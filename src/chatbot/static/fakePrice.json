@@ -1,0 +1,24 @@
+{
+
+        "c_id":"1",
+        "c_name":"pepperoni pizza",
+        "price":"5.20",
+        "ingredients":[
+            {
+                "i_id":"1",
+                "i_name":"ingredient alpha"
+            },
+
+            {
+                "i_id":"3",
+                "i_name":"ingredient charlie"
+            },
+
+            {
+                "i_id":"4",
+                "i_name":"ingredient delta"
+            }
+
+        ],
+        "amount": "1"
+}

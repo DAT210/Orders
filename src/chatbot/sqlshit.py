@@ -32,7 +32,6 @@ def notHandled(sentence, guess):
     sql = "INSERT INTO unimplemented(sentence, guess) VALUES(%s, %s)"
     cur.execute(sql, (sentence, guess))
     conn.commit()
-    # get this to work!!!
 
 
 def getNotHandled():
@@ -49,3 +48,9 @@ def getComplaints():
     for row in cur:
         complaints.append(row)
     return complaints
+
+
+def complaint(complaint, customerID):
+    sql = "INSERT INTO complaints(complaint, customerID) VALUES(%s, %s)"
+    cur.execute(sql, (complaint, customerID))
+    conn.commit

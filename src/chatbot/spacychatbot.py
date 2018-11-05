@@ -59,11 +59,9 @@ def prep_sentence(sentence):
     global sent
     sent = sentence
     nlpsent = nlp(sent)
-    print(nlpsent)
     # lemmatize to remove some word variations
     global nlp_sent
     nlp_sent = lemmatize(nlpsent)
-    print(nlp_sent)
 
 
 def lemmatize(nlpobj):
@@ -87,10 +85,8 @@ def get_matches():
 
 
 def sort(match):
-    print(match['id'])
     match_id = match['id']
     rule_id = nlp.vocab.strings[match_id]
-    print(rule_id)
     if rule_id == "openingTimes":
         opening_times()
     elif rule_id == "prices":
@@ -116,7 +112,7 @@ def not_handled():
     mostLikely = max(similarity, key=similarity.get)
     sql.notHandled(sent, mostLikely)
     response += "You asked a question I couldn't even sort out. " \
-                "I have been programmed to sort out any inteligent question a customer might have. " \
+                "I have been programmed to sort out any intelligent question a customer might have. " \
                 "This means that your question is stupid, you're stupid, and your mom is stupid. <br/>"
 
 
@@ -125,7 +121,6 @@ def opening_times():
     global response
     for entity in nlp_sent.ents:
         if entity.label_ == 'DATE':
-            print(entity.text)
             date = True
             if entity.text in weekdays:
                 response += sql.openingDay(entity.text)
@@ -140,9 +135,8 @@ def prices():
     global response
     response += "I can't answer questions about prices," \
                 " as anyone with half a brain could check it out for themselves IN THE MENU </br>"
-    myjson = fr.price('pepperoni pizza')
-    info = json.loads(myjson)
-    print(info['Price'])
+    info = fr.price('pepperoni pizza')
+    print(info)
 
 
 def available():
@@ -153,6 +147,7 @@ def available():
 
 def complaint():
     global response
+    sql.complaint(sent, 0)
     response = "Your complaint has been saved, and will be reviewed whenever we feel like it (most likely never). " \
                "Thank you for not having a life (punk ass bitch). </br>"
 
