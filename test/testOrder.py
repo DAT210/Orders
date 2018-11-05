@@ -131,6 +131,11 @@ def testSession():
     orderIDtotal = json.dumps(total)
     return redirect(test_url + "/sendCart?cart=" + cart + "&orderIDtotal=" + orderIDtotal)
 
+@app.route("/testapi")
+def testapi():
+    cart = json.dumps(jsondict)
+    return redirect("http://192.168.99.100:26400/orders/api/neworder?cart=" + cart)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)

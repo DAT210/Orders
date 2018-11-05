@@ -21,11 +21,11 @@ except mysql.connector.Error as err:
 
 
 # Receives information from menu, inserts it into database, and sends to our frontend.
-@app.route("/orders/api/order/neworder", methods=["GET"])
+@app.route("/orders/api/neworder", methods=["GET"])
 def ReceiveInfoFromMenu():
     cart = request.args["cart"]
     contentjson = json.loads(cart)
-
+    print("yoyoyoyoyo")
     ##contentjson = request.get_json(force=True)
 
     totalPrice = 0
@@ -57,7 +57,7 @@ def ReceiveInfoFromMenu():
     OrderIDandTotalPrice = {"OrderID": int(ID), "TotalPrice": str(totalPrice)}
     OrderIDTotalToFrontEnd = json.dumps(OrderIDandTotalPrice)
     CoursesToFrontend = json.dumps(contentjson)
-    respons = redirect("http://192.168.99.100:26500/sendCard?cart=" + CoursesToFrontend + "&orderIDtotal=" + OrderIDTotalToFrontEnd)
+    respons = redirect("http://192.168.99.100:26500/sendCart?cart=" + CoursesToFrontend + "&orderIDtotal=" + OrderIDTotalToFrontEnd)
 
     if respons.status_code != 302:
         return render_template("not302.html")
@@ -161,4 +161,4 @@ def GetCoursesFromOrderID(OrderID):
 
 
 if __name__ == "__main__":
-    app.run(port="80")
+    app.run(host="0.0.0.0", port=80)
