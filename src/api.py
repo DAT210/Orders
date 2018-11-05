@@ -25,8 +25,6 @@ except mysql.connector.Error as err:
 def ReceiveInfoFromMenu():
     cart = request.args["cart"]
     contentjson = json.loads(cart)
-    print("yoyoyoyoyo")
-    ##contentjson = request.get_json(force=True)
 
     totalPrice = 0
     for item in contentjson:
