@@ -21,9 +21,12 @@ except mysql.connector.Error as err:
 
 
 # Receives information from menu, inserts it into database, and sends to our frontend.
-@app.route("/orders/api/order/neworder", methods=["POST"])
+@app.route("/orders/api/order/neworder", methods=["GET"])
 def ReceiveInfoFromMenu():
-    contentjson = request.get_json(force=True)
+    cart = request.args["cart"]
+    contentjson = json.loads(cart)
+
+    ##contentjson = request.get_json(force=True)
 
     totalPrice = 0
     for item in contentjson:
