@@ -1,0 +1,14 @@
+{
+    "customer_id": "",
+    "order_id": "",
+    "delivery": {
+        "price" : "",
+        "method": "takeaway/delivery",
+        "est_time": "",
+        "address": ""
+    },
+    "ordered": [
+        { "name" : "name1", "product": "productID1", "price" : "price1", "amount" : "amount1" },
+        { "name" : "name2", "product": "productID2", "price" : "price2", "amount" : "amount2" }
+    ]
+}

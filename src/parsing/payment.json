@@ -1,0 +1,27 @@
+{ "Payment": [
+    {
+    "customer_id": "",
+    "order_id": "",
+    "ordered": [
+        {
+            "name":"name1",
+            "id":"product ID 1",
+            "price":"price1",
+            "amount":"amount1"
+        },
+        {
+            "name":"name2",
+            "id":"product ID 2",
+            "price":"price2",
+            "amount":"amount2"
+        }
+    ]
+}
+
+
+
+]
+
+
+
+}
