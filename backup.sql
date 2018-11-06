@@ -46,7 +46,7 @@ UNLOCK TABLES;
 
 
 --
--- Table structure for table `Ingredients`
+-- Table structure for table `Courses`
 --
 
 DROP TABLE IF EXISTS `Courses`;
@@ -64,12 +64,12 @@ CREATE TABLE `Courses` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Ingredients`
+-- Dumping data for table `Courses`
 --
 
 LOCK TABLES `Courses` WRITE;
-/*!40000 ALTER TABLE `Ingredients` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Ingredients` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Courses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 INSERT INTO Orders(OrderID, CustomerID, PaymentMethod, DeliveryMethod, Price, Paid)
