@@ -4,6 +4,7 @@ from mysql.connector import errorcode
 import json
 import re
 import datetime
+import copy
 
 # Connect to database
 app = Flask(__name__)
@@ -125,17 +126,17 @@ def GetOrdersByCustomerID(CustomerID):
     cur.execute(OrderQuery)
     Orders = cur.fetchall()
     conn.commit()
-
     ListOfOrders = []
     for Order in Orders:
+        print(Order)
         for item in Order:
             key = list(orderDict.keys())[Order.index(item)]
             if isinstance(item, datetime.datetime):
                 orderDict[key] = str(item)
             else:
                 orderDict[key] = item
-        ListOfOrders.append(orderDict)
-    return json.dumps(ListOfOrders)
+        ListOfOrders.append(copy(orderDict))
+    return json.dumps(str(Orders))
 
 
 # Returns all courses in given OrderID
@@ -154,9 +155,9 @@ def GetCoursesFromOrderID(OrderID):
         for item in Course:
             key = list(CourseDict.keys())[Course.index(item)]
             CourseDict[key] = item
-        ListOfCourses.append(CourseDict)
+        ListOfCourses.append(copy(CourseDict))
     return json.dumps(ListOfCourses)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(port=80)
