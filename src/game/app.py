@@ -158,6 +158,15 @@ def restart_game():
     obstacles["bottomright"].speed = [0, 2]
     obstacles["topright"].speed = [2, 0]
     obstacles["bottomleft"].speed = [-2, 0]
+    
+    if "top" in obstacles:
+        obstacles.pop("top")
+    if "bottom" in obstacles:
+        obstacles.pop("bottom")
+    if "right" in obstacles:
+        obstacles.pop("right")
+    if "left" in obstacles:
+        obstacles.pop("left")
 
 def choose_player(speed):
     if speed[0] > 0 and speed[1] == 0:
@@ -262,11 +271,41 @@ while 1:
 
     if player.rect.colliderect(food.rect):
         score += 100
+
+        if score == 1000:
+            obstacles["top"] = Object(obstacle.get_rect(), [0, 0])
+            obstacles["bottom"] = Object(obstacle.get_rect(), [0, 0])
+            obstacles["right"] = Object(obstacle.get_rect(), [0, 0])
+            obstacles["left"] = Object(obstacle.get_rect(), [0, 0])
+            if player.rect.center[0] < (width / 2):
+                obstacles["top"].rect.topright = (width, height/4)
+                obstacles["top"].speed = [-2, 0]
+                obstacles["bottom"].rect.bottomright = (width, 3*height/4)
+                obstacles["bottom"].speed = [-2, 0]
+            else:
+                obstacles["top"].rect.topleft = (0, height/4)
+                obstacles["top"].speed = [2, 0]
+                obstacles["bottom"].rect.bottomleft = (0, 3*height/4)
+                obstacles["bottom"].speed = [2, 0]
+
+            if player.rect.center[1] < (height / 2):
+                obstacles["right"].rect.bottomright = (3*width/4, height)
+                obstacles["right"].speed = [0, -2]
+                obstacles["left"].rect.bottomleft = (width/4, height)
+                obstacles["left"].speed = [0, -2]
+            else:
+                obstacles["right"].rect.topright = (3*width/4, 0)
+                obstacles["right"].speed = [0, 2]
+                obstacles["left"].rect.topleft = (width/4, 0)
+                obstacles["left"].speed = [0, 2]
+
         xcoord, ycoord = foodstart()
         food.rect.center = (xcoord, ycoord)
         if (food.speed[0]**(2.0)+food.speed[1]**(2.0))**(0.5) < 5.0:
             increase_speed(food.speed)
         for key in obstacles:
+            if key == "top" or key == "bottom" or key == "right" or key == "left":
+                continue
             obstacles[key].speed = [obstacles[key].speed[1], obstacles[key].speed[0]]
 
     bounce(food.rect, food.speed)
