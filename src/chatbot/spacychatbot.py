@@ -14,6 +14,7 @@ priceList = ['price', 'cost', 'how much']
 availabilityList = ['available']
 complaintsList = ['bad', 'horrible', 'terrible', 'dirty', 'slow']
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+locationList = ['where']
 matcher = PhraseMatcher(nlp.vocab)
 
 app = Flask(__name__)
@@ -32,10 +33,12 @@ def init():
     price_pattern = [nlp(text) for text in priceList]
     available_pattern = [nlp(text) for text in availabilityList]
     complaints_pattern = [nlp(text) for text in complaintsList]
+    location_pattern = [nlp(text) for text in locationList]
     matcher.add('openingTimes', None, *opening_pattern)
     matcher.add('prices', None, *price_pattern)
     matcher.add('availability', None, *available_pattern)
     matcher.add('complaints', None, *complaints_pattern)
+    matcher.add('location', None, *location_pattern)
     return json.dumps("Hello")
 
 
@@ -95,6 +98,8 @@ def sort(match):
         available()
     elif rule_id == 'complaints':
         complaint()
+    elif rule_id == 'location':
+        location()
     else:
         not_handled()
 
@@ -138,12 +143,18 @@ def prices():
     global response
     response += "I can't answer questions about prices," \
                 " as anyone with half a brain could check it out for themselves IN THE MENU </br>"
-    info = fr.price('pepperoni pizza')
+    info = json.loads(fr.price('pepperoni pizza'))
     print(info)
 
 
 def available():
     sql.notHandled(sent, "available", 3)
+    for entity in nlp_sent.ents:
+        print(entity.text)
+        if entity.label_ == 'DATE':
+            if entity.text in weekdays:
+                print("weekday")
+                # TODO make weekday into a specific data
     global response
     response += "I can't answer questions about table availability," \
                 " as anyone with half a brain could check it out for themselves if they just followed THIS link </br>"
@@ -154,6 +165,11 @@ def complaint():
     sql.complaint(sent, 0)
     response = "Your complaint has been saved, and will be reviewed whenever we feel like it (most likely never). " \
                "Thank you for not having a life (punk ass bitch). </br>"
+
+
+def location():
+    global response
+    response = "The address for the restaurant is ADDRESS, which you would have known if you'd looked here. </br>"
 
 
 if __name__ == "__main__":
