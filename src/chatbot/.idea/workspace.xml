@@ -14,13 +14,23 @@
       <file leaf-file-name="spacychatbot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spacychatbot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+            <state relative-caret-position="266">
+              <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
-                <element signature="e#1397#1674#0" expanded="false" />
-                <element signature="e#1941#2036#0" expanded="false" />
-                <element signature="e#2062#2312#0" expanded="false" />
+                <element signature="e#2029#2124#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="handler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -36,11 +46,41 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="spacy.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spacy.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="171" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="fakePrice.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/fakePrice.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
               <caret line="23" column="1" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="complaintHandler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/complaintHandler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notHandled.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/notHandled.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -79,6 +119,7 @@
         <option value="$PROJECT_DIR$/spacy.sql" />
         <option value="$PROJECT_DIR$/sqlshit.py" />
         <option value="$PROJECT_DIR$/fakereturn.py" />
+        <option value="$PROJECT_DIR$/handler.py" />
         <option value="$PROJECT_DIR$/spacychatbot.py" />
       </list>
     </option>
@@ -339,13 +380,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/chatbotlo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/tester.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -368,9 +402,7 @@
           <caret line="20" column="10" lean-forward="true" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1397#1674#0" expanded="false" />
-            <element signature="e#1941#2036#0" expanded="false" />
-            <element signature="e#2062#2312#0" expanded="false" />
+            <element signature="e#2029#2124#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -390,9 +422,7 @@
           <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1397#1674#0" expanded="false" />
-            <element signature="e#1941#2036#0" expanded="false" />
-            <element signature="e#2062#2312#0" expanded="false" />
+            <element signature="e#2029#2124#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -450,9 +480,7 @@
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1397#1674#0" expanded="false" />
-            <element signature="e#1941#2036#0" expanded="false" />
-            <element signature="e#2062#2312#0" expanded="false" />
+            <element signature="e#2029#2124#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -485,9 +513,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1397#1674#0" expanded="false" />
-            <element signature="e#1941#2036#0" expanded="false" />
-            <element signature="e#2062#2312#0" expanded="false" />
+            <element signature="e#2029#2124#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -528,9 +554,7 @@
           <caret line="20" column="10" lean-forward="true" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1397#1674#0" expanded="false" />
-            <element signature="e#1941#2036#0" expanded="false" />
-            <element signature="e#2062#2312#0" expanded="false" />
+            <element signature="e#2029#2124#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -550,9 +574,7 @@
           <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1397#1674#0" expanded="false" />
-            <element signature="e#1941#2036#0" expanded="false" />
-            <element signature="e#2062#2312#0" expanded="false" />
+            <element signature="e#2029#2124#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -639,34 +661,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notHandled.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///anaconda3/lib/python3.6/site-packages/flask/json.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/complaintHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spacy.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="171" />
           <folding />
         </state>
       </provider>
@@ -695,15 +693,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/notHandled.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spacy.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="171" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/complaintHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/spacychatbot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+        <state relative-caret-position="266">
+          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#1397#1674#0" expanded="false" />
-            <element signature="e#1941#2036#0" expanded="false" />
-            <element signature="e#2062#2312#0" expanded="false" />
+            <element signature="e#2029#2124#0" expanded="false" />
           </folding>
         </state>
       </provider>
