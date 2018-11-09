@@ -16,6 +16,7 @@ availabilityList = ['available']
 complaintsList = ['bad', 'horrible', 'terrible', 'dirty', 'slow']
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 locationList = ['where', 'address']
+jokeList = ['joke', 'funny']
 matcher = PhraseMatcher(nlp.vocab)
 
 app = Flask(__name__)
@@ -35,11 +36,13 @@ def init():
     available_pattern = [nlp(text) for text in availabilityList]
     complaints_pattern = [nlp(text) for text in complaintsList]
     location_pattern = [nlp(text) for text in locationList]
+    joke_pattern = [nlp(text) for text in jokeList]
     matcher.add('openingTimes', None, *opening_pattern)
     matcher.add('prices', None, *price_pattern)
     matcher.add('availability', None, *available_pattern)
     matcher.add('complaints', None, *complaints_pattern)
     matcher.add('location', None, *location_pattern)
+    matcher.add('joke', None, *joke_pattern)
     return json.dumps("Hello")
 
 
@@ -104,6 +107,8 @@ def sort(match):
         response = h.complaint()
     elif rule_id == 'location':
         response = h.location()
+    elif rule_id == 'joke':
+        response = h.joke()
     else:
         response = h.not_handled()
 

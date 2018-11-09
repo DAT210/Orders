@@ -11,7 +11,6 @@ nlp_sent = ""
 
 
 def not_handled():
-    global response
     price_comp = nlp("What is the price")
     availability_comp = nlp("Is a table available")
     book_comp = nlp("I want to book a table")
@@ -20,16 +19,15 @@ def not_handled():
         'availability': nlp_sent.similarity(availability_comp),
         'book': nlp_sent.similarity(book_comp)
     }
-    mostLikely = max(similarity, key=similarity.get)
-    sql.notHandled(sent, mostLikely, 0)
+    most_likely = max(similarity, key=similarity.get)
+    sql.notHandled(sent, most_likely, 0)
     return "You asked a question I couldn't even sort out. " \
-                "I have been programmed to sort out any intelligent question a customer might have. " \
-                "This means that your question is stupid, you're stupid, and your mom is stupid. <br/>"
+           "I have been programmed to sort out any intelligent question a customer might have. " \
+           "This means that your question is stupid, you're stupid, and your mom is stupid. <br/>"
 
 
 def opening_times():
     date = False
-    global response
     for entity in nlp_sent.ents:
         if entity.label_ == 'DATE':
             date = True
@@ -76,4 +74,3 @@ def location():
 
 def joke():
     return "How do you stop a baby from crawling around in circles? Nail it’s other hand to the floor. </br>"
-
