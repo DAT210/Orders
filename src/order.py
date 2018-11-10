@@ -96,8 +96,6 @@ def confirm():
             return render_template("confirm.html")
 
     elif deliveryMethod == "Pickup" and paymentMethod == "payNow":
-        # TODO
-        # redirect to payment
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
         toDelivery = {"order_id": orderID, "delivery_method": "Pickup", "address": "", "aborted": False}
 
@@ -128,7 +126,9 @@ def confirm():
         dataToSend["delivery"]["est_time"] = session["eta"]
         dataToSend["delivery"]["address"] = address
         dataToSend["ordered"] = cartToPayment
-        return render_template("confirm.html")
+        #TODO
+        # Actually send this to payment
+        return "Sending you to payment"
 
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payOnDel":
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
@@ -144,9 +144,40 @@ def confirm():
             return render_template("confirm.html")
 
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payNow":
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
+        toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
+
+        dumpSelf = json.dumps(result)
+        dumpDelivery = json.dumps(toDelivery)
+
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)
+        respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)
+
+        if respSelf.status_code != 200 and respDelivery.status_code != 200:
+            return render_template("not200error.html")
+
+        cart = session["cart"]
+        cartToPayment = []
+        for item in cart:
+            itemToAppend = {
+                "name":	item["c_name"],
+                "id": int(item["c_id"]),
+                "price": float(item["price"]),
+                "amount": int(item["amount"])
+            }
+            cartToPayment.append(itemToAppend)
+
+        dataToSend["customer_ID"] = cid
+        dataToSend["order_ID"] = orderID
+        dataToSend["delivery"]["price"] = session["deliveryPrice"]
+        dataToSend["delivery"]["method"] = deliverType
+        dataToSend["delivery"]["est_time"] = session["eta"]
+        dataToSend["delivery"]["address"] = address
+        dataToSend["ordered"] = cartToPayment
         #TODO
-        #redirect to payment
-        None
+        #Actually send this to payment
+        return "Sending you to payment"
+
 
     return render_template("not200error.html")
 
