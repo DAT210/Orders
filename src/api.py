@@ -8,6 +8,7 @@ import copy
 
 # Connect to database
 app = Flask(__name__)
+global cur
 try:
     conn = mysql.connector.connect(
         user='root', password='Orders01', host="192.168.99.100", database='Orders', port=26306)
@@ -24,6 +25,7 @@ except mysql.connector.Error as err:
 # Receives information from menu, inserts it into database, and sends to our frontend.
 @app.route("/orders/api/neworder", methods=["GET"])
 def ReceiveInfoFromMenu():
+    global cur
     cart = request.args["cart"]
     contentjson = json.loads(cart)
 
@@ -65,6 +67,7 @@ def ReceiveInfoFromMenu():
 
 # Used if there are two courses from menu named that same, but have some tiny differences.
 def IncrementCourseAmount(CourseID, OrderID):
+    global cur
     CourseIDQuery = "SELECT quantity FROM Courses WHERE CourseID = %s AND OrderID = %s;" % (
         CourseID, OrderID)
     cur.execute(CourseIDQuery)
@@ -80,6 +83,7 @@ def IncrementCourseAmount(CourseID, OrderID):
 # Json should look like this: {"OrderID": <id>, "CustomerID":<id>
 @app.route("/orders/api/Customer", methods=["POST"])
 def InsertCustomer():
+    global cur
     info = request.get_json(force=True)
     InsertCustomerQuery = "UPDATE Orders Set CustomerID = %s, Paid = 1 WHERE OrderID = %s;" % (info["CustomerID"], info["OrderID"])
     cur.execute(InsertCustomerQuery)
@@ -91,6 +95,7 @@ def InsertCustomer():
 # Json should look like this: {"CustomerID": <id>, "OrderID": <id>, "DeliveryMethod": <"method">}
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
+    global cur
     info = request.get_json(force=True)
     if "CustomerID" in info:
         if info["CustomerID"] != "":
@@ -109,6 +114,7 @@ def InsertDeliveryMethod():
 # When requested for this spesific url, you get all info about the order with given ID
 @app.route("/orders/api/orderID/<int:ID>", methods=["GET"])
 def GetOrderByID(ID):
+    global cur
     OrderQuery = "SELECT * FROM Orders WHERE OrderID = %s;" % ID
     cur.execute(OrderQuery)
     Order = cur.fetchall()
@@ -119,6 +125,7 @@ def GetOrderByID(ID):
 # Get orders done by customer
 @app.route("/orders/api/customerorders/<int:CustomerID>", methods=["GET"])
 def GetOrdersByCustomerID(CustomerID):
+    global cur
     with open("parsing/Order.json", "r") as f:
         orderDict = json.load(f)
 
@@ -142,6 +149,7 @@ def GetOrdersByCustomerID(CustomerID):
 # Returns all courses in given OrderID
 @app.route("/orders/api/courses/<int:OrderID>", methods=["GET"])
 def GetCoursesFromOrderID(OrderID):
+    global cur
     with open("parsing/Course.json", "r") as f:
         CourseDict = json.load(f)
 
