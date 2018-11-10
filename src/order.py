@@ -61,7 +61,6 @@ def confirm():
     street = request.form.get("address")
     city = request.form.get("city")
     zipcode = request.form.get("zipcode")
-    zipcode = request.form.get("zipcode")
 
     address = street+"|"+zipcode+"|"+city
 
@@ -90,7 +89,7 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post("http://localhost:26400" + "/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
         respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)  ##send to delivery
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
@@ -99,6 +98,18 @@ def confirm():
     elif deliveryMethod == "Pickup" and paymentMethod == "payNow":
         # TODO
         # redirect to payment
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
+        toDelivery = {"order_id": orderID, "delivery_method": "Pickup", "address": "", "aborted": False}
+
+        dumpSelf = json.dumps(result)
+        dumpDelivery = json.dumps(toDelivery)
+
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)  ##Send to api.py
+        respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)  ##send to delivery
+
+        if respSelf.status_code != 200 and respDelivery.status_code != 200:
+            return render_template("not200error.html")
+
         cart = session["cart"]
         cartToPayment = []
         for item in cart:
@@ -108,7 +119,7 @@ def confirm():
                 "price": float(item["price"]),
                 "amount": int(item["amount"])
             }
-            cartToPayment.append(cartToPayment, itemToAppend)
+            cartToPayment.append(itemToAppend)
 
         dataToSend["customer_ID"] = cid
         dataToSend["order_ID"] = orderID
@@ -126,7 +137,7 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post("http://localhost:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)
         respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
