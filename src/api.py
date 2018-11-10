@@ -93,10 +93,10 @@ def InsertCustomer():
 # Json should look like this: {"CustomerID": <id>, "OrderID": <id>, "DeliveryMethod": <"method">}
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
-    obs = request.get_json(force=True)
-    info = json.loads(obs)
+    jsoninfo = request.get_json(force=True)
+    info = json.loads(jsoninfo)
     if "CustomerID" in info:
-        if info["CustomerID"] != "" and info["CustomerID"] != 0:
+        if str(info["CustomerID"]) != "" and info["CustomerID"] != 0:
             UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
                 info["CustomerID"], info["OrderID"])
             cur.execute(UpdateCustomerQuery)
@@ -159,6 +159,16 @@ def GetCoursesFromOrderID(OrderID):
             CourseDict[key] = item
         ListOfCourses.append(copy(CourseDict))
     return json.dumps(ListOfCourses)
+
+
+# Updated paid condition in db
+@app.route("/orders/api/paid", methods=["POST"])
+def UpdatePaid():
+    info = request.get_json(force=True)
+    infoJson = json.loads(info)
+    UpdatePaidQuery = "UPDATE Orders SET Paid = 1 WHERE OrderID = %s;" % infoJson["CustomerID"]
+    cur.execute(UpdatePaidQuery)
+    conn.commit()
 
 
 if __name__ == "__main__":
