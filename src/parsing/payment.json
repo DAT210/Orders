@@ -8,12 +8,12 @@
 		"est_time":	string,
 		"address":	string
 		},
-		"ordered":
-		[{ 
-		    "name":		string,
-			"id":		int,
-			"price":	real,
-			"amount":	int
-			}
-		]
-	}
+	"ordered":
+	[{
+		"name":		string,
+		"id":		int,
+		"price":	real,
+		"amount":	int
+		}
+	]
+}
