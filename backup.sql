@@ -46,7 +46,7 @@ UNLOCK TABLES;
 
 
 --
--- Table structure for table `Ingredients`
+-- Table structure for table `Courses`
 --
 
 DROP TABLE IF EXISTS `Courses`;
@@ -64,14 +64,42 @@ CREATE TABLE `Courses` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Ingredients`
+-- Dumping data for table `Courses`
 --
 
 LOCK TABLES `Courses` WRITE;
-/*!40000 ALTER TABLE `Ingredients` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Ingredients` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Courses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Courses` ENABLE KEYS */;
 UNLOCK TABLES;
- 	
+
+INSERT INTO Orders(OrderID, CustomerID, PaymentMethod, DeliveryMethod, Price, Paid)
+VALUES(1, 1, "Cash", "Car", "34.2", 1);
+
+INSERT INTO Courses(OrderID, CourseID, CourseName, Quantity, Price)
+VALUES(1, 1, "Margarita", 3, 5.20);
+
+INSERT INTO Courses(OrderID, CourseID, CourseName, Quantity, Price)
+VALUES(1, 2, "Pepperoni", 3, 6.35);
+
+INSERT INTO Orders(OrderID, CustomerID, PaymentMethod, DeliveryMethod, Price, Paid)
+VALUES(2, 15, "Credit", "Transit", "15.2", 1);
+
+INSERT INTO Courses(OrderID, CourseID, CourseName, Quantity, Price)
+VALUES(2, 8, "El Diabolo", 3, 7.20);
+
+INSERT INTO Courses(OrderID, CourseID, CourseName, Quantity, Price)
+VALUES(2, 6, "Pineapple", 3, 4.35);
+
+INSERT INTO Orders(OrderID, CustomerID, PaymentMethod, DeliveryMethod, Price, Paid)
+VALUES(3, 1, "Credit", "Pickup", "9.2", 1);
+
+INSERT INTO Courses(OrderID, CourseID, CourseName, Quantity, Price)
+VALUES(3, 2, "Pepperoni", 3, 6.35);
+
+INSERT INTO Courses(OrderID, CourseID, CourseName, Quantity, Price)
+VALUES(3, 6, "Pineapple", 3, 4.35);
+
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
