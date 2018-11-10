@@ -11,7 +11,7 @@ function checkDeliveryPrice() {
             var result = xhr.responseText;
             if (result != 0){
                 result = JSON.parse(result);
-                document.getElementById("deliveryPrice").innerHTML = Math.round((result.price + 0.00001) * 100) / 100;
+                document.getElementById("deliveryPrice").innerHTML = Math.round((result.price + 0.00001) * 100) / 100 + ",-";
                 document.getElementById("ETA").innerHTML = result.eta;
                 var total = parseFloat(document.getElementById("totalPrice").innerHTML);
                 var num = total+result.priceFloat;
