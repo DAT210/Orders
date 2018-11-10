@@ -1,27 +1,19 @@
-{ "Payment": [
-    {
-    "customer_id": "",
-    "order_id": "",
-    "ordered": [
-        {
-            "name":"name1",
-            "id":"product ID 1",
-            "price":"price1",
-            "amount":"amount1"
-        },
-        {
-            "name":"name2",
-            "id":"product ID 2",
-            "price":"price2",
-            "amount":"amount2"
-        }
-    ]
-}
-
-
-
-]
-
-
-
-}
+{
+	"customer_ID":	int,
+	"order_ID":	int,
+	"delivery":
+	{
+	    "price":	real,
+		"method":	string,
+		"est_time":	string,
+		"address":	string
+		},
+		"ordered":
+		[{ 
+		    "name":		string,
+			"id":		int,
+			"price":	real,
+			"amount":	int
+			}
+		]
+	}
