@@ -166,7 +166,7 @@ def GetCoursesFromOrderID(OrderID):
 def UpdatePaid():
     info = request.get_json(force=True)
     infoJson = json.loads(info)
-    UpdatePaidQuery = "UPDATE Orders SET Paid = 1 WHERE OrderID = %s;" % infoJson["CustomerID"]
+    UpdatePaidQuery = "UPDATE Orders SET Paid = 1, PaymentMethod = '%s' WHERE OrderID = %s;" % (infoJson["PaymentMethod"], infoJson["OrderID"])
     cur.execute(UpdatePaidQuery)
     conn.commit()
 
