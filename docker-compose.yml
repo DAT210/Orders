@@ -1,13 +1,6 @@
 version: '3'
 services:
-  api:
-    container_name: python-api
-    restart: always
-    build: .
-    ports:
-      - '26400:80'
-    links:
-      - mysql
+
   mysql:
     container_name: mysql
     restart: always
@@ -17,6 +10,14 @@ services:
       dockerfile: mysql.docker
     ports:
       - '26306:3306'
+  api:
+    container_name: python-api
+    restart: always
+    build: .
+    ports:
+    - '26400:80'
+    links:
+    - mysql
   order:
     container_name: order
     restart: always
