@@ -91,9 +91,10 @@ def InsertCustomer():
 # Json should look like this: {"CustomerID": <id>, "OrderID": <id>, "DeliveryMethod": <"method">}
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
-    info = request.get_json(force=True)
+    obs = request.get_json(force=True)
+    info = json.loads(obs)
     if "CustomerID" in info:
-        if info["CustomerID"] != "":
+        if info["CustomerID"] != "" or info["CustomerID"] != 0:
             UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
                 info["CustomerID"], info["OrderID"])
             cur.execute(UpdateCustomerQuery)
@@ -128,7 +129,6 @@ def GetOrdersByCustomerID(CustomerID):
     conn.commit()
     ListOfOrders = []
     for Order in Orders:
-        print(Order)
         for item in Order:
             key = list(orderDict.keys())[Order.index(item)]
             if isinstance(item, datetime.datetime):
