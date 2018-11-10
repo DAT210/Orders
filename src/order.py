@@ -122,17 +122,13 @@ def confirm():
 
         dataToSend["customer_ID"] = cid
         dataToSend["order_ID"] = orderID
-        dataToSend["delivery"]["price"] = session["deliveryPrice"]
-        dataToSend["delivery"]["method"] = deliverType
-        dataToSend["delivery"]["est_time"] = session["eta"]
-        dataToSend["delivery"]["address"] = address
         dataToSend["ordered"] = cartToPayment
         #TODO
         # Actually send this to payment
         return "Sending you to payment"
 
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payOnDel":
-        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliveryMethod}
         toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
 
         dumpSelf = json.dumps(result)
@@ -145,7 +141,7 @@ def confirm():
             return render_template("confirm.html")
 
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payNow":
-        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliveryMethod}
         toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
 
         dumpSelf = json.dumps(result)
