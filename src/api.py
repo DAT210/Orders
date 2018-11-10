@@ -5,6 +5,8 @@ import json
 import re
 import datetime
 import copy
+import time
+
 
 # Connect to database
 app = Flask(__name__)
@@ -94,7 +96,7 @@ def InsertDeliveryMethod():
     obs = request.get_json(force=True)
     info = json.loads(obs)
     if "CustomerID" in info:
-        if info["CustomerID"] != "" or info["CustomerID"] != 0:
+        if info["CustomerID"] != "" and info["CustomerID"] != 0:
             UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
                 info["CustomerID"], info["OrderID"])
             cur.execute(UpdateCustomerQuery)
