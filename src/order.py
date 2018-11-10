@@ -158,8 +158,9 @@ def confirm():
             return render_template("not200error.html")
 
         cart = session["cart"]
+        loadedCart = json.loads(cart)
         cartToPayment = []
-        for item in cart:
+        for item in loadedCart:
             itemToAppend = {
                 "name":	item["c_name"],
                 "id": int(item["c_id"]),
