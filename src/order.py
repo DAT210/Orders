@@ -61,13 +61,27 @@ def confirm():
     street = request.form.get("address")
     city = request.form.get("city")
     zipcode = request.form.get("zipcode")
+    zipcode = request.form.get("zipcode")
 
     address = street+"|"+zipcode+"|"+city
+
+    dataToSend = {
+        "customer_ID": 0,
+        "order_ID":	0,
+        "delivery":
+        {
+            "price": 0,
+            "method": "",
+            "est_time":	"",
+            "address":	""
+            },
+        "ordered": []
+    }
 
     #TODO
     ##get cid from customer
     ##and make login
-    cid = ""
+    cid = 0
 
     if deliveryMethod == "Pickup" and paymentMethod == "payOnDel":
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
@@ -76,7 +90,7 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post(test_url + "/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
+        respSelf = requests.post("http://localhost:26400" + "/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
         respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)  ##send to delivery
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
@@ -85,7 +99,25 @@ def confirm():
     elif deliveryMethod == "Pickup" and paymentMethod == "payNow":
         # TODO
         # redirect to payment
-        None
+        cart = session["cart"]
+        cartToPayment = []
+        for item in cart:
+            itemToAppend = {
+                "name":	item["c_name"],
+                "id": int(item["c_id"]),
+                "price": float(item["price"]),
+                "amount": int(item["amount"])
+            }
+            cartToPayment.append(cartToPayment, itemToAppend)
+
+        dataToSend["customer_ID"] = cid
+        dataToSend["order_ID"] = orderID
+        dataToSend["delivery"]["price"] = session["deliveryPrice"]
+        dataToSend["delivery"]["method"] = deliverType
+        dataToSend["delivery"]["est_time"] = session["eta"]
+        dataToSend["delivery"]["address"] = address
+        dataToSend["ordered"] = cartToPayment
+        return render_template("confirm.html")
 
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payOnDel":
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
@@ -94,7 +126,7 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post(test_url + "/orders/api/DeliveryMethod", json=dumpSelf)
+        respSelf = requests.post("http://localhost:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)
         respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
@@ -132,12 +164,18 @@ def checkDeliveryPrice():
     if method == "1":
         price = inputJSON['walking']['price']
         eta = inputJSON['walking']['eta']
+        session["deliveryPrice"] = price
+        session["eta"] = eta
     elif method == "2":
         price = inputJSON['driving']['price']
         eta = inputJSON['driving']['eta']
+        session["deliveryPrice"] = price
+        session["eta"] = eta
     elif method == "3":
         price = inputJSON['transit']['price']
         eta = inputJSON['transit']['eta']
+        session["deliveryPrice"] = price
+        session["eta"] = eta
 
     response = {"price": price, "eta": str(int(eta))+" minutes", "priceFloat": price}
     return json.dumps(response)
