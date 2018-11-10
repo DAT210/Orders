@@ -139,7 +139,7 @@ def checkDeliveryPrice():
         price = inputJSON['transit']['price']
         eta = inputJSON['transit']['eta']
 
-    response = {"price": str(price)+",-", "eta": str(int(eta))+" minutes", "priceFloat": price}
+    response = {"price": price, "eta": str(int(eta))+" minutes", "priceFloat": price}
     return json.dumps(response)
 
 

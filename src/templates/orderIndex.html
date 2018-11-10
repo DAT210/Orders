@@ -153,7 +153,7 @@
                         <div class="control-group">
                             <label class="control-label"><strong>Estimated delivery cost/time:</strong></label>
                             <br>
-                            <label id="deliveryPrice"></label>
+                            <label id="deliveryPrice"></label>,-
                             &nbsp;
                             &nbsp;
                             <label id="ETA"></label>
@@ -178,7 +178,7 @@
                 </div>
                 <br>
                 <br>
-                Total price to pay: <label id="total" name="total">{{ total }},-</label>
+                Total price to pay: <label id="total" name="total">{{ total }}</label>,-
                 <br>
                 <br>
                 <div>
@@ -213,7 +213,7 @@
                         <td>{{ course.c_name }}</td>
                         <td>{{ course.price }},-</td>
                         <td>{{ course.amount }}</td>
-                        <td>{{ course.price|float * course.amount|float }},-</td>
+                        <td>{{ "%.2f"|format(course.price|float * course.amount|float) }},-</td>
                     </tr>
                 {% endfor %}
                 <tr class="border-top border-bottom border-dark">
