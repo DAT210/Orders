@@ -174,6 +174,7 @@ def confirm():
         dataToSend["ordered"] = cartToPayment
         #TODO
         #Actually send this to payment
+        requests.post("192.168.99.100:26400/orders/api/paid", json=json.dumps({"orderID": orderID}))
         return "Sending you to payment"
 
 
