@@ -95,13 +95,13 @@ print("Game started!")
 
 # set_player_speed sets speed based on arrow keys pressed
 def set_player_speed():
-    if pygame.key.get_pressed()[pygame.K_UP] and player.rect.top > 0:
+    if (pygame.key.get_pressed()[pygame.K_UP] or joystick_axis_y < -0.2) and player.rect.top > 0:
         player.speed[1] = -3
-    if pygame.key.get_pressed()[pygame.K_DOWN] and player.rect.bottom < height-1:
+    if (pygame.key.get_pressed()[pygame.K_DOWN] or joystick_axis_y > 0.2) and player.rect.bottom < height-1:
         player.speed[1] = 3
-    if pygame.key.get_pressed()[pygame.K_LEFT] and player.rect.left > 0:
+    if (pygame.key.get_pressed()[pygame.K_LEFT] or joystick_axis_x < -0.2) and player.rect.left > 0:
         player.speed[0] = -3
-    if pygame.key.get_pressed()[pygame.K_RIGHT] and player.rect.right < width:
+    if (pygame.key.get_pressed()[pygame.K_RIGHT] or joystick_axis_x > 0.2) and player.rect.right < width:
         player.speed[0] = 3
     return
 
@@ -198,10 +198,19 @@ def quit_game():
 
     while 1: 
         pygame.event.pump()
+        if pygame.joystick.get_count() > 0:
+            joystick_axis_y = joystick.get_axis(1)
 
-        if pygame.key.get_pressed()[pygame.K_UP]:
+        controller_x_pressed = False
+            
+        for event in pygame.event.get():
+            if event.type == pygame.JOYBUTTONDOWN:
+                if joystick.get_button(0):
+                    controller_x_pressed = True
+
+        if pygame.key.get_pressed()[pygame.K_UP] or joystick_axis_y < -0.2:
             selected = 0
-        if pygame.key.get_pressed()[pygame.K_DOWN]:
+        if pygame.key.get_pressed()[pygame.K_DOWN] or joystick_axis_y > 0.2:
             selected = 1
 
         if selected is 0:
@@ -219,32 +228,60 @@ def quit_game():
             screen.blit(exit_game_text_selected, exit_game_selected_rect)
             pygame.display.flip()
 
-        if selected is 0 and pygame.key.get_pressed()[pygame.K_RETURN]:
+        if selected is 0 and (pygame.key.get_pressed()[pygame.K_RETURN] or controller_x_pressed):
             restart_game()
             break
             
-        if selected is 1 and pygame.key.get_pressed()[pygame.K_RETURN]:
+        if selected is 1 and (pygame.key.get_pressed()[pygame.K_RETURN] or controller_x_pressed):
             print("Exiting game")
             print("Final score: " + str(score))
             sys.exit()
 
+if pygame.joystick.get_count() > 0:
+    pygame.joystick.init()
+    joystick = pygame.joystick.Joystick(0)
+    joystick.init()
+    joystick_axis_x = joystick.get_axis(0)
+    joystick_axis_y = joystick.get_axis(1)
+else:
+    joystick_axis_x = 0
+    joystick_axis_y = 0
+
 while 1:
+    controller_select_pressed = False
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        if event.type == pygame.JOYBUTTONDOWN:
+            if joystick.get_button(9):
+                controller_select_pressed = True
+
+    if pygame.joystick.get_count() > 0:
+        joystick_axis_x = joystick.get_axis(0)
+        joystick_axis_y = joystick.get_axis(1)
 
     # Pressing escape pauses the game
-    if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+    if pygame.key.get_pressed()[pygame.K_ESCAPE] or controller_select_pressed:
         # 0 = resume, 1 = quit
         selected = 0
         
         # Pause loop
         while 1:
             pygame.event.pump()
+            if pygame.joystick.get_count() > 0:
+                joystick_axis_y = joystick.get_axis(1)
 
-            if pygame.key.get_pressed()[pygame.K_UP]:
+            controller_x_pressed = False
+            
+            for event in pygame.event.get():
+                if event.type == pygame.JOYBUTTONDOWN:
+                    if joystick.get_button(0):
+                        controller_x_pressed = True
+
+            if pygame.key.get_pressed()[pygame.K_UP] or joystick_axis_y < -0.2:
                 selected = 0
-            if pygame.key.get_pressed()[pygame.K_DOWN]:
+            if pygame.key.get_pressed()[pygame.K_DOWN] or joystick_axis_y > 0.2:
                 selected = 1
 
             if selected is 0:
@@ -258,10 +295,10 @@ while 1:
                 screen.blit(quit_text_selected, quit_selected_rect)
                 pygame.display.flip()
 
-            if selected is 0 and pygame.key.get_pressed()[pygame.K_RETURN]:
+            if selected is 0 and (pygame.key.get_pressed()[pygame.K_RETURN] or controller_x_pressed):
                 break
             
-            if selected is 1 and pygame.key.get_pressed()[pygame.K_RETURN]:
+            if selected is 1 and (pygame.key.get_pressed()[pygame.K_RETURN] or controller_x_pressed):
                 sys.exit()
             
     player.speed = [0, 0]
