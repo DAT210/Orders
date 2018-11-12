@@ -25,7 +25,7 @@ def not_handled():
         'book': nlp_sent.similarity(book_comp)
     }
     most_likely = max(similarity, key=similarity.get)
-    sql.notHandled(sent, most_likely, 0)
+    sql.notHandled(sent, most_likely, "no")
     return "You asked a question I couldn't even sort out. " \
            "I have been programmed to sort out any intelligent question a customer might have. " \
            "This means that your question is stupid, you're stupid, and your mom is stupid. <br/>"
@@ -39,8 +39,7 @@ def opening_times():
             if entity.text in weekdays:
                 return sql.openingDay(entity.text)
             else:
-                sql.notHandled(sent, "opening", 1)
-                print(entity.text)
+                sql.notHandled(sent, "opening", "yes")
                 return "I don't know the opening times on specific dates, too bad. </br>"
     if not date:
         return sql.allOpening()
@@ -48,23 +47,21 @@ def opening_times():
 
 def prices():
     # TODO find a way to sort out dish names
-    sql.notHandled(sent, "price", 2)
+    sql.notHandled(sent, "price", "yes")
     info = json.loads(fr.price('pepperoni pizza'))
-    print(info)
     return "I can't answer questions about prices, " \
            "as anyone with half a brain could check it out for themselves IN THE MENU </br>"
 
 
 def available():
-    sql.notHandled(sent, "available", 3)
+    sql.notHandled(sent, "available", "yes")
     date = False
     for entity in nlp_sent.ents:
-        print(entity.text)
         if entity.label_ == 'DATE':
             date = True
             if entity.text in weekdays:
-                print("weekday")
                 # TODO make weekday into a specific date
+                print("placeholder")
     if not date:
         # TODO find today's date ?
         print("Why is there no date??")
@@ -73,6 +70,7 @@ def available():
 
 
 def complaint():
+    # TODO should the complaints be sent somewhere on the employee website?
     sql.complaint(sent, 0)
     return "Your complaint has been saved, and will be reviewed whenever we feel like it (most likely never). " \
            "Thank you for not having a life (punk ass bitch). </br>"
@@ -83,5 +81,11 @@ def location():
 
 
 def joke():
-    joke = random.choice(jokes)
-    return joke
+    my_joke = random.choice(jokes)
+    return my_joke
+
+
+def rec():
+    return "I don't know you well enough to recommend food for you. " \
+           "Why don't we go on a few dates so that I can eventually get tired of you, " \
+           "cheat on you and then leave you for someone younger and prettier? </br>"
