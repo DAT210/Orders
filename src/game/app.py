@@ -1,4 +1,4 @@
-import sys, pygame
+import sys, pygame, random
 pygame.init()
 
 class Object:
@@ -115,12 +115,28 @@ def bounce(rect, speed):
 
 # foodstart checks where the player is and finds an appropriate starting point for food
 def foodstart():
+    start_positions = {
+        "topleft": [10, 10],
+        "topright": [width-10, 10],
+        "bottomright": [width-10, height-10],
+        "bottomleft": [10, height-10]
+    }
+    
     xcoord, ycoord = 10, 10
-    if player.rect.center[0] < (width / 2):
+    if player.rect.center[0] > (width / 2):
         xcoord = width-10
-    if player.rect.center[1] < (height / 2):
+    if player.rect.center[1] > (height / 2):
         ycoord = height-10
-    return xcoord, ycoord
+    
+    for key in start_positions:
+        if start_positions[key] == [xcoord, ycoord]:
+            illegal_start = key
+    
+    start_positions.pop(illegal_start)
+
+    start = start_positions[random.choice(list(start_positions.keys()))]
+    
+    return start[0], start[1]
 
 # iscollision checks if the player is colliding with an obstacle
 def is_collision():
