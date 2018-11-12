@@ -3,7 +3,7 @@ from flask import json
 
 def availability(date):
     # todo send fake json about availability on specified date
-    print("do something")
+    print(date)
 
 
 def price(dishName):

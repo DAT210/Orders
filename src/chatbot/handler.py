@@ -2,12 +2,17 @@ from flask import json
 import spacy
 import sqlshit as sql
 import fakereturn as fr
+import random
 
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
 nlp = spacy.load('en_core_web_lg')
 sent = ""
 nlp_sent = ""
+
+jokes = ["How do you stop a baby from crawling around in circles? </br> Nail it’s other hand to the floor. </br>",
+         "Which sexual position produces the ugliest children? </br> Ask your mother. </br>",
+         "Your face </br>"]
 
 
 def not_handled():
@@ -52,12 +57,17 @@ def prices():
 
 def available():
     sql.notHandled(sent, "available", 3)
+    date = False
     for entity in nlp_sent.ents:
         print(entity.text)
         if entity.label_ == 'DATE':
+            date = True
             if entity.text in weekdays:
                 print("weekday")
-                # TODO make weekday into a specific data
+                # TODO make weekday into a specific date
+    if not date:
+        # TODO find today's date ?
+        print("Why is there no date??")
     return "I can't answer questions about table availability, " \
            "as anyone with half a brain could check it out for themselves if they just followed THIS link </br>"
 
@@ -73,4 +83,5 @@ def location():
 
 
 def joke():
-    return "How do you stop a baby from crawling around in circles? Nail it’s other hand to the floor. </br>"
+    joke = random.choice(jokes)
+    return joke

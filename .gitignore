@@ -78,6 +78,6 @@ typings/
 
 # ds store files
 .DS_Store
-.idea/**/workspace.xml
-.idea/*.xml
-.idea/*.iml
+
+# .idea things
+*.idea
