@@ -1,6 +1,6 @@
 [{
         "c_id": "1",
-        "c_name": "Margarita",
+        "c_name": "Margherita ",
         "price": "5.20",
         "ingredients": [
             {
@@ -42,7 +42,7 @@
 
     {
         "c_id": "1",
-        "c_name": "Margarita",
+        "c_name": "Margherita ",
         "price": "6.75",
         "ingredients": [
 

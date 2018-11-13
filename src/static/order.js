@@ -11,10 +11,11 @@ function checkDeliveryPrice() {
             var result = xhr.responseText;
             if (result != 0){
                 result = JSON.parse(result);
-                document.getElementById("deliveryPrice").innerHTML = result.price;
+                document.getElementById("deliveryPrice").innerHTML = Math.round((result.price + 0.00001) * 100) / 100 + ",-";
                 document.getElementById("ETA").innerHTML = result.eta;
                 var total = parseFloat(document.getElementById("totalPrice").innerHTML);
-                document.getElementById("total").innerHTML = total+result.priceFloat
+                var num = total+result.priceFloat;
+                document.getElementById("total").innerHTML = Math.round((num + 0.00001) * 100) / 100;
             }
             else{
                 document.getElementById("deliveryPrice").innerHTML = "Error getting delivery price";
