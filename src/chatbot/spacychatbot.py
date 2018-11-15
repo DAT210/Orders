@@ -1,7 +1,6 @@
 import spacy
 import spacy.matcher
 from flask import Flask, render_template, json, request
-from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 import sqlshit as sql
 import fakereturn as fr
@@ -15,7 +14,7 @@ priceList = ['price', 'cost', 'how much']
 availabilityList = ['available']
 complaintsList = ['bad', 'horrible', 'terrible', 'dirty', 'slow']
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-locationList = ['where', 'address']
+locationList = ['where', 'address', 'location']
 jokeList = ['joke', 'funny']
 recommendList = ['recommend']
 matcher = PhraseMatcher(nlp.vocab)

@@ -3,6 +3,7 @@ import spacy
 import sqlshit as sql
 import fakereturn as fr
 import random
+import datetime
 
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -13,6 +14,9 @@ nlp_sent = ""
 jokes = ["How do you stop a baby from crawling around in circles? </br> Nail it’s other hand to the floor. </br>",
          "Which sexual position produces the ugliest children? </br> Ask your mother. </br>",
          "Your face </br>"]
+recs = ["I recommend eating at another restaurant </br>",
+        "I don't know you well enough to recommend food for you. Why don't we go on a few dates so that I can"
+        " eventually get tired of you, cheat on you and then leave you for someone younger and prettier? </br>"]
 
 
 def not_handled():
@@ -60,13 +64,23 @@ def available():
         if entity.label_ == 'DATE':
             date = True
             if entity.text in weekdays:
-                # TODO make weekday into a specific date
-                print("placeholder")
+                mydate = getDate(entity.text)
+                print(mydate.strftime("%Y-%m-%d"))
+            else:
+                return "I couldn't understand which day you wanted to look up," \
+                       " this means that you'll have to stop being lazy and look it up for yourself. </br>"
     if not date:
-        # TODO find today's date ?
-        print("Why is there no date??")
-    return "I can't answer questions about table availability, " \
-           "as anyone with half a brain could check it out for themselves if they just followed THIS link </br>"
+        now = datetime.datetime.now()
+        print("Date: " + now.strftime("%Y-%m-%d"))
+    return "I need to make fake json or get correct json from the availability group before I can answer your question"
+
+
+def getDate(day):
+    now = datetime.datetime.now()
+    for days in range(0,6):
+        newdate = now + datetime.timedelta(days)
+        if newdate.strftime("%A").lower() == day:
+            return newdate
 
 
 def complaint():
@@ -81,11 +95,8 @@ def location():
 
 
 def joke():
-    my_joke = random.choice(jokes)
-    return my_joke
+    return random.choice(jokes)
 
 
 def rec():
-    return "I don't know you well enough to recommend food for you. " \
-           "Why don't we go on a few dates so that I can eventually get tired of you, " \
-           "cheat on you and then leave you for someone younger and prettier? </br>"
+    return random.choice(recs)

@@ -1,6 +1,8 @@
 from textblob import TextBlob
+from textblob import Word
 
-text = "What does the large pepperoni pizza cost thursday?"
-blob = TextBlob(text)
-print(blob.tags)
-print(blob.noun_phrases)
+text = "Opening"
+low = text.lower()
+w = Word(low)
+lem = w.lemmatize()
+print(lem)
