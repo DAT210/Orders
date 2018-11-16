@@ -3,7 +3,7 @@ import spacy.matcher
 from flask import Flask, render_template, json, request
 from spacy.matcher import PhraseMatcher
 import sqlshit as sql
-import fakereturn as fr
+import json as fr
 import handler as h
 
 nlp = spacy.load('en_core_web_lg')

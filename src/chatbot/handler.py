@@ -1,7 +1,7 @@
 from flask import json
 import spacy
 import sqlshit as sql
-import fakereturn as fr
+import json as js
 import random
 import datetime
 
@@ -52,7 +52,7 @@ def opening_times():
 def prices():
     # TODO find a way to sort out dish names
     sql.notHandled(sent, "price", "yes")
-    info = json.loads(fr.price('pepperoni pizza'))
+    info = js.price('pepperoni pizza')
     return "I can't answer questions about prices, " \
            "as anyone with half a brain could check it out for themselves IN THE MENU </br>"
 
@@ -65,22 +65,28 @@ def available():
             date = True
             if entity.text in weekdays:
                 mydate = getDate(entity.text)
-                print(mydate.strftime("%Y-%m-%d"))
+                return getAvailable(mydate)
             else:
                 return "I couldn't understand which day you wanted to look up," \
                        " this means that you'll have to stop being lazy and look it up for yourself. </br>"
     if not date:
         now = datetime.datetime.now()
-        print("Date: " + now.strftime("%Y-%m-%d"))
-    return "I need to make fake json or get correct json from the availability group before I can answer your question"
+        return getAvailable(now)
 
 
 def getDate(day):
     now = datetime.datetime.now()
-    for days in range(0,6):
+    for days in range(0, 6):
         newdate = now + datetime.timedelta(days)
         if newdate.strftime("%A").lower() == day:
             return newdate
+
+
+def getAvailable(date):
+    avail = js.availability(date)
+    if avail["Available"] == 'yes':
+        return "There is at least one table available on " + date
+    return "There aren't any tables available on " + date
 
 
 def complaint():

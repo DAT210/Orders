@@ -4,9 +4,10 @@
     <list default="true" id="05e3d899-567b-4bfb-97e4-a65e3a27c37e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" afterPath="$PROJECT_DIR$/src/chatbot/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/chatbot/fakereturn.py" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/handler.py" afterPath="$PROJECT_DIR$/src/chatbot/handler.py" />
       <change beforePath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" afterPath="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
-      <change beforePath="$PROJECT_DIR$/src/chatbot/textblob chatbot/chatbot.py" afterPath="$PROJECT_DIR$/src/chatbot/textblob chatbot/chatbot.py" />
+      <change beforePath="$PROJECT_DIR$/src/chatbot/static/fakePrice.json" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="spacychatbot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="spacychatbot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1395">
-              <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+            <state relative-caret-position="405">
+              <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -29,20 +30,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fakereturn.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chatbot/fakereturn.py">
+      <file leaf-file-name="json.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chatbot/json.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="165">
+              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="handler.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="handler.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chatbot/handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-397">
+            <state relative-caret-position="-315">
               <caret line="28" column="46" lean-forward="false" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
@@ -51,8 +52,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fakePrice.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chatbot/static/fakePrice.json">
+      <file leaf-file-name="availability.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chatbot/fakeJson/availability.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -61,8 +62,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="complaintHandler.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chatbot/complaintHandler.py">
+      <file leaf-file-name="fakePrice.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chatbot/fakeJson/fakePrice.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -136,8 +137,8 @@
         <option value="$PROJECT_DIR$/src/chatbot/static/script.js" />
         <option value="$PROJECT_DIR$/src/chatbot/sqlshit.py" />
         <option value="$PROJECT_DIR$/src/chatbot/fakereturn.py" />
-        <option value="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
         <option value="$PROJECT_DIR$/src/chatbot/handler.py" />
+        <option value="$PROJECT_DIR$/src/chatbot/spacychatbot.py" />
       </list>
     </option>
   </component>
@@ -183,6 +184,13 @@
               <item name="Orders" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="chatbot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Orders" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="fakeJson" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Orders" type="b2602c69:ProjectViewProjectNode" />
@@ -358,22 +366,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/chatbot/fakereturn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/complaintHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/chatbot/notHandled.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -487,14 +479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/static/fakePrice.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/chatbot/sqlshit.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
@@ -511,6 +495,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Dropbox/dat210_project/Rapport/Report group 6.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/chatbot/spacy.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -519,15 +519,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/fakereturn.py">
+    <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="405">
+          <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/json.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/chatbot/fakeJson/availability.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chatbot/fakeJson/fakePrice.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -537,20 +555,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chatbot/handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-397">
+        <state relative-caret-position="-315">
           <caret line="28" column="46" lean-forward="false" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chatbot/spacychatbot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1395">
-          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
