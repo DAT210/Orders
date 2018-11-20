@@ -1,4 +1,4 @@
-from flask import json
+from flask import Flask, render_template, json, request
 
 
 def availability(date):

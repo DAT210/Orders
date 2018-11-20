@@ -1,7 +1,7 @@
 from flask import json
 import spacy
 import sqlshit as sql
-import json as js
+import myjson as js
 import random
 import datetime
 
@@ -76,10 +76,10 @@ def available():
 
 def getDate(day):
     now = datetime.datetime.now()
-    for days in range(0, 6):
+    for days in range(0, 7):
         newdate = now + datetime.timedelta(days)
         if newdate.strftime("%A").lower() == day:
-            return newdate
+            return newdate.strftime("%A")
 
 
 def getAvailable(date):
@@ -97,7 +97,7 @@ def complaint():
 
 
 def location():
-    return "The address for the restaurant is ADDRESS, which you would have known if you'd looked here. </br>"
+    return "The address for the restaurant is ADDRESS, which you would have known if you'd looked HERE. </br>"
 
 
 def joke():
