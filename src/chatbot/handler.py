@@ -20,13 +20,23 @@ recs = ["I recommend eating at another restaurant </br>",
 
 
 def not_handled():
+    open_comp = nlp("When is the restaurant open")
     price_comp = nlp("What is the price")
     availability_comp = nlp("Is a table available")
     book_comp = nlp("I want to book a table")
+    complaint_comp = nlp("This place is terrible")
+    location_comp = nlp("Where is the restaurant")
+    joke_comp = nlp("Tell me something funny")
+    recommendation_comp = nlp("What tastes the best here")
     similarity = {
+        'open': nlp_sent.similarity(open_comp),
         'price': nlp_sent.similarity(price_comp),
         'availability': nlp_sent.similarity(availability_comp),
-        'book': nlp_sent.similarity(book_comp)
+        'book': nlp_sent.similarity(book_comp),
+        'complaint': nlp_sent.similarity(complaint_comp),
+        'location': nlp_sent.similarity(location_comp),
+        'joke': nlp_sent.similarity(joke_comp),
+        'recommendation': nlp_sent.similarity(recommendation_comp)
     }
     most_likely = max(similarity, key=similarity.get)
     sql.notHandled(sent, most_likely, "no")
@@ -43,6 +53,7 @@ def opening_times():
             if entity.text in weekdays:
                 return sql.openingDay(entity.text)
             else:
+                # TODO make into a date and send
                 sql.notHandled(sent, "opening", "yes")
                 return "I don't know the opening times on specific dates, too bad. </br>"
     if not date:
@@ -64,29 +75,31 @@ def available():
         if entity.label_ == 'DATE':
             date = True
             if entity.text in weekdays:
-                mydate = getDate(entity.text)
+                mydate = getDateFromWeekday(entity.text)
                 return getAvailable(mydate)
             else:
+                sql.notHandled(sent, "availability", "yes")
+                # TODO make this into date too
                 return "I couldn't understand which day you wanted to look up," \
-                       " this means that you'll have to stop being lazy and look it up for yourself. </br>"
+                       " so you'll have to stop being lazy and look it up for yourself. </br>"
     if not date:
         now = datetime.datetime.now()
         return getAvailable(now)
 
 
-def getDate(day):
+def getDateFromWeekday(day):
     now = datetime.datetime.now()
     for days in range(0, 7):
         newdate = now + datetime.timedelta(days)
         if newdate.strftime("%A").lower() == day:
-            return newdate.strftime("%A")
+            return newdate
 
 
 def getAvailable(date):
     avail = js.availability(date)
     if avail["Available"] == 'yes':
-        return "There is at least one table available on " + date
-    return "There aren't any tables available on " + date
+        return "There is at least one table available on " + date.strftime("%d-%b-%y")
+    return "There aren't any tables available on " + date.strftime("%d-%b-%y")
 
 
 def complaint():
