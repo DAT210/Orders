@@ -40,11 +40,52 @@ cat backup.sql | docker exec -i CONTAINER /usr/bin/mysql -u root --password=root
 
 
 ## API
-**IMPORTANT:** This is subject to change
 
-* To get all courses in a given OrderID:
-  * /orders/api/courses/"OrderID"
-* To get all orders a customer have:
-  * /orders/api/customerorders/"CustomerID"
+__GET: /orders/api/orderID/ID__
+
+To get all info in a spesific order, send a get request to the specified docker url at the top with this appended: /orders/api/orderID/ID.
+* This will return the following json:
+```json
+  		{
+		  "OrderID": "",
+		  "CustomerID": "",
+		  "OrderTime": "",
+		  "PaymentMethod": "",
+		  "DeliveryMethod": "",
+		  "Price": "",
+		  "Payed": ""
+		}
+```
+
+__GET: /orders/api/courses/OrderID__
+
+To get all courses in an Order, send a get request to the specified docker url at the top with this appended: /orders/api/courses/OrderID.
+* This will return the following json:
+```json
+  		[{
+		  "OrderID": "",
+		  "CourseID": "",
+		  "CourseName": "",
+		  "Quantity": "",
+		  "Price": ""
+		}]
+```
+
+__GET: /orders/api/customerorders/CustomerID__
+
+If you want the order history of a customer send a get request to the specified docker url at the top with this appended: /orders/api/customerorders/CustomerID.
+
+* This will return the following json:
+```json
+  		[{
+		  "OrderID": "",
+		  "CustomerID": "",
+		  "OrderTime": "",
+		  "PaymentMethod": "",
+		  "DeliveryMethod": "",
+		  "Price": "",
+		  "Payed": ""
+		}]
+```
 <!-- mysql -u <user> -p<password> <dbname> < file.sql -->
 <!-- THIS MAY HAVE WORKED -->
