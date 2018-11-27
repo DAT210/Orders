@@ -6,7 +6,7 @@ class Object:
         self.rect = rect
         self.speed = speed
 
-screen_width, screen_height = 1920, 1080
+screen_width, screen_height = 1600, 900
 
 scoreboard_height = 50
 width, height = screen_width, screen_height-scoreboard_height
