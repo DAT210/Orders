@@ -91,6 +91,16 @@ player_image = ball_downright
 
 score = 0
 
+if pygame.joystick.get_count() > 0:
+    pygame.joystick.init()
+    joystick = pygame.joystick.Joystick(0)
+    joystick.init()
+    joystick_axis_x = joystick.get_axis(0)
+    joystick_axis_y = joystick.get_axis(1)
+else:
+    joystick_axis_x = 0
+    joystick_axis_y = 0
+
 print("Game started!")
 
 # set_player_speed sets speed based on arrow keys pressed
@@ -205,6 +215,7 @@ def choose_player(speed):
         return ball_downright
 
 def quit_game():
+    global joystick_axis_y
     final_score_text = menu_font.render("Final score: " + str(score), 1, (255, 255, 255))
     final_score_rect = final_score_text.get_rect()
     final_score_rect.center = (width/2, 2*height/5)
@@ -252,16 +263,6 @@ def quit_game():
             print("Exiting game")
             print("Final score: " + str(score))
             sys.exit()
-
-if pygame.joystick.get_count() > 0:
-    pygame.joystick.init()
-    joystick = pygame.joystick.Joystick(0)
-    joystick.init()
-    joystick_axis_x = joystick.get_axis(0)
-    joystick_axis_y = joystick.get_axis(1)
-else:
-    joystick_axis_x = 0
-    joystick_axis_y = 0
 
 while 1:
     controller_select_pressed = False
