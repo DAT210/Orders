@@ -12,8 +12,7 @@ scoreboard_height = 50
 width, height = screen_width, screen_height-scoreboard_height
 size = screen_width, screen_height
 black = 0, 0, 0
-screen = pygame.display.set_mode(size)
-pygame.display.toggle_fullscreen()
+screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 pygame.mouse.set_visible(False)
 
 scoreboard = pygame.Surface((width, scoreboard_height))
