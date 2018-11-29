@@ -22,11 +22,18 @@ Orders - Group 6
 * In cmd/terminal: cd into repository location
 * Run: docker-compose up --build  
   
-If you are using docker toolbox, the container should now be visible at  
-http://192.168.99.100:4000/  
+If you are using docker toolbox, the frontend page should now be accessible at  
+http://192.168.99.100:26300/testapi
 
-And if you are running the newer docker, it should be visible at:  
-http://127.0.0.1:4000/
+the API can be bypassed with
+http://192.168.99.100:26300/testSession
+
+
+And if you are running the newer docker, it should be accessible at:  
+http://127.0.0.1:26300/testapi
+
+the API can be bypassed with
+http://127.0.0.1:26300/testSession
   
 Command to bash into the mysql server:  
 docker exec -it mysql /bin/bash  
