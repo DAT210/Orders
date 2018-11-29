@@ -37,6 +37,9 @@ http://127.0.0.1:26300/testSession
   
 Command to bash into the mysql server:  
 docker exec -it mysql /bin/bash  
+  
+Restart docker containers with:  
+docker restart <container-ID>
 
 ## Database backup and restoration commands:
  **Backup**  
