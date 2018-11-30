@@ -4,6 +4,9 @@ from mysql.connector import errorcode
 import json
 import re
 import datetime
+import copy
+import time
+
 
 # Connect to database
 app = Flask(__name__)
@@ -90,9 +93,10 @@ def InsertCustomer():
 # Json should look like this: {"CustomerID": <id>, "OrderID": <id>, "DeliveryMethod": <"method">}
 @app.route("/orders/api/DeliveryMethod", methods=["POST"])
 def InsertDeliveryMethod():
-    info = request.get_json(force=True)
+    jsoninfo = request.get_json(force=True)
+    info = json.loads(jsoninfo)
     if "CustomerID" in info:
-        if info["CustomerID"] != "":
+        if str(info["CustomerID"]) != "" and info["CustomerID"] != 0:
             UpdateCustomerQuery = "UPDATE Orders SET CustomerID = %s WHERE OrderID = %s;" % (
                 info["CustomerID"], info["OrderID"])
             cur.execute(UpdateCustomerQuery)
@@ -125,7 +129,6 @@ def GetOrdersByCustomerID(CustomerID):
     cur.execute(OrderQuery)
     Orders = cur.fetchall()
     conn.commit()
-
     ListOfOrders = []
     for Order in Orders:
         for item in Order:
@@ -134,8 +137,8 @@ def GetOrdersByCustomerID(CustomerID):
                 orderDict[key] = str(item)
             else:
                 orderDict[key] = item
-        ListOfOrders.append(orderDict)
-    return json.dumps(ListOfOrders)
+        ListOfOrders.append(copy(orderDict))
+    return json.dumps(str(Orders))
 
 
 # Returns all courses in given OrderID
@@ -154,8 +157,18 @@ def GetCoursesFromOrderID(OrderID):
         for item in Course:
             key = list(CourseDict.keys())[Course.index(item)]
             CourseDict[key] = item
-        ListOfCourses.append(CourseDict)
+        ListOfCourses.append(copy(CourseDict))
     return json.dumps(ListOfCourses)
+
+
+# Updated paid condition in db
+@app.route("/orders/api/paid", methods=["POST"])
+def UpdatePaid():
+    info = request.get_json(force=True)
+    infoJson = json.loads(info)
+    UpdatePaidQuery = "UPDATE Orders SET Paid = 1, PaymentMethod = '%s' WHERE OrderID = %s;" % (infoJson["PaymentMethod"], infoJson["OrderID"])
+    cur.execute(UpdatePaidQuery)
+    conn.commit()
 
 
 if __name__ == "__main__":

@@ -16,44 +16,41 @@ global test_url
 test_url = docker
 
 jsondict = [{
-
         "c_id": "1",
-        "c_name": "course alpha",
+        "c_name": "Margarita",
         "price": "5.20",
         "ingredients": [
             {
                 "i_id": "1",
-                "i_name": "ingredient alpha"
+                "i_name": "Tomato Sauce"
             },
 
             {
                 "i_id": "3",
-                "i_name": "ingredient charlie"
-            },
-
-            {
-                "i_id": "4",
-                "i_name": "ingredient delta"
+                "i_name": "Cheese"
             }
-
         ],
         "amount": "1"
     },
 
     {
         "c_id": "2",
-        "c_name": "course alpha",
-        "price": "5.20",
+        "c_name": "Pepperoni Pizza",
+        "price": "6.35",
         "ingredients": [
 
             {
                 "i_id": "1",
-                "i_name": "ingredient alpha"
+                "i_name": "Tomato Sauce"
             },
 
             {
                 "i_id": "3",
-                "i_name": "ingredient charlie"
+                "i_name": "Cheese"
+            },
+            {
+                "i_id": "4",
+                "i_name": "Pepperoni"
             }
 
         ],
@@ -61,22 +58,30 @@ jsondict = [{
     },
 
     {
-        "c_id": "3",
-        "c_name": "course charlie",
+        "c_id": "1",
+        "c_name": "Margarita",
         "price": "6.75",
         "ingredients": [
 
             {
                 "i_id": "1",
-                "i_name": "ingredient alpha"
+                "i_name": "Tomato Sauce"
             },
 
             {
-                "i_id": "2",
-                "i_name": "ingredient"
+                "i_id": "3",
+                "i_name": "Cheese"
+            },
+            {
+                "i_id": "3",
+                "i_name": "Cheese"
+            },
+            {
+                "i_id": "3",
+                "i_name": "Cheese"
             }
         ],
-        "amount": "4"
+        "amount": "2"
     }
 ]
 

@@ -64,10 +64,23 @@ def confirm():
 
     address = street+"|"+zipcode+"|"+city
 
+    dataToSend = {
+        "customer_ID": 0,
+        "order_ID":	0,
+        "delivery":
+        {
+            "price": 0,
+            "method": "",
+            "est_time":	"",
+            "address":	""
+            },
+        "ordered": []
+    }
+
     #TODO
     ##get cid from customer
     ##and make login
-    cid = ""
+    cid = 0
 
     if deliveryMethod == "Pickup" and paymentMethod == "payOnDel":
         result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
@@ -76,34 +89,94 @@ def confirm():
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post(test_url + "/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf) ##Send to api.py
         respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)  ##send to delivery
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
 
     elif deliveryMethod == "Pickup" and paymentMethod == "payNow":
-        # TODO
-        # redirect to payment
-        None
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": "Pickup"}
+        toDelivery = {"order_id": orderID, "delivery_method": "Pickup", "address": "", "aborted": False}
+
+        dumpSelf = json.dumps(result)
+        dumpDelivery = json.dumps(toDelivery)
+
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)  ##Send to api.py
+        respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)  ##send to delivery
+
+        if respSelf.status_code != 200 and respDelivery.status_code != 200:
+            return render_template("not200error.html")
+
+        cart = session["cart"]
+        loadedCart = json.loads(cart)
+        cartToPayment = []
+        for item in loadedCart:
+            itemToAppend = {
+                "name":	item["c_name"],
+                "id": int(item["c_id"]),
+                "price": float(item["price"]),
+                "amount": int(item["amount"])
+            }
+            cartToPayment.append(itemToAppend)
+
+        dataToSend["customer_ID"] = cid
+        dataToSend["order_ID"] = orderID
+        dataToSend["ordered"] = cartToPayment
+        #TODO
+        # Actually send this to payment
+        return "Sending you to payment"
 
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payOnDel":
-        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliverType}
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliveryMethod}
         toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
 
         dumpSelf = json.dumps(result)
         dumpDelivery = json.dumps(toDelivery)
 
-        respSelf = requests.post(test_url + "/orders/api/DeliveryMethod", json=dumpSelf)
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)
         respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)
 
         if respSelf.status_code == 200 and respDelivery.status_code == 200:
             return render_template("confirm.html")
 
     elif deliveryMethod == "DoorDelivery" and paymentMethod == "payNow":
+        result = {"CustomerID": cid, "OrderID": orderID, "DeliveryMethod": deliveryMethod}
+        toDelivery = {"order_id": orderID, "delivery_method": deliverType, "address": address, "aborted": False}
+
+        dumpSelf = json.dumps(result)
+        dumpDelivery = json.dumps(toDelivery)
+
+        respSelf = requests.post("http://192.168.99.100:26400" + "/orders/api/DeliveryMethod", json=dumpSelf)
+        respDelivery = requests.post(test_url + "/delivery/neworder", json=dumpDelivery)
+
+        if respSelf.status_code != 200 and respDelivery.status_code != 200:
+            return render_template("not200error.html")
+
+        cart = session["cart"]
+        loadedCart = json.loads(cart)
+        cartToPayment = []
+        for item in loadedCart:
+            itemToAppend = {
+                "name":	item["c_name"],
+                "id": int(item["c_id"]),
+                "price": float(item["price"]),
+                "amount": int(item["amount"])
+            }
+            cartToPayment.append(itemToAppend)
+
+        dataToSend["customer_ID"] = cid
+        dataToSend["order_ID"] = orderID
+        dataToSend["delivery"]["price"] = session["deliveryPrice"]
+        dataToSend["delivery"]["method"] = deliverType
+        dataToSend["delivery"]["est_time"] = session["eta"]
+        dataToSend["delivery"]["address"] = address
+        dataToSend["ordered"] = cartToPayment
         #TODO
-        #redirect to payment
-        None
+        #Actually send this to payment
+        requests.post("http://192.168.99.100:26400/orders/api/paid", json=json.dumps({"OrderID": orderID, "PaymentMethod": "Credit"})) #REMOVE THIS FOR PRODUCTION
+        return "Sending you to payment"
+
 
     return render_template("not200error.html")
 
@@ -132,14 +205,20 @@ def checkDeliveryPrice():
     if method == "1":
         price = inputJSON['walking']['price']
         eta = inputJSON['walking']['eta']
+        session["deliveryPrice"] = price
+        session["eta"] = eta
     elif method == "2":
         price = inputJSON['driving']['price']
         eta = inputJSON['driving']['eta']
+        session["deliveryPrice"] = price
+        session["eta"] = eta
     elif method == "3":
         price = inputJSON['transit']['price']
         eta = inputJSON['transit']['eta']
+        session["deliveryPrice"] = price
+        session["eta"] = eta
 
-    response = {"price": str(price)+",-", "eta": str(int(eta))+" minutes", "priceFloat": price}
+    response = {"price": price, "eta": str(int(eta))+" minutes", "priceFloat": price}
     return json.dumps(response)
 
 
